@@ -13,13 +13,11 @@ import StudentPortal from "./components/Learning";
 import DashboardSolutions from "./components/Solutions";
 import FloatingWhatsApp from "./components/whatsapp";
 import TestimonialsSection from "./components/Testimonials";
-import CustomCursor from './components/CustomCursor';
-import logoImage from './assets/onesquare.png';
 const App = () => {
   return (
     
       <>
-      <CustomCursor imageSrc={logoImage} />
+      
       <Navbar />
       <Hero />
       <Best />

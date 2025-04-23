@@ -22,7 +22,7 @@ const IconBox = ({ color, children }) => (
     sx={{
       width: { xs: 48, sm: 52, md: 56 },
       height: { xs: 48, sm: 52, md: 56 },
-      borderRadius: '10px', 
+      borderRadius: '10px',
       backgroundColor: color,
       display: 'flex',
       alignItems: 'center',
@@ -38,7 +38,6 @@ const Modules = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const isTablet = useMediaQuery(theme.breakpoints.between('sm', 'md'));
-  const isIphoneXR = useMediaQuery('(max-width: 414px) and (max-height: 896px)');
   const [scrollProgress, setScrollProgress] = useState(0);
 
   const scrollContainerRef = useRef(null);
@@ -50,15 +49,13 @@ const Modules = () => {
   };
 
   const getCardHeight = () => {
-    if (isMobile) return '280px';
+    if (isMobile) return '240px'; // Reduced height for mobile
     if (isTablet) return '300px';
     return '320px';
   };
 
-  // Reduced card gap for better visibility of adjacent cards
   const getCardsGap = () => (isMobile ? 6 : isTablet ? 8 : 10);
 
-  // Handle scroll event to update progress bar
   const handleScroll = () => {
     if (scrollContainerRef.current) {
       const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
@@ -68,7 +65,6 @@ const Modules = () => {
     }
   };
 
-  // Add scroll event listener
   useEffect(() => {
     const scrollContainer = scrollContainerRef.current;
     if (scrollContainer) {
@@ -80,41 +76,43 @@ const Modules = () => {
   }, []);
 
   const featureData = [
-    { 
-      title: 'Sms integration', 
-      iconColor: '#E3F2FD', 
-      textColor: '#64B5F6', 
-      description: 'Send Instant Alerts, Enhance Communication and Reduce Workload. SMS integration for important updates like exam schedules, meetings, updates.', 
-      icon: <VideocamOutlinedIcon fontSize="large" style={{ color: '#64b5f6' }} /> 
+    {
+      title: 'Sms integration',
+      iconColor: '#E3F2FD',
+      textColor: '#64B5F6',
+      description:
+        'Send Instant Alerts, Enhance Communication and Reduce Workload. SMS integration for important updates like exam schedules, meetings, updates.',
+      icon: <VideocamOutlinedIcon fontSize="large" style={{ color: '#64b5f6' }} />,
     },
-    { 
-      title: 'Courses and Batches', 
-      iconColor: '#FCE4EC', 
-      textColor: '#EC407A', 
-      description: 'Our robust database has capacity to handle 500+ branches and 100,000+ batches effortlessly.', 
-      icon: <AnalyticsOutlinedIcon fontSize="large" style={{ color: '#ec407a' }} /> 
+    {
+      title: 'Courses and Batches',
+      iconColor: '#FCE4EC',
+      textColor: '#EC407A',
+      description:
+        'Our robust database has capacity to handle 500+ branches and 100,000+ batches effortlessly.',
+      icon: <AnalyticsOutlinedIcon fontSize="large" style={{ color: '#ec407a' }} />,
     },
-    { 
-      title: 'Hr and payroll', 
-      iconColor: '#F1F8E9', 
-      textColor: '#AED581', 
-      description: 'Digital admission process, Easy form submission, Seamless admission tracking.', 
-      icon: <TouchAppOutlinedIcon fontSize="large" style={{ color: '#aed581' }} /> 
+    {
+      title: 'Hr and payroll',
+      iconColor: '#F1F8E9',
+      textColor: '#AED581',
+      description: 'Digital admission process, Easy form submission, Seamless admission tracking.',
+      icon: <TouchAppOutlinedIcon fontSize="large" style={{ color: '#aed581' }} />,
     },
-    { 
-      title: 'Id generator', 
-      iconColor: '#FFF3E0', 
-      textColor: '#FFB74D', 
-      description: 'Digital admission process, Easy form submission, Seamless admission tracking.', 
-      icon: <AssignmentOutlinedIcon fontSize="large" style={{ color: '#ffb74d' }} /> 
+    {
+      title: 'Id generator',
+      iconColor: '#FFF3E0',
+      textColor: '#FFB74D',
+      description: 'Digital admission process, Easy form submission, Seamless admission tracking.',
+      icon: <AssignmentOutlinedIcon fontSize="large" style={{ color: '#ffb74d' }} />,
     },
-    { 
-      title: 'Secure login', 
-      iconColor: '#F3E5F5', 
-      textColor: '#BA68C8', 
-      description: 'Digital admission process, Easy form submission, Seamless admission tracking.', 
-      icon: <QuizOutlinedIcon fontSize="large" style={{ color: '#ba68c8' }} /> 
-    }
+    {
+      title: 'Secure login',
+      iconColor: '#F3E5F5',
+      textColor: '#BA68C8',
+      description: 'Digital admission process, Easy form submission, Seamless admission tracking.',
+      icon: <QuizOutlinedIcon fontSize="large" style={{ color: '#ba68c8' }} />,
+    },
   ];
 
   return (
@@ -124,11 +122,10 @@ const Modules = () => {
         sx={{
           width: '100%',
           borderBottom: '0.1px solid white',
-          
           background:
             'linear-gradient(85deg, rgba(0,0,0,1) 0%, rgba(35,65,80,1) 33%, rgba(10,11,22,1) 66%, rgba(39,78,87,1) 100%)',
           color: 'white',
-          py: { xs: 3, sm: 4, md: 6 },
+          py: { xs: 2, sm: 3, md: 4 },
           px: { xs: 1.5, sm: 2, md: 3 },
           overflow: 'visible',
           position: 'relative',
@@ -211,7 +208,6 @@ const Modules = () => {
               mb: { xs: 3, sm: 4 },
             }}
           >
-            {/* Cards Container with Partial Card Visibility - Without Scroll Bar Above */}
             <Box
               ref={scrollContainerRef}
               sx={{
@@ -220,15 +216,14 @@ const Modules = () => {
                 overflowY: 'hidden',
                 gap: getCardsGap(),
                 width: '100%',
-                pb: 1,
+                pb: 0,
                 height: '100%',
                 scrollSnapType: 'x mandatory',
-                msOverflowStyle: 'none',  /* IE and Edge */
-                scrollbarWidth: 'none',  /* Firefox */
+                msOverflowStyle: 'none',
+                scrollbarWidth: 'none',
                 '&::-webkit-scrollbar': {
-                  display: 'none', /* Chrome, Safari, Opera */
+                  display: 'none',
                 },
-                // Add padding to the right to show part of the next card
                 pr: { xs: 20, sm: 40, md: 60 },
               }}
             >
@@ -238,7 +233,7 @@ const Modules = () => {
                   elevation={2}
                   sx={{
                     p: { xs: 2, sm: 2.5, md: 3 },
-                    height: getCardHeight(),
+                    height: '400px',
                     width: getCardWidth(),
                     bgcolor: 'white',
                     borderRadius: 2,
@@ -250,11 +245,24 @@ const Modules = () => {
                     justifyContent: 'center',
                     textAlign: 'center',
                     scrollSnapAlign: 'start',
-                    // Add subtle shadow for better visibility
                     boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+                    background: `linear-gradient(135deg, ${feature.iconColor} 30%, #ffffff 100%)`,
+                    position: 'relative',
+                    overflow: 'hidden',
+                    '&::before': {
+                      content: '""',
+                      position: 'absolute',
+                      top: '-20%',
+                      left: '-20%',
+                      width: '150%',
+                      height: '150%',
+                      background: `radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 70%)`,
+                      transform: 'rotate(45deg)',
+                      zIndex: 0,
+                    },
                   }}
                 >
-                  <IconBox color={feature.iconColor}>
+                  <IconBox color={feature.iconColor} sx={{ zIndex: 1 }}>
                     {feature.icon}
                   </IconBox>
                   <Typography
@@ -266,6 +274,7 @@ const Modules = () => {
                       fontSize: { xs: '1.3rem', sm: '1.5rem', md: '1.8rem' },
                       fontFamily: 'Poppins, sans-serif',
                       mb: { xs: 1.5, sm: 2 },
+                      zIndex: 1,
                     }}
                   >
                     {feature.title}
@@ -277,6 +286,7 @@ const Modules = () => {
                       fontSize: { xs: '0.9rem', sm: '1rem', md: '1.1rem' },
                       lineHeight: 1.6,
                       fontFamily: 'Poppins, sans-serif',
+                      zIndex: 1,
                     }}
                   >
                     {feature.description}
@@ -284,35 +294,31 @@ const Modules = () => {
                 </Paper>
               ))}
             </Box>
-            
-            {/* Text indicator for scrolling */}
-            <Typography 
-              variant="caption" 
-              sx={{ 
-                textAlign: 'center', 
-                mt: 1, 
+            <Typography
+              variant="caption"
+              sx={{
+                textAlign: 'center',
+                mt: 1,
                 mb: 1,
                 opacity: 0.7,
-                fontSize: { xs: '0.7rem', sm: '0.8rem' },
+                fontSize: { xs: '1rem', sm: '1.2rem', md: '1.4rem' },
                 fontFamily: 'Poppins, sans-serif',
               }}
             >
               Scroll to explore all features
             </Typography>
-            
-            {/* Scroll Progress Bar - Repositioned below the text */}
             <Box sx={{ width: '100%' }}>
-              <LinearProgress 
-                variant="determinate" 
-                value={scrollProgress} 
-                sx={{ 
-                  height: 6, 
+              <LinearProgress
+                variant="determinate"
+                value={scrollProgress}
+                sx={{
+                  height: 6,
                   borderRadius: 3,
                   bgcolor: 'rgba(255, 255, 255, 0.1)',
                   '& .MuiLinearProgress-bar': {
                     backgroundColor: '#4FC3F7',
                     borderRadius: 3,
-                  }
+                  },
                 }}
               />
             </Box>

@@ -50,7 +50,7 @@ const Erp = () => {
   };
 
   const getCardHeight = () => {
-    if (isMobile) return '280px';
+    if (isMobile) return '240px'; // Reduced height for mobile
     if (isTablet) return '300px';
     return '320px';
   };
@@ -133,11 +133,10 @@ const Erp = () => {
         sx={{
           width: '100%',
           borderBottom: '0.1px solid white',
-         
           background:
             'linear-gradient(85deg, rgba(0,0,0,1) 0%, rgba(35,65,80,1) 33%, rgba(10,11,22,1) 66%, rgba(39,78,87,1) 100%)',
           color: 'white',
-          py: { xs: 3, sm: 4, md: 6 },
+          py: { xs: 2, sm: 3, md: 4 }, // Reduced padding-y to decrease height
           px: { xs: 1.5, sm: 2, md: 3 },
           overflow: 'visible',
           position: 'relative',
@@ -229,11 +228,11 @@ const Erp = () => {
                 overflowY: 'hidden',
                 gap: getCardsGap(),
                 width: '100%',
-                pb: 1,
+                pb: 0, // Removed space below the scrollbar
                 height: '100%',
                 scrollSnapType: 'x mandatory',
-                msOverflowStyle: 'none',  /* IE and Edge */
-                scrollbarWidth: 'none',  /* Firefox */
+                msOverflowStyle: 'none', /* IE and Edge */
+                scrollbarWidth: 'none', /* Firefox */
                 '&::-webkit-scrollbar': {
                   display: 'none', /* Chrome, Safari, Opera */
                 },
@@ -247,7 +246,7 @@ const Erp = () => {
                   elevation={2}
                   sx={{
                     p: { xs: 2, sm: 2.5, md: 3 },
-                    height: getCardHeight(),
+                    height: '400px', // Uniform height for all cards
                     width: getCardWidth(),
                     bgcolor: 'white',
                     borderRadius: 2,
@@ -259,11 +258,24 @@ const Erp = () => {
                     justifyContent: 'center',
                     textAlign: 'center',
                     scrollSnapAlign: 'start',
-                    // Add subtle shadow for better visibility
                     boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+                    background: `linear-gradient(135deg, ${feature.iconColor} 30%, #ffffff 100%)`, // Cool gradient background
+                    position: 'relative',
+                    overflow: 'hidden',
+                    '&::before': {
+                      content: '""',
+                      position: 'absolute',
+                      top: '-20%',
+                      left: '-20%',
+                      width: '150%',
+                      height: '150%',
+                      background: `radial-gradient(circle, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0) 70%)`,
+                      transform: 'rotate(45deg)',
+                      zIndex: 0,
+                    },
                   }}
                 >
-                  <IconBox color={feature.iconColor}>
+                  <IconBox color={feature.iconColor} sx={{ zIndex: 1 }}>
                     {feature.icon}
                   </IconBox>
                   <Typography
@@ -275,6 +287,7 @@ const Erp = () => {
                       fontSize: { xs: '1.3rem', sm: '1.5rem', md: '1.8rem' },
                       fontFamily: 'Poppins, sans-serif',
                       mb: { xs: 1.5, sm: 2 },
+                      zIndex: 1,
                     }}
                   >
                     {feature.title}
@@ -286,6 +299,7 @@ const Erp = () => {
                       fontSize: { xs: '0.9rem', sm: '1rem', md: '1.1rem' },
                       lineHeight: 1.6,
                       fontFamily: 'Poppins, sans-serif',
+                      zIndex: 1,
                     }}
                   >
                     {feature.description}
@@ -302,7 +316,7 @@ const Erp = () => {
                 mt: 1, 
                 mb: 1,
                 opacity: 0.7,
-                fontSize: { xs: '0.7rem', sm: '0.8rem' },
+                fontSize: { xs: '1rem', sm: '1.2rem', md: '1.4rem' }, // Increased font size
                 fontFamily: 'Poppins, sans-serif',
               }}
             >
