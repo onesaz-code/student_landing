@@ -22,7 +22,7 @@ const IconBox = ({ color, children }) => (
     sx={{
       width: { xs: 48, sm: 52, md: 56 },
       height: { xs: 48, sm: 52, md: 56 },
-      borderRadius: '10px', 
+      borderRadius: '10px',
       backgroundColor: color,
       display: 'flex',
       alignItems: 'center',
@@ -56,7 +56,7 @@ const Erp = () => {
   };
 
   // Reduced card gap for better visibility of adjacent cards
-  const getCardsGap = () => (isMobile ? 6 : isTablet ? 8 : 10);
+  const getCardsGap = () => (isMobile ? 4 : isTablet ? 6 : 8);
 
   // Handle scroll event to update progress bar
   const handleScroll = () => {
@@ -87,6 +87,7 @@ const Erp = () => {
       description:
         'Automate enrollment, attendance, fees, exams, analysis. Optimize institute performance and resource use',
       icon: <VideocamOutlinedIcon fontSize="large" style={{ color: '#64b5f6' }} />,
+      gradient: 'linear-gradient(135deg, #E3F2FD 30%, #64B5F6 100%)',
     },
     {
       title: 'Data management',
@@ -95,6 +96,7 @@ const Erp = () => {
       description:
         'Easily record, backup, export data in CSV or XML format. Customize fields, manage student details, and save records for in-depth analysis',
       icon: <AnalyticsOutlinedIcon fontSize="large" style={{ color: '#ec407a' }} />,
+      gradient: 'linear-gradient(135deg, #FCE4EC 30%, #EC407A 100%)',
     },
     {
       title: 'Finance management',
@@ -102,6 +104,7 @@ const Erp = () => {
       textColor: '#AED581',
       description: 'Simplifies fees collection, Automate Transactions and Provide In-depth Financial Reports',
       icon: <TouchAppOutlinedIcon fontSize="large" style={{ color: '#aed581' }} />,
+      gradient: 'linear-gradient(135deg, #F1F8E9 30%, #AED581 100%)',
     },
     {
       title: 'Admission management',
@@ -109,6 +112,7 @@ const Erp = () => {
       textColor: '#FFB74D',
       description: 'Digital admission process, Easy form submission, Seamless admission tracking',
       icon: <AssignmentOutlinedIcon fontSize="large" style={{ color: '#ffb74d' }} />,
+      gradient: 'linear-gradient(135deg, #FFF3E0 30%, #FFB74D 100%)',
     },
     {
       title: 'Transport management',
@@ -116,13 +120,15 @@ const Erp = () => {
       textColor: '#BA68C8',
       description: 'Enhance student safety, Tracking vehicle status and Collect transportation fees',
       icon: <QuizOutlinedIcon fontSize="large" style={{ color: '#ba68c8' }} />,
+      gradient: 'linear-gradient(135deg, #F3E5F5 30%, #BA68C8 100%)',
     },
     {
       title: 'Inventory management',
-      iconColor: '#F3E5F5',
-      textColor: '#BA68C8',
+      iconColor: '#E8F5E9',
+      textColor: '#81C784',
       description: 'Manage Inventory, Maintain Supplier details and Generate a paperless invoice',
-      icon: <QuizOutlinedIcon fontSize="large" style={{ color: '#ba68c8' }} />,
+      icon: <QuizOutlinedIcon fontSize="large" style={{ color: '#81C784' }} />,
+      gradient: 'linear-gradient(135deg, #E8F5E9 30%, #81C784 100%)',
     },
   ];
 
@@ -237,7 +243,7 @@ const Erp = () => {
                   display: 'none', /* Chrome, Safari, Opera */
                 },
                 // Add padding to the right to show part of the next card
-                pr: { xs: 20, sm: 40, md: 60 },
+                pr: { xs: 15, sm: 30, md: 45 },
               }}
             >
               {featureData.map((feature, index) => (
@@ -259,7 +265,7 @@ const Erp = () => {
                     textAlign: 'center',
                     scrollSnapAlign: 'start',
                     boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-                    background: `linear-gradient(135deg, ${feature.iconColor} 30%, #ffffff 100%)`, // Cool gradient background
+                    background: feature.gradient, // Use the gradient from featureData
                     position: 'relative',
                     overflow: 'hidden',
                     '&::before': {
@@ -307,38 +313,26 @@ const Erp = () => {
                 </Paper>
               ))}
             </Box>
-            
-            {/* Text indicator for scrolling */}
-            <Typography 
-              variant="caption" 
-              sx={{ 
-                textAlign: 'center', 
-                mt: 1, 
-                mb: 1,
-                opacity: 0.7,
-                fontSize: { xs: '1rem', sm: '1.2rem', md: '1.4rem' }, // Increased font size
-                fontFamily: 'Poppins, sans-serif',
-              }}
-            >
-              Scroll to explore all features
-            </Typography>
-            
+
+
+
             {/* Scroll Progress Bar - Now positioned below the text */}
-            <Box sx={{ width: '100%' }}>
-              <LinearProgress 
-                variant="determinate" 
-                value={scrollProgress} 
-                sx={{ 
-                  height: 6, 
-                  borderRadius: 3,
-                  bgcolor: 'rgba(255, 255, 255, 0.1)',
-                  '& .MuiLinearProgress-bar': {
-                    backgroundColor: '#4FC3F7',
-                    borderRadius: 3,
-                  }
-                }}
-              />
             </Box>
+          {/* Scroll Progress Bar - Now positioned below the text */}
+          <Box sx={{ width: '100%', mb: 0 }}> {/* Added mb: 0 to reduce bottom margin */}
+            <LinearProgress
+              variant="determinate"
+              value={scrollProgress}
+              sx={{
+                height: 6,
+                borderRadius: 3,
+                bgcolor: 'rgba(255, 255, 255, 0.1)',
+                '& .MuiLinearProgress-bar': {
+                  backgroundColor: '#4FC3F7',
+                  borderRadius: 3,
+                }
+              }}
+            />
           </Box>
         </Container>
       </Box>

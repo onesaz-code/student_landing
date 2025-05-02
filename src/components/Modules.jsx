@@ -54,7 +54,7 @@ const Modules = () => {
     return '320px';
   };
 
-  const getCardsGap = () => (isMobile ? 6 : isTablet ? 8 : 10);
+  const getCardsGap = () => (isMobile ? 4 : isTablet ? 6 : 8);
 
   const handleScroll = () => {
     if (scrollContainerRef.current) {
@@ -83,6 +83,7 @@ const Modules = () => {
       description:
         'Send Instant Alerts, Enhance Communication and Reduce Workload. SMS integration for important updates like exam schedules, meetings, updates.',
       icon: <VideocamOutlinedIcon fontSize="large" style={{ color: '#64b5f6' }} />,
+      gradient: 'linear-gradient(135deg, #E3F2FD 30%, #64B5F6 100%)',
     },
     {
       title: 'Courses and Batches',
@@ -91,6 +92,7 @@ const Modules = () => {
       description:
         'Our robust database has capacity to handle 500+ branches and 100,000+ batches effortlessly.',
       icon: <AnalyticsOutlinedIcon fontSize="large" style={{ color: '#ec407a' }} />,
+      gradient: 'linear-gradient(135deg, #FCE4EC 30%, #EC407A 100%)',
     },
     {
       title: 'Hr and payroll',
@@ -98,6 +100,7 @@ const Modules = () => {
       textColor: '#AED581',
       description: 'Digital admission process, Easy form submission, Seamless admission tracking.',
       icon: <TouchAppOutlinedIcon fontSize="large" style={{ color: '#aed581' }} />,
+      gradient: 'linear-gradient(135deg, #F1F8E9 30%, #AED581 100%)',
     },
     {
       title: 'Id generator',
@@ -105,6 +108,7 @@ const Modules = () => {
       textColor: '#FFB74D',
       description: 'Digital admission process, Easy form submission, Seamless admission tracking.',
       icon: <AssignmentOutlinedIcon fontSize="large" style={{ color: '#ffb74d' }} />,
+      gradient: 'linear-gradient(135deg, #FFF3E0 30%, #FFB74D 100%)',
     },
     {
       title: 'Secure login',
@@ -112,6 +116,7 @@ const Modules = () => {
       textColor: '#BA68C8',
       description: 'Digital admission process, Easy form submission, Seamless admission tracking.',
       icon: <QuizOutlinedIcon fontSize="large" style={{ color: '#ba68c8' }} />,
+      gradient: 'linear-gradient(135deg, #F3E5F5 30%, #BA68C8 100%)',
     },
   ];
 
@@ -224,7 +229,7 @@ const Modules = () => {
                 '&::-webkit-scrollbar': {
                   display: 'none',
                 },
-                pr: { xs: 20, sm: 40, md: 60 },
+                pr: { xs: 15, sm: 30, md: 45 },
               }}
             >
               {featureData.map((feature, index) => (
@@ -246,7 +251,7 @@ const Modules = () => {
                     textAlign: 'center',
                     scrollSnapAlign: 'start',
                     boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-                    background: `linear-gradient(135deg, ${feature.iconColor} 30%, #ffffff 100%)`,
+                    background: feature.gradient,
                     position: 'relative',
                     overflow: 'hidden',
                     '&::before': {
@@ -294,34 +299,21 @@ const Modules = () => {
                 </Paper>
               ))}
             </Box>
-            <Typography
-              variant="caption"
+          </Box>
+          <Box sx={{ width: '100%', mb: 0 }}>
+            <LinearProgress
+              variant="determinate"
+              value={scrollProgress}
               sx={{
-                textAlign: 'center',
-                mt: 1,
-                mb: 1,
-                opacity: 0.7,
-                fontSize: { xs: '1rem', sm: '1.2rem', md: '1.4rem' },
-                fontFamily: 'Poppins, sans-serif',
-              }}
-            >
-              Scroll to explore all features
-            </Typography>
-            <Box sx={{ width: '100%' }}>
-              <LinearProgress
-                variant="determinate"
-                value={scrollProgress}
-                sx={{
-                  height: 6,
+                height: 6,
+                borderRadius: 3,
+                bgcolor: 'rgba(255, 255, 255, 0.1)',
+                '& .MuiLinearProgress-bar': {
+                  backgroundColor: '#4FC3F7',
                   borderRadius: 3,
-                  bgcolor: 'rgba(255, 255, 255, 0.1)',
-                  '& .MuiLinearProgress-bar': {
-                    backgroundColor: '#4FC3F7',
-                    borderRadius: 3,
-                  },
-                }}
-              />
-            </Box>
+                },
+              }}
+            />
           </Box>
         </Container>
       </Box>
