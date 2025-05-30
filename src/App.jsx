@@ -1,4 +1,5 @@
 import React from "react";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
 import Best from "./components/Best";
@@ -13,27 +14,37 @@ import StudentPortal from "./components/Learning";
 import DashboardSolutions from "./components/Solutions";
 import FloatingWhatsApp from "./components/whatsapp";
 import TestimonialsSection from "./components/Testimonials";
+import Pricing from "./components/Pricing";
+import RefundPolicy from "./components/RefundPolicy";
+
+const MainApp = () => (
+  <>
+    <Navbar />
+    <Hero />
+    <Pricing />
+    <Best />
+    <Erp />
+    <Lms />
+    <Modules />
+    <DashboardSolutions />
+    <StudentPortal />
+    <TestimonialsSection />
+    <ContactUsSection />
+    <FAQ />
+    <Appd />
+    <Footer />
+    <FloatingWhatsApp />
+  </>
+);
+
 const App = () => {
   return (
-    
-      <>
-      
-      <Navbar />
-      <Hero />
-      <Best />
-      <Erp />
-      <Lms />
-      <Modules />
-      <DashboardSolutions />
-      <StudentPortal />
-      <TestimonialsSection />
-      <ContactUsSection />
-      <FAQ />
-      <Appd />
-      <Footer />
-      <FloatingWhatsApp /> 
-      </>
-  
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<MainApp />} />
+        <Route path="/refund-policy" element={<RefundPolicy />} />
+      </Routes>
+    </BrowserRouter>
   );
 };
 
