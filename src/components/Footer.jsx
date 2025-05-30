@@ -107,7 +107,8 @@ const Footer = () => {
       {/* Copyright Section */}
       <Box sx={{ textAlign: 'center', mt: 'auto', paddingTop: '2rem' }}>
         <Typography variant="body2">
-          &copy; 2025 ACACADHUB EDU TECH PRIVATE LIMITED. ALL RIGHTS RESERVED.
+          {/* &copy; 2025 ACACADHUB EDU TECH PRIVATE LIMITED. ALL RIGHTS RESERVED. */}
+          &copy; 2025 WE-THINK EDU TECH PRIVATE LIMITED. ALL RIGHTS RESERVED.
         </Typography>
       </Box>
     </Box>
