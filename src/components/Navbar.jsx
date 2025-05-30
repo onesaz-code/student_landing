@@ -15,8 +15,10 @@ import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import LoginIcon from "@mui/icons-material/Login";
 import { Link as ScrollLink } from "react-scroll";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleDrawerToggle = () => {
@@ -97,6 +99,20 @@ const Navbar = () => {
           ))}
 
           <Button
+            variant="text"
+            onClick={() => navigate("/pricing")}
+            sx={{
+              color: "#333",
+              textTransform: "none",
+              fontWeight: "700",
+              fontSize: "1.1rem",
+              fontFamily: "Poppins, sans-serif",
+            }}
+          >
+            Plans & Pricing
+          </Button>
+
+          <Button
             startIcon={<LoginIcon />}
             sx={{
               color: "#333",
@@ -168,6 +184,17 @@ const Navbar = () => {
                 </ListItem>
               </ScrollLink>
             ))}
+
+            <ListItem button onClick={() => navigate("/pricing")}>  
+              <ListItemText
+                primary="Pricing"
+                sx={{
+                  fontFamily: "Poppins, sans-serif",
+                  fontWeight: "700",
+                  fontSize: "1.1rem",
+                }}
+              />
+            </ListItem>
 
             <ListItem button onClick={handleLoginClick}>
               <LoginIcon sx={{ marginRight: "10px" }} />

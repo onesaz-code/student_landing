@@ -21,7 +21,6 @@ const MainApp = () => (
   <>
     <Navbar />
     <Hero />
-    <Pricing />
     <Best />
     <Erp />
     <Lms />
@@ -43,6 +42,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<MainApp />} />
         <Route path="/refund-policy" element={<RefundPolicy />} />
+        <Route path="/pricing" element={<Pricing />} />
       </Routes>
     </BrowserRouter>
   );
