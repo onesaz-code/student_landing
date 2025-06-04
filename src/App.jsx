@@ -15,8 +15,13 @@ import DashboardSolutions from "./components/Solutions";
 import FloatingWhatsApp from "./components/whatsapp";
 import TestimonialsSection from "./components/Testimonials";
 import Pricing from "./components/Pricing";
-import RefundPolicy from "./components/RefundPolicy";
 
+import AboutUs from "./components/AboutUs";
+import TermsAndConditions from "./components/TermsAndConditions";
+import PrivacyPolicy from "./components/PrivacyPolicy";
+import CancellationPolicy from "./components/CancellationPolicy";
+import ContactUs from "./components/ContactUs";
+import RefundPolicys from "./components/RefundPolicys";
 const MainApp = () => (
   <>
     <Navbar />
@@ -41,8 +46,13 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<MainApp />} />
-        <Route path="/refund-policy" element={<RefundPolicy />} />
         <Route path="/pricing" element={<Pricing />} />
+         <Route path="/about-us" element={<AboutUs />} />
+        <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/cancellation-policy" element={<CancellationPolicy />} />
+        <Route path="/contact-us" element={<ContactUs />} />
+        <Route path="/refund-policys" element={<RefundPolicys />} />
       </Routes>
     </BrowserRouter>
   );

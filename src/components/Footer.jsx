@@ -42,13 +42,13 @@ const Footer = () => {
               Company
             </Typography>
             <Box>
-              <Link href="https://onesaz.com/about-us" color="inherit" display="block" underline="none" sx={{ fontSize: '1rem', marginBottom: '0.8rem', fontWeight: 500 }}>
+              <Link href="/about-us" color="inherit" display="block" underline="none" sx={{ fontSize: '1rem', marginBottom: '0.8rem', fontWeight: 500 }}>
                 About us
               </Link>
               <Link href="#" color="inherit" display="block" underline="none" sx={{ fontSize: '1rem', marginBottom: '0.8rem', fontWeight: 500 }}>
                 Product
               </Link>
-              <Link href="#" color="inherit" display="block" underline="none" sx={{ fontSize: '1rem', marginBottom: '0.8rem', fontWeight: 500 }}>
+              <Link href="/contact-us" color="inherit" display="block" underline="none" sx={{ fontSize: '1rem', marginBottom: '0.8rem', fontWeight: 500 }}>
                 Contact
               </Link>
             </Box>
@@ -63,11 +63,17 @@ const Footer = () => {
               <Link href="#" color="inherit" display="block" underline="none" sx={{ fontSize: '1rem', marginBottom: '0.8rem', fontWeight: 500 }}>
                 FAQ
               </Link>
-              <Link href="#" color="inherit" display="block" underline="none" sx={{ fontSize: '1rem', marginBottom: '0.8rem', fontWeight: 500 }}>
+              <Link href="privacy-policy" color="inherit" display="block" underline="none" sx={{ fontSize: '1rem', marginBottom: '0.8rem', fontWeight: 500 }}>
                 Privacy Policy
               </Link>
-              <Link href="#" color="inherit" display="block" underline="none" sx={{ fontSize: '1rem', marginBottom: '0.8rem', fontWeight: 500 }}>
-                Terms of Service
+              <Link href="/terms-and-conditions" color="inherit" display="block" underline="none" sx={{ fontSize: '1rem', marginBottom: '0.8rem', fontWeight: 500 }}>
+                Terms & Conditions
+              </Link>
+               <Link href="/cancellation-policy" color="inherit" display="block" underline="none" sx={{ fontSize: '1rem', marginBottom: '0.8rem', fontWeight: 500 }}>
+                Cancellation Policy
+              </Link>
+               <Link href="/refund-policys" color="inherit" display="block" underline="none" sx={{ fontSize: '1rem', marginBottom: '0.8rem', fontWeight: 500 }}>
+                Refund Policy
               </Link>
             </Box>
           </Grid>
