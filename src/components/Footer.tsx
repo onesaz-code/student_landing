@@ -1,4 +1,5 @@
 import { Facebook, Twitter, Linkedin, Instagram, Mail, Phone, MapPin } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export function Footer() {
   const footerSections = [
@@ -14,7 +15,6 @@ export function Footer() {
     {
       title: 'Company',
       links: [
-        { name: 'About Us', href: '#about' },
         { name: 'Careers', href: '#careers' },
         { name: 'Blog', href: '#blog' },
         { name: 'Contact', href: '#contact' },
@@ -51,7 +51,7 @@ export function Footer() {
               <span className="text-2xl font-bold dark:text-[#E2E8F0] light:text-white">Acadhub</span>
             </div>
             <p className="text-sm dark:text-[#94A3B8] light:text-gray-300 mb-6 leading-relaxed">
-              Transforming educational institutions with intelligent management solutions. 
+              Transforming educational institutions with intelligent management solutions.
               Streamline operations, enhance learning, and empower educators.
             </p>
             <div className="flex gap-3">
@@ -75,6 +75,16 @@ export function Footer() {
             <div key={index}>
               <h3 className="font-semibold dark:text-[#E2E8F0] light:text-white mb-4">{section.title}</h3>
               <ul className="space-y-3">
+                {section.title === 'Company' && (
+                  <li>
+                    <Link
+                      to="/about"
+                      className="text-sm dark:text-[#94A3B8] dark:hover:text-[#818CF8] light:text-gray-300 light:hover:text-white transition-colors inline-block py-1 active:scale-95"
+                    >
+                      About Us
+                    </Link>
+                  </li>
+                )}
                 {section.links.map((link, linkIndex) => (
                   <li key={linkIndex}>
                     <a
@@ -116,8 +126,19 @@ export function Footer() {
                 <MapPin className="w-5 h-5 dark:text-[#818CF8] light:text-[#4F46E5]" />
               </div>
               <div>
-                <div className="text-xs dark:text-[#94A3B8] light:text-gray-400">Location</div>
-                <div className="text-sm font-medium dark:text-[#E2E8F0] light:text-white">Suvarna Habitat, Jai Hind Gandhi Rd, Cyber Hills Colony, VIP Hills, Jaihind Enclave, Madhapur, Hyderabad, Telangana 500081</div>
+                <div className="text-xs dark:text-[#94A3B8] light:text-gray-400">
+                  Location
+                </div>
+
+                <a
+                  href="https://www.google.com/maps/search/?api=1&query=Suvarna+Habitat,+Jai+Hind+Gandhi+Rd,+Cyber+Hills+Colony,+VIP+Hills,+Jaihind+Enclave,+Madhapur,+Hyderabad,+Telangana+500081"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm font-medium dark:text-[#E2E8F0] light:text-white hover:underline cursor-pointer"
+                >
+                  Suvarna Habitat, Jai Hind Gandhi Rd, Cyber Hills Colony, VIP Hills,
+                  Jaihind Enclave, Madhapur, Hyderabad, Telangana 500081
+                </a>
               </div>
             </div>
           </div>

@@ -1,6 +1,7 @@
 import { motion } from 'motion/react';
 import { Button } from './ui/button';
 import { ArrowRight, Calendar } from 'lucide-react';
+import { Button as OnesazButton } from '@onesaz/ui';
 
 export function CTASection() {
   return (
@@ -32,14 +33,12 @@ export function CTASection() {
               Start your free trial today—no credit card required.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                variant="primary"
+              <OnesazButton
                 size="lg"
-                className="group"
               >
                 Start Free Trial
                 <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </Button>
+              </OnesazButton>
               <Button
                 variant="outline"
                 size="lg"

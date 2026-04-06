@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform, useSpring } from 'motion/react';
 import { ArrowRight, Play } from 'lucide-react';
 import heroBackgroundImage from 'figma:asset/9cb1790001567641414826fda4b5b109daca74b2.png';
 import { useRef, useEffect, useState } from 'react';
+import { Button as OnesazButton } from '@onesaz/ui';
 
 interface HeroSectionProps {
   onShowSchedulingDemo?: () => void;
@@ -13,7 +14,7 @@ export function HeroSection({ onShowSchedulingDemo }: HeroSectionProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
-  
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end start"]
@@ -47,11 +48,11 @@ export function HeroSection({ onShowSchedulingDemo }: HeroSectionProps) {
   const subWords = "Education Management".split(" ");
 
   return (
-    <section 
+    <section
       ref={containerRef}
-      id="hero" 
+      id="hero"
       className="relative flex items-center overflow-hidden"
-      style={{ 
+      style={{
         minHeight: 'calc(100vh - var(--navbar-height))',
         paddingTop: 'var(--navbar-height)',
         paddingBottom: 'var(--spacing-section-y)'
@@ -59,20 +60,20 @@ export function HeroSection({ onShowSchedulingDemo }: HeroSectionProps) {
     >
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
-        <img 
-          src={heroBackgroundImage} 
-          alt="Acadhub Platform" 
+        <img
+          src={heroBackgroundImage}
+          alt="Acadhub Platform"
           className="w-full h-full object-cover"
         />
         {/* Dark overlay for better text contrast */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70 dark:from-black/70 dark:via-black/60 dark:to-black/80" />
-        
+
         {/* Additional gradient overlay for depth */}
         <div className="absolute inset-0 bg-gradient-to-r from-[#4F46E5]/20 via-transparent to-[#06B6D4]/20" />
       </div>
 
       {/* Animated particles/blobs on top of image */}
-      <motion.div 
+      <motion.div
         className="absolute inset-0 overflow-hidden pointer-events-none z-10"
         style={{ opacity }}
       >
@@ -96,7 +97,7 @@ export function HeroSection({ onShowSchedulingDemo }: HeroSectionProps) {
             ease: "easeInOut"
           }}
         />
-        
+
         {/* Secondary morphing blob */}
         <motion.div
           className="absolute bottom-20 right-10 w-[250px] md:w-[400px] h-[250px] md:h-[400px] rounded-full blur-3xl opacity-20"
@@ -146,18 +147,18 @@ export function HeroSection({ onShowSchedulingDemo }: HeroSectionProps) {
                     {word}
                   </motion.span>
                 ))}{' '}
-                
+
                 <motion.span
                   initial={{ opacity: 0, scale: 0.5 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  transition={{ 
+                  transition={{
                     duration: 1,
                     delay: headlineWords.length * 0.1,
                     ease: [0.34, 1.56, 0.64, 1]
                   }}
                   className="inline-block"
                 >
-                  <motion.span 
+                  <motion.span
                     className="bg-gradient-to-r from-[#818CF8] via-[#22D3EE] to-[#818CF8] bg-clip-text text-transparent drop-shadow-lg"
                     animate={{
                       backgroundPosition: ['0% center', '200% center'],
@@ -174,7 +175,7 @@ export function HeroSection({ onShowSchedulingDemo }: HeroSectionProps) {
                     AI-Powered
                   </motion.span>
                 </motion.span>{' '}
-                
+
                 {subWords.map((word, i) => (
                   <motion.span
                     key={i}
@@ -194,45 +195,44 @@ export function HeroSection({ onShowSchedulingDemo }: HeroSectionProps) {
             </div>
 
             {/* Subtitle with blur-in effect */}
-            <motion.p 
+            <motion.p
               initial={{ opacity: 0, filter: "blur(10px)" }}
               animate={{ opacity: 1, filter: "blur(0px)" }}
               transition={{ duration: 1, delay: 1.5 }}
-              className="text-base sm:text-lg text-white/90 light:text-white/90 leading-relaxed max-w-2xl mx-auto lg:mx-0 drop-shadow-lg" 
+              className="text-base sm:text-lg text-white/90 light:text-white/90 leading-relaxed max-w-2xl mx-auto lg:mx-0 drop-shadow-lg"
               style={{ marginTop: '16px' }}
             >
-              Complete LMS & ERP solution that streamlines administration, enhances learning outcomes, 
+              Complete LMS & ERP solution that streamlines administration, enhances learning outcomes,
               and empowers educators—all in one unified platform.
             </motion.p>
 
             {/* CTAs with magnetic effect */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.8 }}
-              className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start" 
+              className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start"
               style={{ marginTop: '32px' }}
             >
               <motion.div
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <Button 
-                  variant="primary"
+                <OnesazButton
                   size="lg"
                   className="group shadow-2xl"
                 >
                   Start Free Trial
                   <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                </Button>
+                </OnesazButton>
               </motion.div>
-              
+
               <motion.div
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <Button 
-                  variant="outline" 
+                <Button
+                  variant="outline"
                   size="lg"
                   className="group bg-white/10 backdrop-blur-sm border-white/30 hover:bg-white/20 text-white shadow-2xl"
                 >

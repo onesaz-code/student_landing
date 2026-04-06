@@ -1,7 +1,7 @@
 
-  # acadhub landing page
+  # Onesaz landing page
 
-  This is a code bundle for acadhub landing page. The original project is available at https://www.figma.com/design/KCgtiJ6DzcLQzJ8QYYknuw/acadhub-landing-page.
+  This is a code bundle for Onesaz. The original project is available at https://www.figma.com/design/KCgtiJ6DzcLQzJ8QYYknuw/acadhub-landing-page.
 
   ## Running the code
 

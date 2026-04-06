@@ -1,6 +1,7 @@
 import { motion, useScroll, useTransform } from 'motion/react';
 import { Star, Quote } from 'lucide-react';
 import { useRef } from 'react';
+import video from '../assets/video.mp4';
 
 const testimonials = [
   {
@@ -95,7 +96,7 @@ export function TestimonialsSection() {
                   controls
                   poster="/video-thumbnail.jpg"
                 >
-                  <source src="/your-video.mp4" type="video/mp4" />
+                  <source src={video} type="video/mp4" />
                   Your browser does not support the video tag.
                 </video>
               </motion.div>
