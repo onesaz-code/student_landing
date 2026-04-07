@@ -4,19 +4,11 @@ import { Menu, X, Sun, Moon } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import logo from 'figma:asset/a7e1abaeef1b895c7157156ca5f0a1b9c2638b12.png';
 import { useTheme } from './ThemeProvider';
+import { Button as OnesazButton } from '@onesaz/ui';
 
 export function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { theme, toggleTheme } = useTheme();
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   // Prevent scroll when mobile menu is open
   useEffect(() => {
@@ -40,11 +32,7 @@ export function Navbar() {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          isScrolled
-            ? 'glass-dark shadow-lg dark:glass-dark light:bg-white light:border-b light:border-gray-200'
-            : 'glass dark:glass light:bg-white light:border-b light:border-gray-100'
-        }`}
+        className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-200 shadow-sm transition-all duration-500"
         style={{ height: 'var(--navbar-height)' }}
       >
         <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 h-full flex items-center">
@@ -63,7 +51,7 @@ export function Navbar() {
                 <a
                   key={link.name}
                   href={link.href}
-                  className="text-sm font-medium text-white hover:text-white dark:text-white dark:hover:text-white light:text-gray-700 light:hover:text-[#6C5CE7] transition-colors duration-300"
+                  className="text-sm font-medium text-gray-700 hover:text-[#6C5CE7] transition-colors duration-300"
                 >
                   {link.name}
                 </a>
@@ -74,7 +62,7 @@ export function Navbar() {
               {/* Theme Toggle */}
               <button
                 onClick={toggleTheme}
-                className="p-2.5 rounded-lg text-white hover:text-white dark:text-white dark:hover:text-white light:text-gray-700 light:hover:text-[#4F46E5] hover:bg-white/10 dark:hover:bg-white/10 light:hover:bg-gray-100 transition-all duration-300"
+                className="p-2.5 rounded-lg text-gray-700 hover:text-[#4F46E5] hover:bg-gray-100 transition-all duration-300"
                 aria-label="Toggle theme"
               >
                 {theme === 'dark' ? (
@@ -84,19 +72,19 @@ export function Navbar() {
                 )}
               </button>
               
-              <Button 
-                variant="ghost" 
+              <OnesazButton 
+                variant="secondary" 
                 size="default"
-                className="font-medium"
               >
                 Login
-              </Button>
-              <Button 
-                variant="primary"
+              </OnesazButton>
+              <OnesazButton 
+                variant="secondary"
                 size="default"
+                className="bg-[#8f8bd2]"
               >
                 Get Demo
-              </Button>
+              </OnesazButton>
             </div>
 
             {/* Mobile Menu Button */}
@@ -104,7 +92,7 @@ export function Navbar() {
               {/* Theme Toggle Mobile */}
               <button
                 onClick={toggleTheme}
-                className="p-2.5 rounded-lg text-white hover:bg-white/10 dark:text-white dark:hover:bg-white/10 light:text-gray-700 light:hover:bg-gray-100 transition-all duration-300 active:scale-95"
+                className="p-2.5 rounded-lg text-gray-700 hover:bg-gray-100 transition-all duration-300 active:scale-95"
                 aria-label="Toggle theme"
               >
                 {theme === 'dark' ? (
@@ -115,7 +103,7 @@ export function Navbar() {
               </button>
               
               <button
-                className="p-2.5 text-white hover:bg-white/10 dark:text-white dark:hover:bg-white/10 light:text-gray-700 light:hover:bg-gray-100 rounded-lg transition-all duration-300 active:scale-95"
+                className="p-2.5 text-gray-800 hover:bg-gray-100 rounded-lg transition-all duration-300 active:scale-95"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               >
                 {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -189,9 +177,9 @@ export function Navbar() {
                   >
                     Login
                   </Button>
-                  <Button className="w-full h-12 text-base">
+                  <OnesazButton className="w-full h-12 text-base">
                     Get Demo
-                  </Button>
+                  </OnesazButton>
                 </motion.div>
               </div>
             </motion.div>

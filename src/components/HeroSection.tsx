@@ -1,9 +1,8 @@
-import image_56c9206474930d70f2ba1a3b8cc1dd06865668ef from 'figma:asset/56c9206474930d70f2ba1a3b8cc1dd06865668ef.png'
 import { Button } from './ui/button';
 import { motion, useScroll, useTransform, useSpring } from 'motion/react';
 import { ArrowRight, Play } from 'lucide-react';
 import heroBackgroundImage from 'figma:asset/9cb1790001567641414826fda4b5b109daca74b2.png';
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect } from 'react';
 import { Button as OnesazButton } from '@onesaz/ui';
 
 interface HeroSectionProps {
@@ -12,8 +11,6 @@ interface HeroSectionProps {
 
 export function HeroSection({ onShowSchedulingDemo }: HeroSectionProps) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isHovered, setIsHovered] = useState(false);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -35,7 +32,6 @@ export function HeroSection({ onShowSchedulingDemo }: HeroSectionProps) {
         const y = (e.clientY - rect.top - rect.height / 2) / 20;
         mouseX.set(x);
         mouseY.set(y);
-        setMousePosition({ x, y });
       }
     };
 
@@ -51,19 +47,19 @@ export function HeroSection({ onShowSchedulingDemo }: HeroSectionProps) {
     <section
       ref={containerRef}
       id="hero"
-      className="relative flex items-center overflow-hidden"
-      style={{
-        minHeight: 'calc(100vh - var(--navbar-height))',
-        paddingTop: 'var(--navbar-height)',
-        paddingBottom: 'var(--spacing-section-y)'
-      }}
+      className="relative flex min-h-screen items-center overflow-hidden"
+      style={{ scrollMarginTop: 'var(--navbar-height)' }}
     >
-      {/* Background Image with Overlay */}
-      <div className="absolute inset-0 z-0">
+      {/* Background starts below the fixed navbar */}
+      <div
+        className="absolute inset-0 z-0 overflow-hidden"
+        style={{ top: 'var(--navbar-height)' }}
+        aria-hidden
+      >
         <img
           src={heroBackgroundImage}
           alt="Acadhub Platform"
-          className="w-full h-full object-cover"
+          className="w-full h-full object-cover object-center"
         />
         {/* Dark overlay for better text contrast */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70 dark:from-black/70 dark:via-black/60 dark:to-black/80" />
@@ -120,18 +116,21 @@ export function HeroSection({ onShowSchedulingDemo }: HeroSectionProps) {
         />
       </motion.div>
 
-      <div className="relative z-20 max-w-[var(--container-max)] mx-auto px-4 sm:px-6 w-full">
+      <div
+        className="relative z-20 w-full max-w-[var(--container-max)] ml-12 px-6 sm:px-8 lg:px-10"
+        style={{ paddingTop: 'calc(var(--navbar-height) + 2rem)', paddingBottom: '3rem' }}
+      >
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-          {/* Left Content - Cinematic Word-by-Word Animation */}
+          {/* Left Content */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8 }}
-            className="space-y-6 md:space-y-8 text-center lg:text-left lg:col-span-2 max-w-4xl mx-auto"
+            className="space-y-6 md:space-y-8 text-left"
           >
             {/* Cinematic Headline Animation */}
-            <div className="space-y-1 overflow-hidden">
-              <motion.h1 className="text-[36px] sm:text-[44px] md:text-[52px] lg:text-[56px] font-bold leading-[1.2] text-white drop-shadow-2xl">
+            <div className="space-y-1 overflow-hidden text-left">
+              <motion.h1 className="text-left text-[36px] sm:text-[44px] md:text-[52px] lg:text-[56px] font-bold leading-[1.2] text-white drop-shadow-2xl">
                 {headlineWords.map((word, i) => (
                   <motion.span
                     key={i}
@@ -199,7 +198,7 @@ export function HeroSection({ onShowSchedulingDemo }: HeroSectionProps) {
               initial={{ opacity: 0, filter: "blur(10px)" }}
               animate={{ opacity: 1, filter: "blur(0px)" }}
               transition={{ duration: 1, delay: 1.5 }}
-              className="text-base sm:text-lg text-white/90 light:text-white/90 leading-relaxed max-w-2xl mx-auto lg:mx-0 drop-shadow-lg"
+              className="text-base sm:text-lg text-white/90 leading-relaxed max-w-xl drop-shadow-lg"
               style={{ marginTop: '16px' }}
             >
               Complete LMS & ERP solution that streamlines administration, enhances learning outcomes,
@@ -211,7 +210,7 @@ export function HeroSection({ onShowSchedulingDemo }: HeroSectionProps) {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.8 }}
-              className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start"
+              className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-start"
               style={{ marginTop: '32px' }}
             >
               <motion.div
@@ -220,7 +219,7 @@ export function HeroSection({ onShowSchedulingDemo }: HeroSectionProps) {
               >
                 <OnesazButton
                   size="lg"
-                  className="group shadow-2xl"
+                  className="py-6"
                 >
                   Start Free Trial
                   <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -232,9 +231,11 @@ export function HeroSection({ onShowSchedulingDemo }: HeroSectionProps) {
                 whileTap={{ scale: 0.95 }}
               >
                 <Button
-                  variant="outline"
+                  variant="secondary"
                   size="lg"
-                  className="group bg-white/10 backdrop-blur-sm border-white/30 hover:bg-white/20 text-white shadow-2xl"
+                  type="button"
+                  onClick={() => onShowSchedulingDemo?.()}
+                  className="group bg-white/10 backdrop-blur-sm border-white/30 hover:bg-white/20 text-white shadow-2xl bg-[#8f8bd2]"
                 >
                   <Play className="mr-2 w-5 h-5" />
                   Watch Demo
