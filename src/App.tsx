@@ -18,6 +18,7 @@ import { ThemeProvider } from './components/ThemeProvider';
 import { useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { About } from './pages/About';
+import { PrivacyPolicy } from './pages/PrivacyPolicy';
 
 function HomePage() {
   const [showSchedulingDemo, setShowSchedulingDemo] = useState(false);
@@ -67,6 +68,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/about" element={<About />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           </Routes>
         </div>
       </ThemeProvider>

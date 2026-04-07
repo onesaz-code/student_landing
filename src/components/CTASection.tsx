@@ -39,14 +39,14 @@ export function CTASection() {
                 Start Free Trial
                 <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </OnesazButton>
-              <Button
-                variant="outline"
+              <OnesazButton
+                variant="secondary"
                 size="lg"
                 className="group"
               >
                 <Calendar className="mr-2 w-5 h-5" />
                 Schedule a Demo
-              </Button>
+              </OnesazButton>
             </div>
           </div>
         </motion.div>

@@ -85,16 +85,28 @@ export function Footer() {
                     </Link>
                   </li>
                 )}
-                {section.links.map((link, linkIndex) => (
-                  <li key={linkIndex}>
-                    <a
-                      href={link.href}
+                {section.title === 'Legal' && (
+                  <li>
+                    <Link
+                      to="/privacy-policy"
                       className="text-sm dark:text-[#94A3B8] dark:hover:text-[#818CF8] light:text-gray-300 light:hover:text-white transition-colors inline-block py-1 active:scale-95"
                     >
-                      {link.name}
-                    </a>
+                      Privacy Policy
+                    </Link>
                   </li>
-                ))}
+                )}
+                {section.links
+                  .filter(link => !(section.title === 'Legal' && link.name === 'Privacy Policy'))
+                  .map((link, linkIndex) => (
+                    <li key={linkIndex}>
+                      <a
+                        href={link.href}
+                        className="text-sm dark:text-[#94A3B8] dark:hover:text-[#818CF8] light:text-gray-300 light:hover:text-white transition-colors inline-block py-1 active:scale-95"
+                      >
+                        {link.name}
+                      </a>
+                    </li>
+                  ))}
               </ul>
             </div>
           ))}
@@ -151,9 +163,9 @@ export function Footer() {
               © {new Date().getFullYear()} Acadhub. All rights reserved.
             </p>
             <div className="flex flex-wrap justify-center gap-4 md:gap-6">
-              <a href="#" className="text-sm dark:text-[#94A3B8] dark:hover:text-[#818CF8] light:text-gray-300 light:hover:text-white transition-colors active:scale-95">
+              <Link to="/privacy-policy" className="text-sm dark:text-[#94A3B8] dark:hover:text-[#818CF8] light:text-gray-300 light:hover:text-white transition-colors active:scale-95">
                 Privacy Policy
-              </a>
+              </Link>
               <a href="#" className="text-sm dark:text-[#94A3B8] dark:hover:text-[#818CF8] light:text-gray-300 light:hover:text-white transition-colors active:scale-95">
                 Terms of Service
               </a>

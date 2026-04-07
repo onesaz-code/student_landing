@@ -2,7 +2,6 @@ import { motion } from 'motion/react';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
 import { Starfield } from '../components/Starfield';
-import { LightModeBackground } from '../components/LightModeBackground';
 import {
   CheckCircle,
   Target,
@@ -69,15 +68,12 @@ export function About() {
 
   return (
     <>
-      <div className="min-h-screen relative overflow-hidden dark:bg-[#0F172A] light:bg-white transition-colors duration-500">
-        {/* Starfield Background - Only in dark mode */}
+      {/* Plain white in light mode, dark slate in dark mode */}
+      <div className="min-h-screen relative overflow-hidden bg-white dark:bg-[#0F172A] transition-colors duration-500">
+
+        {/* Starfield Background — dark mode only */}
         <div className="hidden dark:block">
           <Starfield />
-        </div>
-
-        {/* Light Mode Background Pattern */}
-        <div className="block dark:hidden">
-          <LightModeBackground />
         </div>
 
         {/* Main Content */}
@@ -92,7 +88,7 @@ export function About() {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.3 }}
                 onClick={() => navigate('/')}
-                className="mb-8 inline-flex items-center gap-2 text-sm font-medium dark:text-[#94A3B8] dark:hover:text-[#818CF8] light:text-[#64748B] light:hover:text-[#4F46E5] transition-colors"
+                className="mb-8 inline-flex items-center gap-2 text-sm font-medium text-[#64748B] hover:text-[#4F46E5] dark:text-[#94A3B8] dark:hover:text-[#818CF8] transition-colors"
               >
                 <ArrowLeft className="w-4 h-4" />
                 Back to Home
@@ -102,7 +98,7 @@ export function About() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
-                className="text-4xl md:text-5xl lg:text-6xl font-bold dark:text-[#E2E8F0] light:text-[#0F172A] mb-6"
+                className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#0F172A] dark:text-[#E2E8F0] mb-6"
               >
                 About Us
               </motion.h1>
@@ -111,7 +107,7 @@ export function About() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.1 }}
-                className="text-lg md:text-xl dark:text-[#94A3B8] light:text-[#64748B] leading-relaxed"
+                className="text-lg md:text-xl text-[#64748B] dark:text-[#94A3B8] leading-relaxed"
               >
                 Onesaz is a comprehensive education technology platform dedicated to transforming
                 academic institutions with cutting-edge digital tools.
@@ -121,23 +117,24 @@ export function About() {
 
           {/* Main Content Sections */}
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-20 space-y-20">
+
             {/* Introduction */}
             <motion.section
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="dark:bg-[#1E293B]/50 light:bg-white/80 backdrop-blur-sm rounded-2xl p-8 md:p-12 border dark:border-[#334155] light:border-[#E2E8F0] light:shadow-lg"
+              className="bg-white dark:bg-[#1E293B]/50 backdrop-blur-sm rounded-2xl p-8 md:p-12 border border-[#E2E8F0] dark:border-[#334155] shadow-sm dark:shadow-none"
             >
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-12 h-12 rounded-xl dark:bg-[#818CF8]/10 light:bg-[#4F46E5]/10 flex items-center justify-center">
-                  <Lightbulb className="w-6 h-6 dark:text-[#818CF8] light:text-[#4F46E5]" />
+                <div className="w-12 h-12 rounded-xl bg-[#4F46E5]/10 dark:bg-[#818CF8]/10 flex items-center justify-center">
+                  <Lightbulb className="w-6 h-6 text-[#4F46E5] dark:text-[#818CF8]" />
                 </div>
-                <h2 className="text-2xl md:text-3xl font-bold dark:text-[#E2E8F0] light:text-[#0F172A]">
+                <h2 className="text-2xl md:text-3xl font-bold text-[#0F172A] dark:text-[#E2E8F0]">
                   Our Story
                 </h2>
               </div>
-              <div className="space-y-4 dark:text-[#94A3B8] light:text-[#64748B] leading-relaxed">
+              <div className="space-y-4 text-[#64748B] dark:text-[#94A3B8] leading-relaxed">
                 <p>
                   Founded by a team of educationists and technologists, our mission is to streamline
                   administrative workflows, enhance learning outcomes, and empower institutions to go digital at scale.
@@ -157,10 +154,10 @@ export function About() {
               transition={{ duration: 0.6 }}
             >
               <div className="flex items-center gap-3 mb-8">
-                <div className="w-12 h-12 rounded-xl dark:bg-[#818CF8]/10 light:bg-[#4F46E5]/10 flex items-center justify-center">
-                  <Zap className="w-6 h-6 dark:text-[#818CF8] light:text-[#4F46E5]" />
+                <div className="w-12 h-12 rounded-xl bg-[#4F46E5]/10 dark:bg-[#818CF8]/10 flex items-center justify-center">
+                  <Zap className="w-6 h-6 text-[#4F46E5] dark:text-[#818CF8]" />
                 </div>
-                <h2 className="text-2xl md:text-3xl font-bold dark:text-[#E2E8F0] light:text-[#0F172A]">
+                <h2 className="text-2xl md:text-3xl font-bold text-[#0F172A] dark:text-[#E2E8F0]">
                   What We Do
                 </h2>
               </div>
@@ -172,10 +169,10 @@ export function About() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.4, delay: index * 0.03 }}
-                    className="flex items-start gap-3 dark:bg-[#1E293B]/30 light:bg-white/60 backdrop-blur-sm rounded-xl p-4 border dark:border-[#334155]/50 light:border-[#E2E8F0] light:shadow-sm"
+                    className="flex items-start gap-3 bg-white dark:bg-[#1E293B]/30 backdrop-blur-sm rounded-xl p-4 border border-[#E2E8F0] dark:border-[#334155]/50 shadow-sm dark:shadow-none"
                   >
-                    <CheckCircle className="w-5 h-5 dark:text-[#818CF8] light:text-[#4F46E5] flex-shrink-0 mt-0.5" />
-                    <span className="text-sm dark:text-[#E2E8F0] light:text-[#0F172A]">{item}</span>
+                    <CheckCircle className="w-5 h-5 text-[#4F46E5] dark:text-[#818CF8] flex-shrink-0 mt-0.5" />
+                    <span className="text-sm text-[#0F172A] dark:text-[#E2E8F0]">{item}</span>
                   </motion.div>
                 ))}
               </div>
@@ -189,10 +186,10 @@ export function About() {
               transition={{ duration: 0.6 }}
             >
               <div className="flex items-center gap-3 mb-8">
-                <div className="w-12 h-12 rounded-xl dark:bg-[#818CF8]/10 light:bg-[#4F46E5]/10 flex items-center justify-center">
-                  <Heart className="w-6 h-6 dark:text-[#818CF8] light:text-[#4F46E5]" />
+                <div className="w-12 h-12 rounded-xl bg-[#4F46E5]/10 dark:bg-[#818CF8]/10 flex items-center justify-center">
+                  <Heart className="w-6 h-6 text-[#4F46E5] dark:text-[#818CF8]" />
                 </div>
-                <h2 className="text-2xl md:text-3xl font-bold dark:text-[#E2E8F0] light:text-[#0F172A]">
+                <h2 className="text-2xl md:text-3xl font-bold text-[#0F172A] dark:text-[#E2E8F0]">
                   Our Commitment
                 </h2>
               </div>
@@ -204,10 +201,10 @@ export function About() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.4, delay: index * 0.03 }}
-                    className="flex items-center gap-3 dark:bg-[#1E293B]/30 light:bg-white/60 backdrop-blur-sm rounded-xl p-4 border dark:border-[#334155]/50 light:border-[#E2E8F0] light:shadow-sm"
+                    className="flex items-center gap-3 bg-white dark:bg-[#1E293B]/30 backdrop-blur-sm rounded-xl p-4 border border-[#E2E8F0] dark:border-[#334155]/50 shadow-sm dark:shadow-none"
                   >
-                    <Shield className="w-5 h-5 dark:text-[#818CF8] light:text-[#4F46E5] flex-shrink-0" />
-                    <span className="text-sm dark:text-[#E2E8F0] light:text-[#0F172A]">{item}</span>
+                    <Shield className="w-5 h-5 text-[#4F46E5] dark:text-[#818CF8] flex-shrink-0" />
+                    <span className="text-sm text-[#0F172A] dark:text-[#E2E8F0]">{item}</span>
                   </motion.div>
                 ))}
               </div>
@@ -215,21 +212,22 @@ export function About() {
 
             {/* Vision, Mission, Core Values Grid */}
             <div className="grid md:grid-cols-3 gap-6">
+
               {/* Vision */}
               <motion.div
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
-                className="dark:bg-[#1E293B]/50 light:bg-white/80 backdrop-blur-sm rounded-2xl p-8 border dark:border-[#334155] light:border-[#E2E8F0] light:shadow-lg"
+                className="bg-white dark:bg-[#1E293B]/50 backdrop-blur-sm rounded-2xl p-8 border border-[#E2E8F0] dark:border-[#334155] shadow-sm dark:shadow-none"
               >
-                <div className="w-12 h-12 rounded-xl dark:bg-[#818CF8]/10 light:bg-[#4F46E5]/10 flex items-center justify-center mb-6">
-                  <Eye className="w-6 h-6 dark:text-[#818CF8] light:text-[#4F46E5]" />
+                <div className="w-12 h-12 rounded-xl bg-[#4F46E5]/10 dark:bg-[#818CF8]/10 flex items-center justify-center mb-6">
+                  <Eye className="w-6 h-6 text-[#4F46E5] dark:text-[#818CF8]" />
                 </div>
-                <h3 className="text-xl font-bold dark:text-[#E2E8F0] light:text-[#0F172A] mb-4">
+                <h3 className="text-xl font-bold text-[#0F172A] dark:text-[#E2E8F0] mb-4">
                   Vision
                 </h3>
-                <p className="dark:text-[#94A3B8] light:text-[#64748B] leading-relaxed">
+                <p className="text-[#64748B] dark:text-[#94A3B8] leading-relaxed">
                   To revolutionize education by simplifying technology adoption.
                 </p>
               </motion.div>
@@ -240,15 +238,15 @@ export function About() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.1 }}
-                className="dark:bg-[#1E293B]/50 light:bg-white/80 backdrop-blur-sm rounded-2xl p-8 border dark:border-[#334155] light:border-[#E2E8F0] light:shadow-lg"
+                className="bg-white dark:bg-[#1E293B]/50 backdrop-blur-sm rounded-2xl p-8 border border-[#E2E8F0] dark:border-[#334155] shadow-sm dark:shadow-none"
               >
-                <div className="w-12 h-12 rounded-xl dark:bg-[#818CF8]/10 light:bg-[#4F46E5]/10 flex items-center justify-center mb-6">
-                  <Target className="w-6 h-6 dark:text-[#818CF8] light:text-[#4F46E5]" />
+                <div className="w-12 h-12 rounded-xl bg-[#4F46E5]/10 dark:bg-[#818CF8]/10 flex items-center justify-center mb-6">
+                  <Target className="w-6 h-6 text-[#4F46E5] dark:text-[#818CF8]" />
                 </div>
-                <h3 className="text-xl font-bold dark:text-[#E2E8F0] light:text-[#0F172A] mb-4">
+                <h3 className="text-xl font-bold text-[#0F172A] dark:text-[#E2E8F0] mb-4">
                   Mission
                 </h3>
-                <p className="dark:text-[#94A3B8] light:text-[#64748B] leading-relaxed">
+                <p className="text-[#64748B] dark:text-[#94A3B8] leading-relaxed">
                   To ensure every educator and student has access to powerful, intuitive digital tools.
                 </p>
               </motion.div>
@@ -259,19 +257,19 @@ export function About() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="dark:bg-[#1E293B]/50 light:bg-white/80 backdrop-blur-sm rounded-2xl p-8 border dark:border-[#334155] light:border-[#E2E8F0] light:shadow-lg"
+                className="bg-white dark:bg-[#1E293B]/50 backdrop-blur-sm rounded-2xl p-8 border border-[#E2E8F0] dark:border-[#334155] shadow-sm dark:shadow-none"
               >
-                <div className="w-12 h-12 rounded-xl dark:bg-[#818CF8]/10 light:bg-[#4F46E5]/10 flex items-center justify-center mb-6">
-                  <Award className="w-6 h-6 dark:text-[#818CF8] light:text-[#4F46E5]" />
+                <div className="w-12 h-12 rounded-xl bg-[#4F46E5]/10 dark:bg-[#818CF8]/10 flex items-center justify-center mb-6">
+                  <Award className="w-6 h-6 text-[#4F46E5] dark:text-[#818CF8]" />
                 </div>
-                <h3 className="text-xl font-bold dark:text-[#E2E8F0] light:text-[#0F172A] mb-4">
+                <h3 className="text-xl font-bold text-[#0F172A] dark:text-[#E2E8F0] mb-4">
                   Core Values
                 </h3>
                 <div className="flex flex-wrap gap-2">
                   {coreValues.map((value, index) => (
                     <span
                       key={index}
-                      className="text-xs px-3 py-1.5 rounded-full dark:bg-[#818CF8]/20 dark:text-[#818CF8] light:bg-[#4F46E5]/10 light:text-[#4F46E5] font-medium"
+                      className="text-xs px-3 py-1.5 rounded-full bg-[#4F46E5]/10 text-[#4F46E5] dark:bg-[#818CF8]/20 dark:text-[#818CF8] font-medium"
                     >
                       {value}
                     </span>
@@ -286,20 +284,20 @@ export function About() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="text-center dark:bg-[#1E293B]/50 light:bg-white/80 backdrop-blur-sm rounded-2xl p-8 md:p-12 border dark:border-[#334155] light:border-[#E2E8F0] light:shadow-lg"
+              className="text-center bg-white dark:bg-[#1E293B]/50 backdrop-blur-sm rounded-2xl p-8 md:p-12 border border-[#E2E8F0] dark:border-[#334155] shadow-sm dark:shadow-none"
             >
-              <div className="w-12 h-12 rounded-xl dark:bg-[#818CF8]/10 light:bg-[#4F46E5]/10 flex items-center justify-center mx-auto mb-6">
-                <Mail className="w-6 h-6 dark:text-[#818CF8] light:text-[#4F46E5]" />
+              <div className="w-12 h-12 rounded-xl bg-[#4F46E5]/10 dark:bg-[#818CF8]/10 flex items-center justify-center mx-auto mb-6">
+                <Mail className="w-6 h-6 text-[#4F46E5] dark:text-[#818CF8]" />
               </div>
-              <h2 className="text-2xl md:text-3xl font-bold dark:text-[#E2E8F0] light:text-[#0F172A] mb-4">
+              <h2 className="text-2xl md:text-3xl font-bold text-[#0F172A] dark:text-[#E2E8F0] mb-4">
                 Get in Touch
               </h2>
-              <p className="dark:text-[#94A3B8] light:text-[#64748B] mb-6">
+              <p className="text-[#64748B] dark:text-[#94A3B8] mb-6">
                 For more information, email us at
               </p>
               <a
                 href="mailto:info@Onesazedu.com"
-                className="inline-flex items-center gap-2 text-lg font-semibold dark:text-[#818CF8] dark:hover:text-[#22D3EE] light:text-[#4F46E5] light:hover:text-[#06B6D4] transition-colors"
+                className="inline-flex items-center gap-2 text-lg font-semibold text-[#4F46E5] hover:text-[#06B6D4] dark:text-[#818CF8] dark:hover:text-[#22D3EE] transition-colors"
               >
                 <Mail className="w-5 h-5" />
                 info@Onesazedu.com

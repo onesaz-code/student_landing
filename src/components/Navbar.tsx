@@ -1,34 +1,34 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from './ui/button';
 import { Menu, X, Sun, Moon } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import logo from 'figma:asset/a7e1abaeef1b895c7157156ca5f0a1b9c2638b12.png';
 import { useTheme } from './ThemeProvider';
-import { Button as OnesazButton } from '@onesaz/ui';
 
 export function Navbar() {
+  const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
-  const lastScrollY = useRef(0);
   const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-
-      // Show navbar when scrolling up, hide when scrolling down
-      if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
-        setIsVisible(false);
-      } else {
-        setIsVisible(true);
-      }
-
-      lastScrollY.current = currentScrollY;
+      setIsScrolled(window.scrollY > 20);
     };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Prevent scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isMobileMenuOpen]);
 
   const navLinks = [
     { name: 'Features', href: '#features' },
@@ -40,14 +40,17 @@ export function Navbar() {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 w-full glass dark:glass light:bg-white light:border-b light:border-gray-100 transition-transform duration-300 ${isVisible ? 'translate-y-0' : '-translate-y-full'
-          }`}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+          isScrolled
+            ? 'glass-dark shadow-lg dark:glass-dark light:bg-white light:border-b light:border-gray-200'
+            : 'glass dark:glass light:bg-white light:border-b light:border-gray-100'
+        }`}
         style={{ height: 'var(--navbar-height)' }}
       >
         <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 h-full flex items-center">
           <div className="flex items-center justify-between h-full w-full">
             {/* Logo */}
-            <a
+            <a 
               href="#"
               className="flex items-center z-50"
             >
@@ -80,19 +83,20 @@ export function Navbar() {
                   <Moon className="w-5 h-5" />
                 )}
               </button>
-
-              <Button
-                variant="ghost"
+              
+              <Button 
+                variant="ghost" 
                 size="default"
                 className="font-medium"
               >
                 Login
               </Button>
-              <OnesazButton
+              <Button 
+                variant="primary"
                 size="default"
               >
                 Get Demo
-              </OnesazButton>
+              </Button>
             </div>
 
             {/* Mobile Menu Button */}
@@ -109,7 +113,7 @@ export function Navbar() {
                   <Moon className="w-5 h-5" />
                 )}
               </button>
-
+              
               <button
                 className="p-2.5 text-white hover:bg-white/10 dark:text-white dark:hover:bg-white/10 light:text-gray-700 light:hover:bg-gray-100 rounded-lg transition-all duration-300 active:scale-95"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -134,7 +138,7 @@ export function Navbar() {
               className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 md:hidden"
               onClick={() => setIsMobileMenuOpen(false)}
             />
-
+            
             {/* Mobile Menu */}
             <motion.div
               initial={{ x: '100%' }}
@@ -173,14 +177,14 @@ export function Navbar() {
                 </div>
 
                 {/* CTA Buttons */}
-                <motion.div
+                <motion.div 
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.4 }}
                   className="p-6 space-y-3 border-t dark:border-white/10 light:border-gray-200"
                 >
-                  <Button
-                    variant="outline"
+                  <Button 
+                    variant="outline" 
                     className="w-full h-12 text-base font-medium dark:border-white/20 dark:text-white dark:hover:bg-white/10 light:border-gray-300 light:text-gray-900 light:hover:bg-gray-100 active:scale-95 transition-transform"
                   >
                     Login
