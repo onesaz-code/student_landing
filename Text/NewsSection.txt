@@ -1,0 +1,39 @@
+==================================
+NEWS SECTION — UI Text & Content
+==================================
+
+SECTION HEADING
+---------------
+"Resources & Tutorials"
+
+SECTION SUBHEADING
+------------------
+"Stay updated with the latest tutorials, guides, and best practices for using Acadhub."
+
+NEWS / TUTORIAL CARDS
+----------------------
+
+Card 1:
+  Category : Tutorial
+  Date     : Nov 20, 2024
+  Title    : "Configure Settings in Acadhub"
+  Description: "Learn how to configure the Settings section in Acadhub, including Organization Settings and Admission Settings."
+  Button   : "Watch Tutorial" → (opens YouTube link)
+
+Card 2:
+  Category : Tutorial
+  Date     : Nov 18, 2024
+  Title    : "Student App & Parent Login - Exam Analysis"
+  Description: "Discover how students and parents can view exams and detailed exam analysis through the Acadhub app."
+  Button   : "Watch Tutorial" → (opens YouTube link)
+
+Card 3:
+  Category : Tutorial
+  Date     : Nov 15, 2024
+  Title    : "How to Create a Test in Acadhub Platform"
+  Description: "Step-by-step guide on creating tests in Acadhub, from selecting classes to choosing questions from the question bank."
+  Button   : "Watch Tutorial" → (opens YouTube link)
+
+BOTTOM CTA BUTTON
+-----------------
+"View All Resources"   [Purple button]

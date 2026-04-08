@@ -1,0 +1,17 @@
+==================================
+CTA SECTION — UI Text & Content
+==================================
+
+HEADING
+-------
+"Ready to Transform Your Institution?"
+
+DESCRIPTION
+-----------
+"Join 500+ institutions that trust Acadhub for their educational management needs.
+Start your free trial today—no credit card required."
+
+BUTTONS
+-------
+1. Start Free Trial    [Primary purple button, with arrow icon →]
+2. Schedule a Demo     [Secondary button, with calendar icon]

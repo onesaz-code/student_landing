@@ -1,0 +1,12 @@
+===================================
+STATS SECTION — UI Text & Content
+===================================
+
+STAT CARDS (Value — Label — Description)
+-----------------------------------------
+1.  200+       Institutions    "Trust Acadhub nationwide"
+2.  600,000+   Students        "Learning every day"
+3.  99%        Success Rate    "Proven results"
+4.  600,000+   Question Bank   "Enhanced with integrated AI"
+
+NOTE: Numbers animate (count up) when scrolled into view.

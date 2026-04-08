@@ -1,0 +1,36 @@
+===========================
+NAVBAR — UI Text & Content
+===========================
+
+LOGO
+----
+- Image: Acadhub logo (alt text: "Acadhub")
+
+NAVIGATION LINKS (Desktop & Mobile)
+-------------------------------------
+1. Home
+2. Features
+3. Solutions
+4. Pricing
+5. Resources
+
+BUTTONS (Desktop)
+------------------
+- Login          [Purple button]
+- Get Demo       [Secondary button]
+
+THEME TOGGLE BUTTON
+--------------------
+- Light Mode icon: Moon
+- Dark Mode icon:  Sun
+- aria-label: "Toggle theme"
+
+MOBILE MENU
+------------
+- Open icon:  Menu (hamburger)
+- Close icon: X
+
+MOBILE MENU — CTA Buttons
+--------------------------
+- Login
+- Get Demo

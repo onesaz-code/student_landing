@@ -1,0 +1,43 @@
+=============================================
+TESTIMONIALS SECTION — UI Text & Content
+=============================================
+
+SECTION HEADING
+---------------
+"Trusted by Education Leaders"
+
+SECTION SUBHEADING
+------------------
+"See what educators and administrators say about transforming their institutions with Acadhub."
+
+VIDEO
+-----
+- An embedded video is shown (from assets/video.mp4)
+- Fallback text: "Your browser does not support the video tag."
+
+TESTIMONIAL CARDS
+-----------------
+
+Card 1:
+  Name        : Dr. Sarah Mitchell
+  Role        : Principal
+  Institution : Cambridge International School
+  Rating      : ★★★★★ (5 stars)
+  Feedback    : "Acadhub has completely transformed how we manage our school. Having everything in one
+                 platform has saved us countless hours and significantly improved our operational efficiency."
+
+Card 2:
+  Name        : Priya Sharma
+  Role        : Academic Coordinator
+  Institution : Tech Valley Academy
+  Rating      : ★★★★★ (5 stars)
+  Feedback    : "What impressed me most is how intuitive Acadhub is. Our teachers adapted quickly, and
+                 the student engagement features have noticeably improved learning outcomes."
+
+Card 3:
+  Name        : Dr. Aisha Rahman
+  Role        : Vice Principal
+  Institution : Sunrise Public School
+  Rating      : ★★★★★ (5 stars)
+  Feedback    : "The parent engagement tools are outstanding. Parents can track their child's progress
+                 in real-time, and communication has never been easier."

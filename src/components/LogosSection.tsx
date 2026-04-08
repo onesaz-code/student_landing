@@ -30,7 +30,7 @@ export function LogosSection() {
       <div className="relative max-w-[var(--container-max)] mx-auto px-6">
         {/* Header */}
         <div className="text-center mb-8">
-          <p className="text-sm font-semibold dark:text-[#94A3B8] light:text-[#64748B] uppercase tracking-wider">
+          <p className="text-sm font-semibold dark:text-[#94A3B8] uppercase tracking-wider">
             Trusted by Leading Institutions
           </p>
         </div>

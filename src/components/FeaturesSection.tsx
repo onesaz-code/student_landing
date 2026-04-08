@@ -145,11 +145,17 @@ export function FeaturesSection({ onShowSchedulingDemo }: FeaturesSectionProps) 
         {/* Tabs */}
         <Tabs defaultValue="lms" className="w-full">
           <div className="flex justify-center mb-10">
-            <TabsList className="inline-flex dark:bg-[#1E293B] light:bg-white rounded-xl p-1.5 gap-2 border dark:border-[#334155] light:border-[#E2E8F0] light:shadow-md">
-              <TabsTrigger value="lms" className="px-6 py-3.5 rounded-lg text-sm font-semibold transition-all duration-300 active:scale-95 data-[state=active]:bg-[#1A1147] data-[state=active]:text-white data-[state=active]:shadow-lg dark:text-[#94A3B8] dark:hover:text-[#E2E8F0] dark:hover:bg-[#334155]/50 light:text-[#64748B]">
+            <TabsList className="inline-flex items-stretch bg-accent dark:bg-[#1E293B] light:bg-white rounded-xl p-2 gap-2 border dark:border-[#334155] light:border-[#E2E8F0] light:shadow-md min-h-[4rem]">
+              <TabsTrigger
+                value="lms"
+                className="h-auto min-h-12 px-4 py-3 text-sm text-muted-foreground hover:text-foreground data-[state=active]:bg-[#6933d3] data-[state=active]:text-white dark:data-[state=active]:bg-[#6933d3] dark:data-[state=active]:text-white"
+              >
                 Learning Management (LMS)
               </TabsTrigger>
-              <TabsTrigger value="erp" className="px-6 py-3.5 rounded-lg text-sm font-semibold transition-all duration-300 active:scale-95 data-[state=active]:bg-[#1A1147] data-[state=active]:text-white data-[state=active]:shadow-lg dark:text-[#94A3B8] dark:hover:text-[#E2E8F0] dark:hover:bg-[#334155]/50 light:text-[#64748B]">
+              <TabsTrigger
+                value="erp"
+                className="h-auto min-h-12 px-4 py-3 text-sm text-muted-foreground hover:text-foreground data-[state=active]:bg-[#6933d3] data-[state=active]:text-white dark:data-[state=active]:bg-[#6933d3] dark:data-[state=active]:text-white"
+              >
                 Enterprise Resource Planning (ERP)
               </TabsTrigger>
             </TabsList>

@@ -1,0 +1,18 @@
+===================================
+LOGOS SECTION — UI Text & Content
+===================================
+
+SECTION LABEL
+-------------
+"Trusted by Leading Institutions"
+
+INSTITUTION LOGOS (Name — displayed as scrolling logos)
+---------------------------------------------------------
+1. Bhashyam Medex
+2. Agastya IIT-JEE Academy
+3. SR Ekluvya
+4. Turito
+5. MIIT
+6. Bhashyam Educational Institutions
+
+NOTE: Logos scroll infinitely in a horizontal marquee animation.

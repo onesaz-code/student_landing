@@ -5,10 +5,72 @@ import { motion, AnimatePresence } from 'motion/react';
 import logo from 'figma:asset/a7e1abaeef1b895c7157156ca5f0a1b9c2638b12.png';
 import { useTheme } from './ThemeProvider';
 import { Button as OnesazButton } from '@onesaz/ui';
+import { useNavigate, useLocation } from 'react-router-dom';
+
+const ACTIVE_COLOR = '#6933d3';
 
 export function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('hero');
   const { theme, toggleTheme } = useTheme();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
+
+  // Navigate to home page then scroll to section
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
+    e.preventDefault();
+    setIsMobileMenuOpen(false);
+    if (isHomePage) {
+      const el = document.getElementById(sectionId);
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      // Store target section so HomePage can scroll after mount
+      sessionStorage.setItem('scrollToSection', sectionId);
+      navigate('/');
+    }
+  };
+
+  // On home page: check if we need to scroll to a section after navigating from another page
+  useEffect(() => {
+    if (!isHomePage) return;
+    const target = sessionStorage.getItem('scrollToSection');
+    if (!target) return;
+    sessionStorage.removeItem('scrollToSection');
+
+    // Poll until the element is in the DOM (React may still be rendering)
+    let attempts = 0;
+    const interval = setInterval(() => {
+      const el = document.getElementById(target);
+      if (el) {
+        clearInterval(interval);
+        el.scrollIntoView({ behavior: 'smooth' });
+      }
+      if (++attempts > 20) clearInterval(interval); // give up after 2s
+    }, 100);
+
+    return () => clearInterval(interval);
+  }, [isHomePage]);
+
+  // Track active section via IntersectionObserver
+  useEffect(() => {
+    if (!isHomePage) return;
+    const sectionIds = ['hero', 'features', 'modules', 'pricing', 'resources'];
+    const observers: IntersectionObserver[] = [];
+
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const obs = new IntersectionObserver(
+        ([entry]) => { if (entry.isIntersecting) setActiveSection(id); },
+        { threshold: 0.3 }
+      );
+      obs.observe(el);
+      observers.push(obs);
+    });
+
+    return () => observers.forEach((o) => o.disconnect());
+  }, [isHomePage]);
 
   // Prevent scroll when mobile menu is open
   useEffect(() => {
@@ -23,10 +85,11 @@ export function Navbar() {
   }, [isMobileMenuOpen]);
 
   const navLinks = [
-    { name: 'Features', href: '#features' },
-    { name: 'Solutions', href: '#modules' },
-    { name: 'Pricing', href: '#pricing' },
-    { name: 'Resources', href: '#resources' },
+    { name: 'Home', href: '#hero', section: 'hero' },
+    { name: 'Features', href: '#features', section: 'features' },
+    { name: 'Solutions', href: '#modules', section: 'modules' },
+    { name: 'Pricing', href: '#pricing', section: 'pricing' },
+    { name: 'Resources', href: '#resources', section: 'resources' },
   ];
 
   return (
@@ -42,20 +105,27 @@ export function Navbar() {
               href="#"
               className="flex items-center z-50"
             >
-              <img src={logo} alt="Acadhub" className="h-20 sm:h-24 md:h-32 lg:h-36 w-auto" />
+              <img src={logo} alt="Acadhub" className="h-28 sm:h-32 md:h-40 lg:h-48 w-auto" />
             </a>
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center gap-8">
-              {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  className="text-sm font-medium text-gray-700 hover:text-[#6C5CE7] transition-colors duration-300"
-                >
-                  {link.name}
-                </a>
-              ))}
+              {navLinks.map((link) => {
+                const isActive = isHomePage && activeSection === link.section;
+                return (
+                  <a
+                    key={link.name}
+                    href={link.href}
+                    onClick={(e) => handleNavClick(e, link.section)}
+                    className="text-lg font-semibold transition-colors duration-300 cursor-pointer"
+                    style={{ color: isActive ? ACTIVE_COLOR : '#374151' }}
+                    onMouseEnter={(e) => { if (!isActive) e.currentTarget.style.color = ACTIVE_COLOR; }}
+                    onMouseLeave={(e) => { if (!isActive) e.currentTarget.style.color = '#374151'; }}
+                  >
+                    {link.name}
+                  </a>
+                );
+              })}
             </div>
 
             <div className="hidden md:flex items-center gap-3">
@@ -75,13 +145,15 @@ export function Navbar() {
               <OnesazButton 
                 variant="secondary" 
                 size="default"
+                className="bg-[#6933d3] text-white"
+
               >
                 Login
               </OnesazButton>
               <OnesazButton 
                 variant="secondary"
                 size="default"
-                className="bg-[#8f8bd2]"
+                
               >
                 Get Demo
               </OnesazButton>
@@ -149,19 +221,26 @@ export function Navbar() {
 
                 {/* Navigation Links */}
                 <div className="flex-1 px-6 py-8 space-y-2">
-                  {navLinks.map((link, index) => (
-                    <motion.a
-                      key={link.name}
-                      href={link.href}
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: index * 0.1 }}
-                      className="block px-4 py-4 text-base font-medium dark:text-white light:text-gray-900 hover:bg-[#1A1147]/10 rounded-xl transition-all duration-300 active:scale-95"
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      {link.name}
-                    </motion.a>
-                  ))}
+                  {navLinks.map((link, index) => {
+                    const isActive = isHomePage && activeSection === link.section;
+                    return (
+                      <motion.a
+                        key={link.name}
+                        href={link.href}
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.1 }}
+                        className="block px-4 py-4 text-base font-semibold rounded-xl transition-all duration-300 active:scale-95 cursor-pointer"
+                        style={{
+                          color: isActive ? ACTIVE_COLOR : '#111827',
+                          backgroundColor: isActive ? '#f3f2ff' : undefined,
+                        }}
+                        onClick={(e) => handleNavClick(e, link.section)}
+                      >
+                        {link.name}
+                      </motion.a>
+                    );
+                  })}
                 </div>
 
                 {/* CTA Buttons */}

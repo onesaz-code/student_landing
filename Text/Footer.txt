@@ -1,0 +1,67 @@
+==============================
+FOOTER — UI Text & Content
+==============================
+
+BRAND / LOGO
+------------
+Text logo: "Acadhub"
+Tagline: "Transforming educational institutions with intelligent management solutions.
+Streamline operations, enhance learning, and empower educators."
+
+SOCIAL MEDIA ICONS
+------------------
+- Facebook
+- Twitter
+- LinkedIn
+- Instagram
+
+-------------------
+FOOTER LINK COLUMNS
+-------------------
+
+Product
+-------
+- Features
+- Solutions
+- Pricing
+- Security
+
+Company
+-------
+- About Us
+- Careers
+- Blog
+- Contact
+
+Resources
+---------
+- Documentation
+- Help Center
+- Case Studies
+- API
+
+Legal
+-----
+- Privacy Policy
+- Terms of Service
+- Cookie Policy
+- GDPR
+
+-------------------
+CONTACT INFORMATION
+-------------------
+
+Email    : support@acadhub.com
+Phone    : +91 99123 40396
+Location : Suvarna Habitat, Jai Hind Gandhi Rd, Cyber Hills Colony, VIP Hills,
+           Jaihind Enclave, Madhapur, Hyderabad, Telangana 500081
+
+-------------------
+COPYRIGHT BAR
+-------------------
+"© 2026 Acadhub. All rights reserved."
+
+Bottom Links:
+- Privacy Policy
+- Terms of Service
+- Cookie Policy

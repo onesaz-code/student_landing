@@ -1,0 +1,32 @@
+=============================================
+WHY CHOOSE SECTION — UI Text & Content
+=============================================
+
+SECTION HEADING
+---------------
+"Enterprise Value for Educational Institutions"
+
+SECTION SUBHEADING
+------------------
+"Discover what makes Acadhub the trusted choice for institutions seeking scalable, secure,
+and comprehensive education management solutions."
+
+BENEFIT CARDS (Title — Description)
+--------------------------------------
+1. Built for Scale
+   "Handle growing student populations and expanding operations without compromising performance or reliability."
+
+2. Enterprise-Grade Security
+   "Bank-level encryption, compliance certifications, and 99.9% uptime guarantee with 24/7 monitoring."
+
+3. Cost-Effective Solution
+   "Eliminate multiple software subscriptions. One platform with transparent pricing and no hidden costs."
+
+4. Seamless Integration
+   "Connect with your existing systems, payment gateways, and third-party tools through robust APIs."
+
+5. Fully Customizable
+   "Tailor workflows, reports, and features to match your institution's unique requirements and processes."
+
+6. Dedicated Support
+   "Round-the-clock technical assistance with dedicated account managers and comprehensive training programs."

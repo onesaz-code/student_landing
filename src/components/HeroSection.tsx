@@ -56,11 +56,11 @@ export function HeroSection({ onShowSchedulingDemo }: HeroSectionProps) {
         style={{ top: 'var(--navbar-height)' }}
         aria-hidden
       >
-        <img
+        {/* <img
           src={heroBackgroundImage}
           alt="Acadhub Platform"
           className="w-full h-full object-cover object-center"
-        />
+        /> */}
         {/* Dark overlay for better text contrast */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70 dark:from-black/70 dark:via-black/60 dark:to-black/80" />
 
@@ -158,7 +158,7 @@ export function HeroSection({ onShowSchedulingDemo }: HeroSectionProps) {
                   className="inline-block"
                 >
                   <motion.span
-                    className="bg-gradient-to-r from-[#818CF8] via-[#22D3EE] to-[#818CF8] bg-clip-text text-transparent drop-shadow-lg"
+                    className="bg-gradient-to-r from-[#6933d3] via-[#22D3EE] to-[#818CF8] bg-clip-text text-transparent drop-shadow-lg"
                     animate={{
                       backgroundPosition: ['0% center', '200% center'],
                     }}
@@ -219,7 +219,7 @@ export function HeroSection({ onShowSchedulingDemo }: HeroSectionProps) {
               >
                 <OnesazButton
                   size="lg"
-                  className="py-6"
+                  className="py-6 bg-[#6933d3] text-white"
                 >
                   Start Free Trial
                   <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -230,16 +230,16 @@ export function HeroSection({ onShowSchedulingDemo }: HeroSectionProps) {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <Button
-                  variant="secondary"
+                <OnesazButton
+                  variant="outline"
                   size="lg"
                   type="button"
                   onClick={() => onShowSchedulingDemo?.()}
-                  className="group bg-white/10 backdrop-blur-sm border-white/30 hover:bg-white/20 text-white shadow-2xl bg-[#8f8bd2]"
+                  className="group bg-white/10 backdrop-blur-sm border-white/30 hover:bg-white/20 text-white shadow-2xl backdrop-blur-sm"
                 >
                   <Play className="mr-2 w-5 h-5" />
                   Watch Demo
-                </Button>
+                </OnesazButton>
               </motion.div>
             </motion.div>
           </motion.div>

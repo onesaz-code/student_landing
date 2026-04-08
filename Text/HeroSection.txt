@@ -1,0 +1,20 @@
+================================
+HERO SECTION — UI Text & Content
+================================
+
+HEADLINE (Main Title)
+----------------------
+"Transform Your Institution with AI-Powered Education Management"
+
+  - "AI-Powered" is displayed with an animated gradient colour effect
+
+SUBTITLE / DESCRIPTION
+-----------------------
+"Complete LMS & ERP solution that streamlines administration, enhances learning outcomes,
+and empowers educators—all in one unified platform."
+
+CTA BUTTONS
+-----------
+1. Start Free Trial   [Primary purple button, with arrow icon →]
+2. Watch Demo         [Outline/ghost button, with play icon ▶]
+   - Clicking "Watch Demo" opens a scheduling demo modal/popup

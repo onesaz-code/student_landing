@@ -1,6 +1,7 @@
 import { motion } from 'motion/react';
 import { Calendar, ArrowRight } from 'lucide-react';
 import { Button } from './ui/button';
+import { Button as OnesazButton } from '@onesaz/ui';
 
 const newsUpdates = [
   {
@@ -105,12 +106,12 @@ export function NewsSection() {
 
         {/* CTA */}
         <div className="text-center">
-          <Button
+          <OnesazButton
             variant="outline"
-            className="dark:glass dark:hover:glass-dark dark:text-white dark:border-white/20 dark:hover:border-[#6C5CE7] light:bg-white light:text-gray-900 light:border-gray-300 light:hover:border-[#6C5CE7] font-semibold px-8 h-12 rounded-lg transition-all duration-300"
+            className="bg-[#6933d3] text-white"
           >
             View All Resources
-          </Button>
+          </OnesazButton>
         </div>
       </div>
     </section>

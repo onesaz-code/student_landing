@@ -1,0 +1,70 @@
+====================================
+FEATURES SECTION — UI Text & Content
+====================================
+
+SECTION HEADING
+---------------
+"Everything You Need in One Platform"
+
+SECTION SUBHEADING
+------------------
+"Comprehensive features designed to simplify educational management and enhance learning experiences."
+
+TABS
+----
+Tab 1: Learning Management (LMS)
+Tab 2: Enterprise Resource Planning (ERP)
+
+-------------------------------------------
+TAB 1 — Learning Management (LMS) Features
+-------------------------------------------
+
+1. Test Creation
+   "Create personalized assessments aligned with student performance to foster continuous improvement and learning."
+
+2. Question Bank
+   "Access our extensive library to generate multiple question papers tailored to your specific requirements."
+
+3. Assignments & Digital Library
+   "Manage assignments and provide e-books and reading materials in one integrated platform."
+
+4. Student Analytics
+   "Comprehensive reports and insights to track performance and identify areas for improvement."
+
+5. Virtual Classrooms
+   "Secure online classes with full control over access, participants, and session management."
+
+6. Class Scheduling
+   "Automated timetable generation, class management, and attendance tracking system."
+   [Clickable card — shows "View Demo" link on hover]
+
+---------------------------------------------------
+TAB 2 — Enterprise Resource Planning (ERP) Features
+---------------------------------------------------
+
+1. Institute Management
+   "Automate enrollment, attendance, fees, exams, and optimize institutional performance."
+
+2. Finance Management
+   "Streamlined fee collection, automated transactions, and comprehensive financial reporting."
+
+3. Admission Management
+   "Online applications, document verification, and streamlined admission workflows."
+
+4. HR & Payroll
+   "Complete staff management, attendance tracking, leave management, and automated payroll."
+
+5. Transport Management
+   "Route planning, vehicle tracking, driver management, and transportation scheduling."
+
+6. Expense Management
+   "Track expenses, manage budgets, approve reimbursements, and generate expense reports."
+
+7. SMS Integration
+   "Automated alerts for exam schedules, meetings, and important updates via SMS."
+
+8. WhatsApp Bulk Messaging
+   "Send bulk messages to parents, students, and staff for announcements and alerts."
+
+9. Inventory & Assets
+   "Complete tracking of library books, lab equipment, and institutional assets."

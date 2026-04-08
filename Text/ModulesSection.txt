@@ -1,0 +1,30 @@
+====================================
+MODULES SECTION — UI Text & Content
+====================================
+
+BADGE / PILL LABEL
+------------------
+"AI-Powered Modules"
+
+SECTION HEADING
+---------------
+"Complete AI-Driven Module Suite"
+
+SECTION SUBHEADING
+------------------
+"Every module enhanced with artificial intelligence for smarter, faster, and more efficient operations."
+
+MODULE CARDS (Name — Description)
+----------------------------------
+1.  Organization      — "AI-Powered Org Structure"
+2.  Admissions        — "Intelligent Enrollment"
+3.  Finance           — "Predictive Analytics"
+4.  Attendance        — "Face Recognition AI"
+5.  Live Classes      — "Interactive Learning"
+6.  Question Bank     — "AI Question Generator"
+7.  Analytics         — "Deep Learning Insights"
+8.  Communications    — "Smart Notifications"
+9.  Academics         — "Adaptive Curriculum"
+10. Payroll           — "Automated Processing"
+11. Inventory         — "Smart Tracking"
+12. Transport         — "Route Optimization"

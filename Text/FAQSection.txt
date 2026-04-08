@@ -1,0 +1,40 @@
+===================================
+FAQ SECTION — UI Text & Content
+===================================
+
+SECTION HEADING
+---------------
+"Frequently Asked Questions"
+
+SECTION SUBHEADING
+------------------
+"Find answers to common questions about Acadhub and how it can benefit your institution."
+
+FAQ ITEMS (Question — Answer)
+------------------------------
+
+Q1: How long does it take to implement Acadhub?
+A1: Implementation typically takes 2-4 weeks depending on your institution size and requirements.
+    Our dedicated onboarding team ensures a smooth transition with minimal disruption.
+
+Q2: Is training provided for staff and teachers?
+A2: Yes, we provide comprehensive training for all users including administrators, teachers, and staff.
+    Training includes live sessions, video tutorials, and ongoing support.
+
+Q3: Can Acadhub integrate with our existing systems?
+A3: Acadhub offers robust API integration capabilities and can connect with most existing educational
+    systems, payment gateways, and third-party applications.
+
+Q4: What kind of support do you offer?
+A4: We provide 24/7 technical support via phone, email, and chat. Our support team is always ready
+    to help with any questions or issues.
+
+Q5: Is my data secure with Acadhub?
+A5: Absolutely. We use bank-grade encryption, maintain regular backups, and comply with all data
+    protection regulations. Your data security is our top priority.
+
+Q6: Can I customize Acadhub for my institution?
+A6: Yes, Acadhub is highly customizable. We can tailor workflows, reports, and features to match
+    your specific institutional requirements.
+
+NOTE: Each FAQ item is an accordion — clicking a question expands/collapses the answer.

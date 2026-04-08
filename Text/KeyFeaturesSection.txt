@@ -1,0 +1,31 @@
+==========================================
+KEY FEATURES SECTION — UI Text & Content
+==========================================
+
+SECTION HEADING
+---------------
+"Core Capabilities That Drive Success"
+
+SECTION SUBHEADING
+------------------
+"Powerful features designed to transform how educational institutions operate and deliver learning outcomes."
+
+FEATURE CARDS (Title — Description)
+-------------------------------------
+1. Customized Applications
+   "Our tech-savvy team listens to your needs and delivers fast, tailored solutions that fit your institution perfectly."
+
+2. 4-Layer Security
+   "Your data is protected by enterprise-grade security with real-time monitoring and instant notifications."
+
+3. OMR Scan Analysis
+   "Scan any OMR sheet with your mobile camera and get instant, comprehensive analysis with 14 detailed insights."
+
+4. Adaptive Learning
+   "Advanced algorithms analyze individual student performance and preferences to personalize learning paths."
+
+5. School Operating System
+   "Seamlessly integrate all aspects of education management from enrollment to graduation."
+
+6. Question Bank
+   "Access 600,000+ expertly curated questions across all subjects for comprehensive assessment."
