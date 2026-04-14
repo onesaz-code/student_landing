@@ -1,270 +1,235 @@
-import { useState, useEffect } from 'react';
-import { Button } from './ui/button';
-import { Menu, X, Sun, Moon } from 'lucide-react';
-import { motion, AnimatePresence } from 'motion/react';
-import logo from 'figma:asset/a7e1abaeef1b895c7157156ca5f0a1b9c2638b12.png';
-import { useTheme } from './ThemeProvider';
-import { Button as OnesazButton } from '@onesaz/ui';
-import { useNavigate, useLocation } from 'react-router-dom';
+import * as React from 'react'
+import { useNavigate, useLocation, Link } from 'react-router-dom'
+import { Button, IconButton, Tooltip, TooltipProvider, useTheme } from '@onesaz/ui'
+import { motion, AnimatePresence } from 'motion/react'
+import { ArrowRight, Menu, X, Moon, Sun } from 'lucide-react'
+import { Button as OnesazButton } from '@onesaz/ui'
 
-const ACTIVE_COLOR = '#6933d3';
+
+const BRAND_LOGO_SRC = '/images/a7e1abaeef1b895c7157156ca5f0a1b9c2638b12.png'
+
+/** Sized to fit a shorter bar; light scale offsets PNG padding. */
+const brandLogoClassName =
+  'h-[calc(var(--navbar-height)-14px)] w-auto max-w-[min(88vw,300px)] origin-left scale-[1.05] object-contain object-left sm:max-w-[340px] sm:scale-[1.06] md:max-w-[400px] md:scale-[1.07]'
+
+/** Sections that sync with scroll position and hash navigation (Pricing is shown but not linked). */
+const SCROLL_SECTION_IDS = ['hero', 'features', 'modules', 'resources'] as const
+type ScrollSectionId = (typeof SCROLL_SECTION_IDS)[number]
+
+type NavLink =
+  | { name: string; connected: true; section: ScrollSectionId }
+  | { name: string; connected: false }
+
+const navLinks: NavLink[] = [
+  { name: 'Home', section: 'hero', connected: true },
+  { name: 'Features', section: 'features', connected: true },
+  { name: 'Solutions', section: 'modules', connected: true },
+  { name: 'Pricing', connected: false },
+  { name: 'Resources', section: 'resources', connected: true },
+]
 
 export function Navbar() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('hero');
-  const { theme, toggleTheme } = useTheme();
-  const navigate = useNavigate();
-  const location = useLocation();
-  const isHomePage = location.pathname === '/';
+  const { resolvedTheme, setTheme } = useTheme()
+  const [mobileOpen, setMobileOpen] = React.useState(false)
+  const [scrolled, setScrolled] = React.useState(false)
+  const [activeSection, setActiveSection] = React.useState('hero')
+  const navigate = useNavigate()
+  const location = useLocation()
+  const isHome = location.pathname === '/'
 
-  // Navigate to home page then scroll to section
-  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, sectionId: string) => {
-    e.preventDefault();
-    setIsMobileMenuOpen(false);
-    if (isHomePage) {
-      const el = document.getElementById(sectionId);
-      if (el) el.scrollIntoView({ behavior: 'smooth' });
-    } else {
-      // Store target section so HomePage can scroll after mount
-      sessionStorage.setItem('scrollToSection', sectionId);
-      navigate('/');
+  React.useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 10)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  React.useEffect(() => {
+    if (!isHome) return
+    const t = sessionStorage.getItem('scrollToSection')
+    if (!t) return
+    sessionStorage.removeItem('scrollToSection')
+    let n = 0
+    const id = setInterval(() => {
+      const el = document.getElementById(t)
+      if (el) { clearInterval(id); el.scrollIntoView({ behavior: 'smooth' }) }
+      if (++n > 25) clearInterval(id)
+    }, 100)
+    return () => clearInterval(id)
+  }, [isHome])
+
+  React.useEffect(() => {
+    if (!isHome) return
+    const navbarOffset = () => {
+      const raw = getComputedStyle(document.documentElement).getPropertyValue('--navbar-height').trim()
+      const n = parseFloat(raw)
+      return Number.isFinite(n) ? n : 64
     }
-  };
-
-  // On home page: check if we need to scroll to a section after navigating from another page
-  useEffect(() => {
-    if (!isHomePage) return;
-    const target = sessionStorage.getItem('scrollToSection');
-    if (!target) return;
-    sessionStorage.removeItem('scrollToSection');
-
-    // Poll until the element is in the DOM (React may still be rendering)
-    let attempts = 0;
-    const interval = setInterval(() => {
-      const el = document.getElementById(target);
-      if (el) {
-        clearInterval(interval);
-        el.scrollIntoView({ behavior: 'smooth' });
+    const updateActiveFromScroll = () => {
+      const y = navbarOffset() + 12
+      let current: ScrollSectionId = 'hero'
+      for (const id of SCROLL_SECTION_IDS) {
+        const el = document.getElementById(id)
+        if (!el) continue
+        if (el.getBoundingClientRect().top <= y) current = id
       }
-      if (++attempts > 20) clearInterval(interval); // give up after 2s
-    }, 100);
-
-    return () => clearInterval(interval);
-  }, [isHomePage]);
-
-  // Track active section via IntersectionObserver
-  useEffect(() => {
-    if (!isHomePage) return;
-    const sectionIds = ['hero', 'features', 'modules', 'pricing', 'resources'];
-    const observers: IntersectionObserver[] = [];
-
-    sectionIds.forEach((id) => {
-      const el = document.getElementById(id);
-      if (!el) return;
-      const obs = new IntersectionObserver(
-        ([entry]) => { if (entry.isIntersecting) setActiveSection(id); },
-        { threshold: 0.3 }
-      );
-      obs.observe(el);
-      observers.push(obs);
-    });
-
-    return () => observers.forEach((o) => o.disconnect());
-  }, [isHomePage]);
-
-  // Prevent scroll when mobile menu is open
-  useEffect(() => {
-    if (isMobileMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
+      setActiveSection(current)
     }
+    updateActiveFromScroll()
+    window.addEventListener('scroll', updateActiveFromScroll, { passive: true })
+    window.addEventListener('resize', updateActiveFromScroll)
     return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, [isMobileMenuOpen]);
+      window.removeEventListener('scroll', updateActiveFromScroll)
+      window.removeEventListener('resize', updateActiveFromScroll)
+    }
+  }, [isHome])
 
-  const navLinks = [
-    { name: 'Home', href: '#hero', section: 'hero' },
-    { name: 'Features', href: '#features', section: 'features' },
-    { name: 'Solutions', href: '#modules', section: 'modules' },
-    { name: 'Pricing', href: '#pricing', section: 'pricing' },
-    { name: 'Resources', href: '#resources', section: 'resources' },
-  ];
+  React.useEffect(() => {
+    document.body.style.overflow = mobileOpen ? 'hidden' : ''
+    return () => { document.body.style.overflow = '' }
+  }, [mobileOpen])
+
+  const goSection = (e: React.MouseEvent, section: ScrollSectionId) => {
+    e.preventDefault()
+    setMobileOpen(false)
+    setActiveSection(section)
+    if (isHome) document.getElementById(section)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    else {
+      sessionStorage.setItem('scrollToSection', section)
+      navigate('/')
+    }
+  }
 
   return (
-    <>
-      <nav
-        className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-200 shadow-sm transition-all duration-500"
+    <TooltipProvider>
+      <motion.nav
+        initial={{ y: -80 }}
+        animate={{ y: 0 }}
+        transition={{ type: 'spring', stiffness: 260, damping: 30 }}
+        className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${scrolled ? 'glass border-b shadow-sm' : 'bg-transparent'}`}
         style={{ height: 'var(--navbar-height)' }}
       >
-        <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6 h-full flex items-center">
-          <div className="flex items-center justify-between h-full w-full">
-            {/* Logo */}
-            <a 
-              href="#"
-              className="flex items-center z-50"
-            >
-              <img src={logo} alt="Acadhub" className="h-28 sm:h-32 md:h-40 lg:h-48 w-auto" />
-            </a>
+        <div className="max-w-[var(--container-max)] mx-auto flex h-full items-center justify-between px-4 sm:px-6">
+          <Link to="/" className="flex min-h-0 shrink-0 items-center py-0" onClick={() => setMobileOpen(false)} aria-label="Acadhub home">
+            <img
+              src={BRAND_LOGO_SRC}
+              alt="Acadhub"
+              width={400}
+              height={96}
+              className={brandLogoClassName}
+              decoding="async"
+            />
+          </Link>
 
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center gap-8">
-              {navLinks.map((link) => {
-                const isActive = isHomePage && activeSection === link.section;
+          <div className="hidden md:flex items-center gap-6">
+            {navLinks.map((l) => {
+              if (!l.connected) {
                 return (
-                  <a
-                    key={link.name}
-                    href={link.href}
-                    onClick={(e) => handleNavClick(e, link.section)}
-                    className="text-lg font-semibold transition-colors duration-300 cursor-pointer"
-                    style={{ color: isActive ? ACTIVE_COLOR : '#374151' }}
-                    onMouseEnter={(e) => { if (!isActive) e.currentTarget.style.color = ACTIVE_COLOR; }}
-                    onMouseLeave={(e) => { if (!isActive) e.currentTarget.style.color = '#374151'; }}
+                  <span
+                    key={l.name}
+                    className="text-[16px] font-medium py-1 text-[var(--muted-foreground)] cursor-default select-none"
                   >
-                    {link.name}
-                  </a>
-                );
-              })}
-            </div>
+                    {l.name}
+                  </span>
+                )
+              }
+              const active = isHome && activeSection === l.section
+              return (
+                <a
+                  key={l.name}
+                  href={`#${l.section}`}
+                  onClick={(e) => goSection(e, l.section)}
+                  className={`text-[16px] font-medium transition-colors relative py-1 ${active ? 'text-[var(--accent)]' : 'text-[var(--muted-foreground)] hover:text-[var(--foreground)]'}`}
+                >
+                  {l.name}
+                  {active && (
+                    <motion.div
+                      layoutId="nav-underline"
+                      className="absolute -bottom-0.5 left-0 right-0 h-[2px] rounded-full bg-[var(--accent)]"
+                      transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                    />
+                  )}
+                </a>
+              )
+            })}
+          </div>
 
-            <div className="hidden md:flex items-center gap-3">
-              {/* Theme Toggle */}
-              <button
-                onClick={toggleTheme}
-                className="p-2.5 rounded-lg text-gray-700 hover:text-[#4F46E5] hover:bg-gray-100 transition-all duration-300"
-                aria-label="Toggle theme"
-              >
-                {theme === 'dark' ? (
-                  <Sun className="w-5 h-5" />
-                ) : (
-                  <Moon className="w-5 h-5" />
-                )}
-              </button>
-              
-              <OnesazButton 
-                variant="secondary" 
-                size="default"
-                className="bg-[#6933d3] text-white"
+          <div className="hidden md:flex items-center gap-2">
+            <Tooltip content={resolvedTheme === 'dark' ? 'Light mode' : 'Dark mode'}>
+              <IconButton variant="ghost" size="sm" aria-label="Toggle theme" onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}>
+                {resolvedTheme === 'dark' ? <Sun className="" /> : <Moon className="" />}
+              </IconButton>
+            </Tooltip>
+            <OnesazButton className="text-base rounded-md bg-[#6933d3] text-white" variant="contained" size="sm">Sign in</OnesazButton>
+            <OnesazButton className="text-base rounded-md text-black" variant="outlined" size="sm" endIcon={<ArrowRight className="h-3.5 w-3.5" />}>Get a Demo</OnesazButton>
+          </div>
 
-              >
-                Login
-              </OnesazButton>
-              <OnesazButton 
-                variant="secondary"
-                size="default"
-                
-              >
-                Get Demo
-              </OnesazButton>
-            </div>
-
-            {/* Mobile Menu Button */}
-            <div className="flex md:hidden items-center gap-2 z-50">
-              {/* Theme Toggle Mobile */}
-              <button
-                onClick={toggleTheme}
-                className="p-2.5 rounded-lg text-gray-700 hover:bg-gray-100 transition-all duration-300 active:scale-95"
-                aria-label="Toggle theme"
-              >
-                {theme === 'dark' ? (
-                  <Sun className="w-5 h-5" />
-                ) : (
-                  <Moon className="w-5 h-5" />
-                )}
-              </button>
-              
-              <button
-                className="p-2.5 text-gray-800 hover:bg-gray-100 rounded-lg transition-all duration-300 active:scale-95"
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              >
-                {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-              </button>
-            </div>
+          <div className="flex md:hidden items-center gap-1">
+            <Tooltip content={resolvedTheme === 'dark' ? 'Light mode' : 'Dark mode'}>
+              <IconButton variant="ghost" size="sm" aria-label="Theme" onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}>
+                {resolvedTheme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+              </IconButton>
+            </Tooltip>
+            <IconButton variant="ghost" size="sm" aria-label="Menu" onClick={() => setMobileOpen(!mobileOpen)}>
+              {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </IconButton>
           </div>
         </div>
-      </nav>
+      </motion.nav>
 
-      {/* Full-Screen Mobile Menu */}
       <AnimatePresence>
-        {isMobileMenuOpen && (
+        {mobileOpen && (
           <>
-            {/* Backdrop */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 md:hidden"
-              onClick={() => setIsMobileMenuOpen(false)}
-            />
-            
-            {/* Mobile Menu */}
-            <motion.div
-              initial={{ x: '100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '100%' }}
-              transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-              className="fixed right-0 top-0 bottom-0 w-[85vw] max-w-sm z-50 md:hidden dark:bg-[#1E293B] light:bg-white shadow-2xl overflow-y-auto"
-            >
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 md:hidden" onClick={() => setMobileOpen(false)} />
+            <motion.div initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }} transition={{ type: 'spring', damping: 30, stiffness: 300 }} className="fixed right-0 top-0 bottom-0 w-[80vw] max-w-xs z-50 md:hidden bg-[var(--card)] border-l shadow-xl">
               <div className="flex flex-col h-full">
-                {/* Mobile Menu Header */}
-                <div className="flex items-center justify-between p-6 border-b dark:border-white/10 light:border-gray-200">
-                  <img src={logo} alt="Acadhub" className="h-16 w-auto" />
-                  <button
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="p-2 rounded-lg dark:text-white light:text-gray-700 hover:bg-white/10 dark:hover:bg-white/10 light:hover:bg-gray-100 transition-all active:scale-95"
-                  >
-                    <X className="w-6 h-6" />
-                  </button>
+                <div className="flex items-center justify-between p-5 border-b">
+                  <span className="flex min-w-0 items-center">
+                    <img
+                      src={BRAND_LOGO_SRC}
+                      alt="Acadhub"
+                      width={400}
+                      height={96}
+                      className="h-11 w-auto max-w-[min(100%,240px)] origin-left scale-105 object-contain object-left sm:h-12 sm:max-w-[260px]"
+                      decoding="async"
+                    />
+                  </span>
+                  <IconButton variant="ghost" size="sm" aria-label="Close menu" onClick={() => setMobileOpen(false)}>
+                    <X className="w-4 h-4" />
+                  </IconButton>
                 </div>
-
-                {/* Navigation Links */}
-                <div className="flex-1 px-6 py-8 space-y-2">
-                  {navLinks.map((link, index) => {
-                    const isActive = isHomePage && activeSection === link.section;
-                    return (
-                      <motion.a
-                        key={link.name}
-                        href={link.href}
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: index * 0.1 }}
-                        className="block px-4 py-4 text-base font-semibold rounded-xl transition-all duration-300 active:scale-95 cursor-pointer"
-                        style={{
-                          color: isActive ? ACTIVE_COLOR : '#111827',
-                          backgroundColor: isActive ? '#f3f2ff' : undefined,
-                        }}
-                        onClick={(e) => handleNavClick(e, link.section)}
+                <div className="flex-1 p-4 space-y-1">
+                  {navLinks.map((l, i) =>
+                    !l.connected ? (
+                      <span
+                        key={l.name}
+                        className="block px-3 py-2.5 text-sm font-medium rounded-lg text-[var(--muted-foreground)] cursor-default"
                       >
-                        {link.name}
+                        {l.name}
+                      </span>
+                    ) : (
+                      <motion.a
+                        key={l.name}
+                        href={`#${l.section}`}
+                        initial={{ opacity: 0, x: 16 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: i * 0.06 }}
+                        className={`block px-3 py-2.5 text-sm font-medium rounded-lg ${isHome && activeSection === l.section ? 'text-[var(--accent)] bg-[var(--accent-bg)]' : 'text-[var(--foreground)] hover:bg-[var(--muted)]'}`}
+                        onClick={(e) => goSection(e, l.section)}
+                      >
+                        {l.name}
                       </motion.a>
-                    );
-                  })}
+                    ),
+                  )}
                 </div>
-
-                {/* CTA Buttons */}
-                <motion.div 
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.4 }}
-                  className="p-6 space-y-3 border-t dark:border-white/10 light:border-gray-200"
-                >
-                  <Button 
-                    variant="outline" 
-                    className="w-full h-12 text-base font-medium dark:border-white/20 dark:text-white dark:hover:bg-white/10 light:border-gray-300 light:text-gray-900 light:hover:bg-gray-100 active:scale-95 transition-transform"
-                  >
-                    Login
-                  </Button>
-                  <OnesazButton className="w-full h-12 text-base">
-                    Get Demo
-                  </OnesazButton>
-                </motion.div>
+                <div className="p-4 border-t space-y-2">
+                  <Button variant="outlined" fullWidth size="sm">Sign in</Button>
+                  <Button fullWidth size="sm">Get a Demo</Button>
+                </div>
               </div>
             </motion.div>
           </>
         )}
       </AnimatePresence>
-    </>
-  );
+    </TooltipProvider>
+  )
 }

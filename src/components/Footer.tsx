@@ -47,10 +47,14 @@ export function Footer() {
         <div className="pb-8 grid sm:grid-cols-2 lg:grid-cols-6 gap-8 lg:gap-6">
           {/* Brand Column */}
           <div className="lg:col-span-2 sm:col-span-2">
-            <div className="mb-4">
-              <span className="text-2xl font-bold dark:text-[#E2E8F0] light:text-white">Acadhub</span>
-            </div>
-            <p className="text-sm dark:text-[#94A3B8] light:text-gray-300 mb-6 leading-relaxed">
+        <div className="mb-4">
+        <span className="gradient-text text-3xl sm:text-4xl lg:text-5xl font-bold">
+         ACADHUB
+        </span>
+        <p className= "font-semibold mt-">One Stop Solution for All Educational needs</p>
+        </div>
+
+            <p className="text-sm dark:text-[#94A3B8] light:text-gray-300 mb-6 leading-relaxed max-w-xl mx-auto mb-8 text-muted-foreground font-semibold">
               Transforming educational institutions with intelligent management solutions.
               Streamline operations, enhance learning, and empower educators.
             </p>

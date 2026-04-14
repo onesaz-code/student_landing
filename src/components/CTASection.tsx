@@ -1,57 +1,36 @@
-import { motion } from 'motion/react';
-import { Button } from './ui/button';
-import { ArrowRight, Calendar } from 'lucide-react';
-import { Button as OnesazButton } from '@onesaz/ui';
+import { motion } from 'motion/react'
+import { Button, H2, Text } from '@onesaz/ui'
+import { ArrowRight, Calendar } from 'lucide-react'
+import { Button as OnesazButton } from '@onesaz/ui'
 
 export function CTASection() {
   return (
-    <section 
-      className="relative light:bg-[#F1F5F9] dark:bg-transparent"
-      style={{ 
-        paddingTop: 'var(--spacing-major-section)', 
-        paddingBottom: 'var(--spacing-major-section)' 
-      }}
-    >
-      <div className="relative max-w-[var(--container-max)] mx-auto px-6">
+    <section id="pricing" style={{ paddingTop: 'var(--section-py)', paddingBottom: 'var(--section-py)' }}>
+      <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="relative overflow-hidden rounded-2xl p-12 md:p-16 text-center dark:bg-[#1E293B] light:bg-white border dark:border-[#334155] light:border-[#E2E8F0] light:shadow-sm"
+          className="relative overflow-hidden rounded-2xl p-10 md:p-16 text-center accent-gradient"
         >
-          {/* Decorative Elements */}
-          <div className="absolute top-0 right-0 w-64 h-64 dark:bg-[#818CF8]/10 light:bg-[#4F46E5]/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 left-0 w-64 h-64 dark:bg-[#22D3EE]/10 light:bg-[#06B6D4]/10 rounded-full blur-3xl" />
-          
           <div className="relative z-10">
-            <h2 className="text-3xl md:text-4xl font-bold dark:text-[#E2E8F0] light:text-[#0F172A] mb-4">
-              Ready to Transform Your Institution?
-            </h2>
-            <p className="text-lg dark:text-[#94A3B8] light:text-[#64748B] mb-8 max-w-2xl mx-auto">
-              Join 500+ institutions that trust Acadhub for their educational management needs.
-              Start your free trial today—no credit card required.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <OnesazButton
-                size="lg"
-                className="bg-[#6933d3] text-white"
-              >
+            <H2 className="!text-Black tracking-tight mb-3">
+              Ready to transform your <span className="gradient-text">institution</span>?
+            </H2>
+            <Text color="muted" fontWeight="semibold" className="max-w-xl mx-auto mb-8">
+              Join 200+ institutions that trust Acadhub for their educational management needs. Start your free trial today — no credit card required.
+            </Text>
+            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+              <OnesazButton size="lg" className="text-sm px-6 bg-[#6933d3] text-white" endIcon={<ArrowRight className="h-4 w-4" />}>
                 Start Free Trial
-                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </OnesazButton>
-              <OnesazButton
-                variant="secondary"
-                size="lg"
-                className="group"
-              >
-                <Calendar className="mr-2 w-5 h-5" />
-                Schedule a Demo
+              <OnesazButton variant="outlined" size="lg" className="text-sm px-6" startIcon={<Calendar className="h-4 w-4" />}>
+                Schedule Demo
               </OnesazButton>
             </div>
           </div>
         </motion.div>
       </div>
     </section>
-  );
+  )
 }

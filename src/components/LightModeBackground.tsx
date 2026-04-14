@@ -1,148 +1,97 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react'
 
-interface Star {
-  x: number;
-  y: number;
-  z: number;
-  px: number;
-  py: number;
+interface Shape {
+  x: number; y: number; vx: number; vy: number
+  size: number; rotation: number; rotSpeed: number
+  type: 'circle' | 'triangle' | 'square' | 'ring'
+  color: string; opacity: number
 }
 
+const LIGHT_COLORS = [
+  'rgba(14,165,233,0.12)',
+  'rgba(16,185,129,0.10)',
+  'rgba(245,158,11,0.10)',
+  'rgba(139,92,246,0.08)',
+  'rgba(244,63,94,0.07)',
+]
+
+const TYPES: Shape['type'][] = ['circle', 'triangle', 'square', 'ring']
+
 export function LightModeBackground() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const starsRef = useRef<Star[]>([]);
-  const animationFrameRef = useRef<number>();
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const shapesRef = useRef<Shape[]>([])
+  const frameRef = useRef<number>()
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
+    const canvas = canvasRef.current
+    if (!canvas) return
+    const ctx = canvas.getContext('2d')
+    if (!ctx) return
 
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
+    const resize = () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight }
 
-    // Set canvas size
-    const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
+    const init = (count = 40) => {
+      shapesRef.current = Array.from({ length: count }, () => ({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * 0.4,
+        vy: (Math.random() - 0.5) * 0.3,
+        size: Math.random() * 30 + 10,
+        rotation: Math.random() * Math.PI * 2,
+        rotSpeed: (Math.random() - 0.5) * 0.01,
+        type: TYPES[Math.floor(Math.random() * TYPES.length)],
+        color: LIGHT_COLORS[Math.floor(Math.random() * LIGHT_COLORS.length)],
+        opacity: Math.random() * 0.5 + 0.3,
+      }))
+    }
 
-    // Initialize stars
-    const initStars = (count: number = 800) => {
-      starsRef.current = [];
-      for (let i = 0; i < count; i++) {
-        starsRef.current.push({
-          x: Math.random() * canvas.width - canvas.width / 2,
-          y: Math.random() * canvas.height - canvas.height / 2,
-          z: Math.random() * canvas.width,
-          px: 0,
-          py: 0,
-        });
+    const drawShape = (s: Shape) => {
+      ctx.save()
+      ctx.translate(s.x, s.y)
+      ctx.rotate(s.rotation)
+      ctx.globalAlpha = s.opacity
+      ctx.fillStyle = s.color
+      ctx.strokeStyle = s.color
+
+      if (s.type === 'circle') {
+        ctx.beginPath(); ctx.arc(0, 0, s.size, 0, Math.PI * 2); ctx.fill()
+      } else if (s.type === 'triangle') {
+        ctx.beginPath()
+        ctx.moveTo(0, -s.size)
+        ctx.lineTo(-s.size * 0.87, s.size * 0.5)
+        ctx.lineTo(s.size * 0.87, s.size * 0.5)
+        ctx.closePath(); ctx.fill()
+      } else if (s.type === 'square') {
+        const half = s.size * 0.7
+        ctx.fillRect(-half, -half, half * 2, half * 2)
+      } else {
+        ctx.lineWidth = 2
+        ctx.beginPath(); ctx.arc(0, 0, s.size, 0, Math.PI * 2); ctx.stroke()
       }
-    };
+      ctx.restore()
+    }
 
-    // Animation loop
     const animate = () => {
-      if (!ctx || !canvas) return;
+      if (!ctx || !canvas) return
+      ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-      // Clear canvas with fade effect for trails - light mode version
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      const centerX = canvas.width / 2;
-      const centerY = canvas.height / 2;
-      const speed = 0.5;
-
-      starsRef.current.forEach((star) => {
-        // Move star
-        star.z -= speed;
-
-        // Reset star if it goes behind the camera
-        if (star.z <= 0) {
-          star.x = Math.random() * canvas.width - canvas.width / 2;
-          star.y = Math.random() * canvas.height - canvas.height / 2;
-          star.z = canvas.width;
-          star.px = 0;
-          star.py = 0;
-        }
-
-        // Project 3D position to 2D
-        const k = 128 / star.z;
-        const x = star.x * k + centerX;
-        const y = star.y * k + centerY;
-
-        // Calculate star size based on depth
-        const size = (1 - star.z / canvas.width) * 2;
-        const opacity = (1 - star.z / canvas.width) * 0.6;
-
-        // Draw star trail
-        if (star.px !== 0) {
-          ctx.beginPath();
-          ctx.moveTo(star.px, star.py);
-          ctx.lineTo(x, y);
-          ctx.strokeStyle = `rgba(79, 70, 229, ${opacity * 0.5})`;
-          ctx.lineWidth = size;
-          ctx.stroke();
-        }
-
-        // Draw star
-        ctx.beginPath();
-        ctx.arc(x, y, size, 0, Math.PI * 2);
-        
-        // Color based on depth for variety - light mode colors
-        const colorVariation = Math.random();
-        if (colorVariation > 0.9) {
-          // Cyan accent stars
-          ctx.fillStyle = `rgba(6, 182, 212, ${opacity})`;
-        } else if (colorVariation > 0.8) {
-          // Indigo accent stars
-          ctx.fillStyle = `rgba(79, 70, 229, ${opacity})`;
-        } else if (colorVariation > 0.7) {
-          // Purple accent stars
-          ctx.fillStyle = `rgba(139, 92, 246, ${opacity})`;
-        } else {
-          // Slate gray stars (main color for light mode)
-          ctx.fillStyle = `rgba(71, 85, 105, ${opacity * 0.8})`;
-        }
-        
-        ctx.fill();
-
-        // Add glow effect for brighter stars
-        if (opacity > 0.45) {
-          ctx.shadowBlur = 10;
-          ctx.shadowColor = ctx.fillStyle;
-          ctx.fill();
-          ctx.shadowBlur = 0;
-        }
-
-        // Store previous position for trail
-        star.px = x;
-        star.py = y;
-      });
-
-      animationFrameRef.current = requestAnimationFrame(animate);
-    };
-
-    resizeCanvas();
-    initStars();
-    window.addEventListener('resize', () => {
-      resizeCanvas();
-      initStars();
-    });
-    animate();
-
-    return () => {
-      window.removeEventListener('resize', resizeCanvas);
-      if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current);
+      for (const s of shapesRef.current) {
+        s.x += s.vx; s.y += s.vy; s.rotation += s.rotSpeed
+        if (s.x < -50) s.x = canvas.width + 50
+        if (s.x > canvas.width + 50) s.x = -50
+        if (s.y < -50) s.y = canvas.height + 50
+        if (s.y > canvas.height + 50) s.y = -50
+        drawShape(s)
       }
-    };
-  }, []);
+      frameRef.current = requestAnimationFrame(animate)
+    }
 
-  return (
-    <canvas
-      ref={canvasRef}
-      className="fixed inset-0 w-full h-full pointer-events-none"
-      style={{ zIndex: 0 }}
-    />
-  );
+    resize(); init()
+    const onResize = () => { resize(); init() }
+    window.addEventListener('resize', onResize)
+    animate()
+    return () => { window.removeEventListener('resize', onResize); cancelAnimationFrame(frameRef.current!) }
+  }, [])
+
+  return <canvas ref={canvasRef} className="fixed inset-0 w-full h-full pointer-events-none" style={{ zIndex: 0 }} />
 }

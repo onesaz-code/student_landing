@@ -1,148 +1,91 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react'
 
-interface Star {
-  x: number;
-  y: number;
-  z: number;
-  px: number;
-  py: number;
+interface Particle {
+  x: number; y: number; z: number; px: number; py: number
+  color: [number, number, number]
 }
 
+/** Classic monochrome starfield — white stars only (no rainbow particles). */
+const WHITE: [number, number, number] = [255, 255, 255]
+
 export function Starfield() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const starsRef = useRef<Star[]>([]);
-  const animationFrameRef = useRef<number>();
+  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const particlesRef = useRef<Particle[]>([])
+  const frameRef = useRef<number>()
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
+    const canvas = canvasRef.current
+    if (!canvas) return
+    const ctx = canvas.getContext('2d')
+    if (!ctx) return
 
-    const ctx = canvas.getContext('2d');
-    if (!ctx) return;
+    const resize = () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight }
 
-    // Set canvas size
-    const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
+    const init = (count = 700) => {
+      particlesRef.current = Array.from({ length: count }, () => ({
+        x: Math.random() * canvas.width - canvas.width / 2,
+        y: Math.random() * canvas.height - canvas.height / 2,
+        z: Math.random() * canvas.width,
+        px: 0, py: 0,
+        color: WHITE,
+      }))
+    }
 
-    // Initialize stars
-    const initStars = (count: number = 800) => {
-      starsRef.current = [];
-      for (let i = 0; i < count; i++) {
-        starsRef.current.push({
-          x: Math.random() * canvas.width - canvas.width / 2,
-          y: Math.random() * canvas.height - canvas.height / 2,
-          z: Math.random() * canvas.width,
-          px: 0,
-          py: 0,
-        });
-      }
-    };
-
-    // Animation loop
     const animate = () => {
-      if (!ctx || !canvas) return;
+      if (!ctx || !canvas) return
+      ctx.fillStyle = 'rgba(11, 17, 32, 0.25)'
+      ctx.fillRect(0, 0, canvas.width, canvas.height)
 
-      // Clear canvas with fade effect for trails
-      ctx.fillStyle = 'rgba(10, 11, 30, 0.3)';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      const cx = canvas.width / 2, cy = canvas.height / 2
 
-      const centerX = canvas.width / 2;
-      const centerY = canvas.height / 2;
-      const speed = 0.5;
-
-      starsRef.current.forEach((star) => {
-        // Move star
-        star.z -= speed;
-
-        // Reset star if it goes behind the camera
-        if (star.z <= 0) {
-          star.x = Math.random() * canvas.width - canvas.width / 2;
-          star.y = Math.random() * canvas.height - canvas.height / 2;
-          star.z = canvas.width;
-          star.px = 0;
-          star.py = 0;
+      for (const p of particlesRef.current) {
+        p.z -= 0.6
+        if (p.z <= 0) {
+          p.x = Math.random() * canvas.width - cx
+          p.y = Math.random() * canvas.height - cy
+          p.z = canvas.width
+          p.px = 0; p.py = 0
+          p.color = WHITE
         }
 
-        // Project 3D position to 2D
-        const k = 128 / star.z;
-        const x = star.x * k + centerX;
-        const y = star.y * k + centerY;
+        const k = 128 / p.z
+        const x = p.x * k + cx, y = p.y * k + cy
+        const size = (1 - p.z / canvas.width) * 2.5
+        const opacity = (1 - p.z / canvas.width) * 0.85
+        const [r, g, b] = p.color
 
-        // Calculate star size based on depth
-        const size = (1 - star.z / canvas.width) * 2;
-        const opacity = (1 - star.z / canvas.width) * 0.8;
-
-        // Draw star trail
-        if (star.px !== 0) {
-          ctx.beginPath();
-          ctx.moveTo(star.px, star.py);
-          ctx.lineTo(x, y);
-          ctx.strokeStyle = `rgba(139, 92, 246, ${opacity * 0.5})`;
-          ctx.lineWidth = size;
-          ctx.stroke();
+        if (p.px !== 0) {
+          ctx.beginPath()
+          ctx.moveTo(p.px, p.py)
+          ctx.lineTo(x, y)
+          ctx.strokeStyle = `rgba(${r},${g},${b},${opacity * 0.4})`
+          ctx.lineWidth = size * 0.6
+          ctx.stroke()
         }
 
-        // Draw star
-        ctx.beginPath();
-        ctx.arc(x, y, size, 0, Math.PI * 2);
-        
-        // Color based on depth for variety
-        const colorVariation = Math.random();
-        if (colorVariation > 0.9) {
-          // Cyan accent stars
-          ctx.fillStyle = `rgba(34, 211, 238, ${opacity})`;
-        } else if (colorVariation > 0.8) {
-          // Indigo accent stars
-          ctx.fillStyle = `rgba(99, 102, 241, ${opacity})`;
-        } else if (colorVariation > 0.7) {
-          // Violet accent stars
-          ctx.fillStyle = `rgba(139, 92, 246, ${opacity})`;
-        } else {
-          // White stars
-          ctx.fillStyle = `rgba(255, 255, 255, ${opacity})`;
-        }
-        
-        ctx.fill();
+        ctx.beginPath()
+        ctx.arc(x, y, size, 0, Math.PI * 2)
+        ctx.fillStyle = `rgba(${r},${g},${b},${opacity})`
+        ctx.fill()
 
-        // Add glow effect for brighter stars
-        if (opacity > 0.6) {
-          ctx.shadowBlur = 10;
-          ctx.shadowColor = ctx.fillStyle;
-          ctx.fill();
-          ctx.shadowBlur = 0;
+        if (opacity > 0.55) {
+          ctx.shadowBlur = 12
+          ctx.shadowColor = `rgba(${r},${g},${b},0.6)`
+          ctx.fill()
+          ctx.shadowBlur = 0
         }
 
-        // Store previous position for trail
-        star.px = x;
-        star.py = y;
-      });
-
-      animationFrameRef.current = requestAnimationFrame(animate);
-    };
-
-    resizeCanvas();
-    initStars();
-    window.addEventListener('resize', () => {
-      resizeCanvas();
-      initStars();
-    });
-    animate();
-
-    return () => {
-      window.removeEventListener('resize', resizeCanvas);
-      if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current);
+        p.px = x; p.py = y
       }
-    };
-  }, []);
+      frameRef.current = requestAnimationFrame(animate)
+    }
 
-  return (
-    <canvas
-      ref={canvasRef}
-      className="fixed inset-0 w-full h-full pointer-events-none"
-      style={{ zIndex: 0 }}
-    />
-  );
+    resize(); init()
+    const onResize = () => { resize(); init() }
+    window.addEventListener('resize', onResize)
+    animate()
+    return () => { window.removeEventListener('resize', onResize); cancelAnimationFrame(frameRef.current!) }
+  }, [])
+
+  return <canvas ref={canvasRef} className="fixed inset-0 w-full h-full pointer-events-none" style={{ zIndex: 0 }} />
 }

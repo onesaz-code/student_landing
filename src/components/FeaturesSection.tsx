@@ -1,233 +1,135 @@
-import { useState } from 'react';
-import { motion } from 'motion/react';
+import { motion } from 'motion/react'
+import { Tabs, TabsList, TabsTrigger, TabsContent, Card, CardContent, H2, Text } from '@onesaz/ui'
 import {
-  BarChart3,
-  Calendar,
-  Shield,
-  Laptop,
-  DollarSign,
-  FileText,
-  Bell,
-  Truck,
-  Wallet,
-  FileCheck,
-  FileStack,
-  Video,
-  Building2,
-  MessageCircle
-} from 'lucide-react';
-import {
-  Tabs,
-  TabsList,
-  TabsTrigger,
-  TabsContent,
-} from "@/components/ui/tabs";
+  BookOpen, Building2, ClipboardCheck, BarChart3, Video, CalendarDays,
+  DollarSign, UserPlus, Users, Bus, Receipt, MessageSquare, MessageCircle, Package,
+} from 'lucide-react'
 
-const tabs = [
-  { id: 'lms', label: 'Learning Management (LMS)' },
-  { id: 'erp', label: 'Enterprise Resource Planning (ERP)' },
-];
+const lms = [
+  { icon: ClipboardCheck, title: 'Test Creation', desc: 'Create personalized assessments aligned with student performance to foster continuous improvement and learning.' },
+  { icon: BookOpen, title: 'Question Bank', desc: 'Access our extensive library to generate multiple question papers tailored to your specific requirements' },
+  { icon: BarChart3, title: 'Student Analytics', desc: 'Comprehensive reports and insights to track performance and identify improvement.' },
+  { icon: Video, title: 'Virtual Classrooms', desc: 'Secure online classes with full control over access, participants, and session management.' },
+  { icon: CalendarDays, title: 'Class Scheduling', desc: 'Automated timetable generation, class management, and attendance tracking system.' },
+  { icon: BookOpen, title: 'Assignments & Digital Library', desc: 'Manage assignments and provide e-books and reading materials in one integrated platform.' },
+]
 
-const lmsFeatures = [
-  {
-    icon: FileCheck,
-    title: 'Test Creation',
-    description: 'Create personalized assessments aligned with student performance to foster continuous improvement and learning.',
-  },
-  {
-    icon: FileStack,
-    title: 'Question Bank',
-    description: 'Access our extensive library to generate multiple question papers tailored to your specific requirements.',
-  },
-  {
-    icon: FileText,
-    title: 'Assignments & Digital Library',
-    description: 'Manage assignments and provide e-books and reading materials in one integrated platform.',
-  },
-  {
-    icon: BarChart3,
-    title: 'Student Analytics',
-    description: 'Comprehensive reports and insights to track performance and identify areas for improvement.',
-  },
-  {
-    icon: Video,
-    title: 'Virtual Classrooms',
-    description: 'Secure online classes with full control over access, participants, and session management.',
-  },
-  {
-    icon: Calendar,
-    title: 'Class Scheduling',
-    description: 'Automated timetable generation, class management, and attendance tracking system.',
-    isClickable: true,
-  },
-];
+const erp = [
+  { icon: Building2, title: 'Institute Management', desc: 'Automate enrollment, attendance, fees, exams, and optimize performance.' },
+  { icon: DollarSign, title: 'Finance Management', desc: 'Streamlined fee collection, automated transactions, and financial reporting.' },
+  { icon: UserPlus, title: 'Admission Management', desc: 'Online applications, document verification, and streamlined workflows.' },
+  { icon: Users, title: 'HR & Payroll', desc: 'Staff management, attendance tracking, leave management, and automated payroll.' },
+  { icon: Bus, title: 'Transport Management', desc: 'Route planning, vehicle tracking, driver management, and scheduling.' },
+  { icon: Receipt, title: 'Expense Management', desc: 'Track expenses, manage budgets, and generate expense reports.' },
+  { icon: MessageSquare, title: 'SMS Integration', desc: 'Automated alerts for exam schedules, meetings, and updates via SMS.' },
+  { icon: MessageCircle, title: 'WhatsApp Bulk Messaging', desc: 'Send bulk messages to parents, students, and staff.' },
+  { icon: Package, title: 'Inventory & Assets', desc: 'Complete tracking of library books, lab equipment, and assets.' },
+]
 
-const erpFeatures = [
-  {
-    icon: Building2,
-    title: 'Institute Management',
-    description: 'Automate enrollment, attendance, fees, exams, and optimize institutional performance.',
-  },
-  {
-    icon: DollarSign,
-    title: 'Finance Management',
-    description: 'Streamlined fee collection, automated transactions, and comprehensive financial reporting.',
-  },
-  {
-    icon: FileText,
-    title: 'Admission Management',
-    description: 'Online applications, document verification, and streamlined admission workflows.',
-  },
-  {
-    icon: Laptop,
-    title: 'HR & Payroll',
-    description: 'Complete staff management, attendance tracking, leave management, and automated payroll.',
-  },
-  {
-    icon: Truck,
-    title: 'Transport Management',
-    description: 'Route planning, vehicle tracking, driver management, and transportation scheduling.',
-  },
-  {
-    icon: Wallet,
-    title: 'Expense Management',
-    description: 'Track expenses, manage budgets, approve reimbursements, and generate expense reports.',
-  },
-  {
-    icon: Bell,
-    title: 'SMS Integration',
-    description: 'Automated alerts for exam schedules, meetings, and important updates via SMS.',
-  },
-  {
-    icon: MessageCircle,
-    title: 'WhatsApp Bulk Messaging',
-    description: 'Send bulk messages to parents, students, and staff for announcements and alerts.',
-  },
-  {
-    icon: Shield,
-    title: 'Inventory & Assets',
-    description: 'Complete tracking of library books, lab equipment, and institutional assets.',
-  },
-];
-
-interface FeaturesSectionProps {
-  onShowSchedulingDemo?: () => void;
+function FeatureGrid({ items }: { items: typeof lms }) {
+  return (
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {items.map((f, i) => {
+        const Icon = f.icon
+        return (
+          <motion.div key={i} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.35, delay: i * 0.05 }}>
+            <Card className="h-full hover:shadow-md hover:border-[var(--accent)]/20 transition-all duration-200">
+              <CardContent className="p-5">
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[var(--accent-bg)] mb-3">
+                  <Icon className="w-5 h-5 text-[var(--accent)]" strokeWidth={2} />
+                </div>
+                <Text fontWeight="semibold" className="!text-sm mb-1.5">{f.title}</Text>
+                <Text color="muted" className="!text-[13px] leading-relaxed">{f.desc}</Text>
+              </CardContent>
+            </Card>
+          </motion.div>
+        )
+      })}
+    </motion.div>
+  )
 }
 
-export function FeaturesSection({ onShowSchedulingDemo }: FeaturesSectionProps) {
+export function FeaturesSection() {
   return (
-    <section
-      id="features"
-      className="relative light:bg-white dark:bg-transparent"
-      style={{
-        paddingTop: 'var(--spacing-major-section)',
-        paddingBottom: 'var(--spacing-major-section)'
-      }}
-    >
-      <div className="relative max-w-[var(--container-max)] mx-auto px-6">
-        {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <h2 className="text-3xl md:text-4xl font-bold dark:text-[#E2E8F0] light:text-[#0F172A] mb-4">
-              Everything You Need in One Platform
-            </h2>
-            <p className="text-base md:text-lg dark:text-[#94A3B8] light:text-[#64748B] leading-relaxed">
-              Comprehensive features designed to simplify educational management and enhance learning experiences.
-            </p>
-          </motion.div>
-        </div>
+    <section id="features" style={{ paddingTop: 'var(--section-py)', paddingBottom: 'var(--section-py)', scrollMarginTop: 'var(--navbar-height)' }}>
+      <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6">
+        <motion.div className="text-center max-w-2xl mx-auto mb-12 " initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+          <H2 className="tracking-tight my-852 mt-10 ">
+            Everything you need in <span className="gradient-text">one platform</span>
+          </H2>
+          <Text color="muted" fontWeight="semibold">Comprehensive features designed to simplify educational management and enhance learning.</Text>
+        </motion.div>
 
-        {/* Tabs */}
         <Tabs defaultValue="lms" className="w-full">
-          <div className="flex justify-center mb-10">
-            <TabsList className="inline-flex items-stretch bg-accent dark:bg-[#1E293B] light:bg-white rounded-xl p-2 gap-2 border dark:border-[#334155] light:border-[#E2E8F0] light:shadow-md min-h-[4rem]">
-              <TabsTrigger
-                value="lms"
-                className="h-auto min-h-12 px-4 py-3 text-sm text-muted-foreground hover:text-foreground data-[state=active]:bg-[#6933d3] data-[state=active]:text-white dark:data-[state=active]:bg-[#6933d3] dark:data-[state=active]:text-white"
-              >
-                Learning Management (LMS)
-              </TabsTrigger>
-              <TabsTrigger
-                value="erp"
-                className="h-auto min-h-12 px-4 py-3 text-sm text-muted-foreground hover:text-foreground data-[state=active]:bg-[#6933d3] data-[state=active]:text-white dark:data-[state=active]:bg-[#6933d3] dark:data-[state=active]:text-white"
-              >
-                Enterprise Resource Planning (ERP)
-              </TabsTrigger>
-            </TabsList>
-          </div>
+  <div className="flex justify-center mb-10 px-1">
+    <TabsList className="flex w-full max-w-2xl items-stretch rounded-xl border border-[var(--border)] bg-[var(--muted)] p-1.5 gap-1.5 shadow-sm min-h-[3.5rem]">
 
-          <TabsContent value="lms">
-            <FeaturesGrid features={lmsFeatures} onShowSchedulingDemo={onShowSchedulingDemo} />
-          </TabsContent>
-          <TabsContent value="erp">
-            <FeaturesGrid features={erpFeatures} />
-          </TabsContent>
+      {/* LMS Tab */}
+<TabsTrigger
+  value="lms"
+  className="
+    group flex flex-1 min-h-0 flex-col items-center justify-center
+    gap-1 rounded-lg px-3 py-2.5 text-center
+    text-xs font-bold
+    text-black dark:text-white
+    transition-colors duration-200
+    hover:text-black dark:hover:text-white
+    sm:flex-row sm:gap-2 sm:text-sm
+    data-[state=active]:bg-[var(--accent)]
+    data-[state=active]:text-white
+    dark:data-[state=active]:text-white
+    data-[state=active]:shadow-sm
+    whitespace-normal
+  "
+>
+  <BookOpen
+    className="
+      h-4 w-4 shrink-0
+      opacity-60
+      group-data-[state=active]:opacity-100
+      group-data-[state=active]:text-white
+    "
+    aria-hidden
+  />
+  <span>Learning Management (LMS)</span>
+</TabsTrigger>
+
+{/* ERP Tab */}
+<TabsTrigger
+  value="erp"
+  className="
+    group flex flex-1 min-h-0 flex-col items-center justify-center
+    gap-1 rounded-lg px-3 py-2.5 text-center
+    text-xs font-bold
+    text-black dark:text-white
+    transition-colors duration-200
+    hover:text-black dark:hover:text-white
+    sm:flex-row sm:gap-2 sm:text-sm
+    data-[state=active]:bg-[var(--accent)]
+    data-[state=active]:text-white
+    dark:data-[state=active]:text-white
+    data-[state=active]:shadow-sm
+    whitespace-normal
+  "
+>
+  <Building2
+    className="
+      h-4 w-4 shrink-0
+      opacity-60
+      group-data-[state=active]:opacity-100
+      group-data-[state=active]:text-white
+    "
+    aria-hidden
+  />
+  <span>Enterprise Resource Planning (ERP)</span>
+</TabsTrigger>
+
+    </TabsList>
+    </div>
+          <TabsContent value="lms"><FeatureGrid items={lms} /></TabsContent>
+          <TabsContent value="erp"><FeatureGrid items={erp} /></TabsContent>
         </Tabs>
       </div>
     </section>
-  );
-}
-
-interface FeaturesGridProps {
-  features: typeof lmsFeatures;
-  onShowSchedulingDemo?: () => void;
-}
-
-function FeaturesGrid({ features, onShowSchedulingDemo }: FeaturesGridProps) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
-      className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"
-    >
-      {features.map((feature, index) => {
-        const Icon = feature.icon;
-        const isClickable = feature.isClickable;
-        return (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: index * 0.05 }}
-            onClick={isClickable ? onShowSchedulingDemo : undefined}
-            className={`group relative dark:bg-[#1E293B] light:bg-white rounded-xl p-6 border dark:border-[#334155] light:border-[#E2E8F0] light:shadow-md hover:shadow-xl dark:hover:shadow-[#818CF8]/10 light:hover:shadow-lg transition-all duration-300 overflow-hidden ${isClickable ? 'cursor-pointer active:scale-95' : ''
-              }`}
-          >
-            {/* Gradient Hover Effect */}
-            <div className="absolute inset-0 bg-gradient-to-br from-[#818CF8]/0 to-[#22D3EE]/0 dark:group-hover:from-[#818CF8]/5 dark:group-hover:to-[#22D3EE]/5 light:group-hover:from-[#4F46E5]/5 light:group-hover:to-[#06B6D4]/5 transition-all duration-300" />
-
-            <div className="relative">
-              {/* Icon */}
-              <div className="w-14 h-14 rounded-xl dark:bg-[#818CF8]/10 light:bg-[#4F46E5]/10 flex items-center justify-center mb-5 dark:group-hover:bg-[#818CF8]/20 light:group-hover:bg-[#4F46E5]/20 dark:group-hover:border-[#818CF8] light:group-hover:border-[#4F46E5] border border-transparent transition-all duration-300 group-hover:scale-110">
-                <Icon className="w-7 h-7 dark:text-[#818CF8] light:text-[#4F46E5] transition-transform duration-300" strokeWidth={2} />
-              </div>
-
-              <h3 className="text-lg font-semibold dark:text-[#E2E8F0] light:text-[#0F172A] mb-3 dark:group-hover:text-white light:group-hover:text-[#4F46E5] transition-colors duration-300">
-                {feature.title}
-              </h3>
-
-              <p className="text-sm dark:text-[#94A3B8] light:text-[#64748B] leading-relaxed mb-3">
-                {feature.description}
-              </p>
-
-              {isClickable && (
-                <div className="mt-4 inline-flex items-center gap-2 text-sm font-semibold dark:text-[#818CF8] light:text-[#4F46E5] opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300">
-                  View Demo
-                  <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
-                </div>
-              )}
-            </div>
-          </motion.div>
-        );
-      })}
-    </motion.div>
-  );
+  )
 }

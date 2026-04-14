@@ -1,8 +1,6 @@
 import { motion } from 'motion/react';
 import { Calendar, ArrowRight } from 'lucide-react';
-import { Button } from './ui/button';
-import { Button as OnesazButton } from '@onesaz/ui';
-
+import { Button as OnesazButton, H2, Text } from '@onesaz/ui';
 const newsUpdates = [
   {
     title: 'Configure Settings in Acadhub',
@@ -32,24 +30,17 @@ const newsUpdates = [
 
 export function NewsSection() {
   return (
-    <section 
-      id="resources" 
-      className="relative light:bg-[#F8FAFC] dark:bg-transparent"
-      style={{ 
-        paddingTop: 'var(--spacing-major-section)', 
-        paddingBottom: 'var(--spacing-major-section)' 
-      }}
+    <section
+      id="resources"
+      style={{ paddingTop: 'var(--section-py)', paddingBottom: 'var(--section-py)', scrollMarginTop: 'var(--navbar-height)' }}
     >
-      <div className="relative max-w-[var(--container-max)] mx-auto px-6">
-        {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-8">
-          <h2 className="text-4xl font-bold dark:text-[#E2E8F0] light:text-[#0F172A] mb-4">
-            Resources & Tutorials
-          </h2>
-          <p className="text-lg dark:text-[#94A3B8] light:text-[#64748B]">
-            Stay updated with the latest tutorials, guides, and best practices for using Acadhub.
-          </p>
-        </div>
+      <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6">
+        <motion.div className="text-center max-w-2xl mx-auto mb-12" initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+          <H2 className="tracking-tight mt-10">
+          Resources <span className="gradient-text">& Tutorials</span>
+          </H2>
+          <Text color="muted" fontWeight="semibold">Stay updated with the latest tutorials, guides, and best practices for using Acadhub.</Text>
+        </motion.div>
 
         {/* News Grid */}
         <div className="grid md:grid-cols-3 gap-6 mb-6">
@@ -78,7 +69,7 @@ export function NewsSection() {
 
               {/* Content */}
               <div className="p-5">
-                <div className="flex items-center gap-2 text-xs dark:text-[#94A3B8] light:text-[#64748B] mb-3">
+                <div className="flex items-center gap-2 text-xs text-muted-foreground mb-3">
                   <Calendar className="w-4 h-4" />
                   <span>{news.date}</span>
                 </div>
@@ -87,18 +78,35 @@ export function NewsSection() {
                   {news.title}
                 </h3>
                 
-                <p className="text-sm dark:text-[#94A3B8] light:text-[#64748B] mb-4">
+                <Text color="muted" fontWeight="regular">
                   {news.description}
-                </p>
+                </Text>
 
-                <Button
-                  onClick={() => window.open(news.youtubeUrl, '_blank')}
-                  variant="ghost"
-                  className="dark:text-[#818CF8] light:text-[#4F46E5] hover:bg-transparent p-0 h-auto font-semibold group/btn"
-                >
-                  Watch Tutorial
-                  <ArrowRight className="ml-2 w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />
-                </Button>
+                <OnesazButton
+  onClick={() => window.open(news.youtubeUrl, '_blank')}
+  variant="ghost"
+  className="
+    dark:text-[#818CF8]
+    light:text-[#4F46E5]
+    hover:bg-transparent
+    p-0
+    h-auto
+    font-semibold
+    underline
+    underline-offset-4
+    decoration-2
+    hover:decoration-2
+    flex items-center gap-2
+    group/btn
+    mt-4
+  "
+>
+  Watch Tutorial
+
+  <ArrowRight
+    className="h-4 w-4 bg-[#6933d3] text-white rounded-full"
+  />
+</OnesazButton>
               </div>
             </motion.div>
           ))}
@@ -107,8 +115,7 @@ export function NewsSection() {
         {/* CTA */}
         <div className="text-center">
           <OnesazButton
-            variant="outline"
-            className="bg-[#6933d3] text-white"
+          size="lg" endIcon={<ArrowRight className="h-4 w-4 bg-[#6933d3]" />} className="text-sm px-6"  
           >
             View All Resources
           </OnesazButton>
