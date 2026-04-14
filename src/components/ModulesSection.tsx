@@ -1,6 +1,19 @@
 import { motion } from 'motion/react'
-import { Card, CardContent, Chip, H2, Text, Grid } from '@onesaz/ui'
-import { Building2, UserPlus, DollarSign, ScanLine, Video, Database, BarChart3, MessageSquare, BookOpen, Receipt, Package, Bus } from 'lucide-react'
+import { Card, CardContent, H2, Text } from '@onesaz/ui'
+import {
+  Building2,
+  UserPlus,
+  DollarSign,
+  ScanLine,
+  Video,
+  Database,
+  BarChart3,
+  MessageSquare,
+  BookOpen,
+  Receipt,
+  Package,
+  Bus,
+} from 'lucide-react'
 
 const modules = [
   { icon: Building2, name: 'Organization', desc: 'AI-Powered Org Structure' },
@@ -19,35 +32,68 @@ const modules = [
 
 export function ModulesSection() {
   return (
-    <section id="modules" style={{ paddingTop: 'var(--section-py)', paddingBottom: 'var(--section-py)', scrollMarginTop: 'var(--navbar-height)' }}>
-      <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6">
-        <motion.div className="text-center max-w-2xl mx-auto mb-12" initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-          <H2 className="tracking-tight mt-10">
-            Complete <span className="gradient-text">AI-Driven</span> Module Suite
+    <section
+      id="modules"
+      className="relative overflow-hidden bg-[#F9FAFB] dark:bg-[#0f1419]"
+      style={{ paddingTop: 'var(--section-py)', paddingBottom: 'var(--section-py)', scrollMarginTop: 'var(--navbar-height)' }}
+    >
+      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden>
+        <div className="absolute -left-16 -top-16 h-48 w-48 rounded-full border border-violet-200/40 bg-violet-100/20 dark:border-violet-500/10 dark:bg-violet-500/5" />
+        <div className="absolute -right-8 top-24 h-32 w-32 rotate-12 rounded-2xl border border-emerald-200/35 bg-emerald-100/15 dark:border-emerald-500/10 dark:bg-emerald-500/5" />
+        <div className="absolute bottom-12 left-[12%] h-20 w-20 rounded-full border border-sky-200/30 bg-sky-100/10 dark:border-sky-500/10 dark:bg-sky-500/5" />
+        <div className="absolute -bottom-10 right-[8%] h-40 w-40 rounded-full border border-violet-200/30 bg-violet-100/10 dark:border-violet-500/10 dark:bg-violet-500/5" />
+      </div>
+
+      <div className="relative z-10 max-w-[var(--container-max)] mx-auto px-4 sm:px-6">
+        <motion.div
+          className="text-center max-w-2xl mx-auto mb-12 sm:mb-14"
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+        >
+          <H2 className="tracking-tight mt-10 text-[#1F2937] dark:text-gray-100">
+            Complete{' '}
+            <span className="gradient-text">AI-Driven</span>{' '}
+            Module Suite
           </H2>
-          <Text color="muted" fontWeight="semibold">Every module enhanced with artificial intelligence for smarter, faster, and more efficient operations.</Text>
+          <Text
+            color="muted" fontWeight="semibold"
+          >
+            Every module enhanced with artificial intelligence for smarter, faster, and more efficient operations.
+          </Text>
         </motion.div>
 
-        <Grid container spacing={3} columns={12}>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5 lg:gap-6">
           {modules.map((m, i) => {
             const Icon = m.icon
             return (
-              <Grid key={i} item xs={6} sm={4} lg={3}>
-                <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.3, delay: i * 0.03 }}>
-                  <Card className="h-full hover:shadow-md hover:border-[var(--accent)]/20 transition-all duration-200">
-                    <CardContent className="p-4 text-center">
-                      <div className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-[var(--accent-bg)] mb-2.5">
-                        <Icon className="w-5 h-5 text-[var(--accent)]" strokeWidth={2} />
-                      </div>
-                      <Text fontWeight="semibold" className="!text-sm mb-0.5">{m.name}</Text>
-                      <Text color="muted" className="!text-xs">{m.desc}</Text>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              </Grid>
+              <motion.div
+                key={m.name}
+                initial={{ opacity: 0, y: 16 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.3, delay: i * 0.03 }}
+              >
+                <Card className="h-full border border-gray-200/90 bg-white shadow-sm dark:border-gray-700/80 dark:bg-[#131C31] rounded-xl transition-all duration-200 hover:shadow-md hover:-translate-y-0.5 hover:border-violet-200/60 dark:hover:border-violet-500/25">
+                  <CardContent className="p-4 sm:p-5 text-center flex flex-col items-center">
+                    <div className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-[#EDE9FE] dark:bg-violet-950/50 mb-3">
+                      <Icon className="w-5 h-5 text-[#7C3AED] dark:text-violet-400" strokeWidth={2} />
+                    </div>
+                    <Text
+                      fontWeight="semibold"
+                      className="!text-sm sm:!text-[15px] text-[#1F2937] dark:text-gray-100 mb-1"
+                    >
+                      {m.name}
+                    </Text>
+                    <Text color="muted" className="!text-xs sm:!text-[13px] text-[#6B7280] dark:text-gray-400 leading-snug">
+                      {m.desc}
+                    </Text>
+                  </CardContent>
+                </Card>
+              </motion.div>
             )
           })}
-        </Grid>
+        </div>
       </div>
     </section>
   )

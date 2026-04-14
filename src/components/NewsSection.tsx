@@ -115,9 +115,9 @@ export function NewsSection() {
         {/* CTA */}
         <div className="text-center">
           <OnesazButton
-          size="lg" endIcon={<ArrowRight className="h-4 w-4 bg-[#6933d3]" />} className="text-sm px-6"  
+          size="lg" endIcon={<ArrowRight className="h-4 w-4 bg-[#6933d3]" />} className="text-sm px-6 text-white px-6 text-base rounded-md bg-[#6933d3] text-white"  
           >
-            View All Resources
+            View All Tutorials
           </OnesazButton>
         </div>
       </div>

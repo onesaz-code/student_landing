@@ -222,7 +222,7 @@ export function Navbar() {
                   )}
                 </div>
                 <div className="p-4 border-t space-y-2">
-                  <Button variant="outlined" fullWidth size="sm">Sign in</Button>
+                  <OnesazButton className="text-base rounded-md text-black" variant="outlined" size="sm" fullWidth>Sign in</OnesazButton>
                   <Button fullWidth size="sm">Get a Demo</Button>
                 </div>
               </div>
