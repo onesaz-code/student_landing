@@ -2,7 +2,7 @@ import * as React from 'react'
 import { useNavigate, useLocation, Link } from 'react-router-dom'
 import { Button, IconButton, Tooltip, TooltipProvider, useTheme } from '@onesaz/ui'
 import { motion, AnimatePresence } from 'motion/react'
-import { ArrowRight, Menu, X, Moon, Sun } from 'lucide-react'
+import { ArrowRight, Menu, X, Moon, Sun, ChevronDown } from 'lucide-react'
 import { Button as OnesazButton } from '@onesaz/ui'
 
 
@@ -28,11 +28,21 @@ const navLinks: NavLink[] = [
   { name: 'Resources', section: 'resources', connected: true },
 ]
 
-export function Navbar() {
+type SolutionType = 'lms' | 'erp' | 'mdm'
+
+export function Navbar({
+  activeSolution = 'mdm',
+  onSolutionChange,
+}: {
+  activeSolution?: SolutionType
+  onSolutionChange?: (value: SolutionType) => void
+}) {
   const { resolvedTheme, setTheme } = useTheme()
   const [mobileOpen, setMobileOpen] = React.useState(false)
   const [scrolled, setScrolled] = React.useState(false)
   const [activeSection, setActiveSection] = React.useState('hero')
+  const [featuresMenuOpen, setFeaturesMenuOpen] = React.useState(false)
+  const featuresMenuRef = React.useRef<HTMLDivElement | null>(null)
   const navigate = useNavigate()
   const location = useLocation()
   const isHome = location.pathname === '/'
@@ -88,6 +98,17 @@ export function Navbar() {
     return () => { document.body.style.overflow = '' }
   }, [mobileOpen])
 
+  React.useEffect(() => {
+    const onPointerDown = (event: MouseEvent) => {
+      if (!featuresMenuRef.current) return
+      if (!featuresMenuRef.current.contains(event.target as Node)) {
+        setFeaturesMenuOpen(false)
+      }
+    }
+    window.addEventListener('mousedown', onPointerDown)
+    return () => window.removeEventListener('mousedown', onPointerDown)
+  }, [])
+
   const goSection = (e: React.MouseEvent, section: ScrollSectionId) => {
     e.preventDefault()
     setMobileOpen(false)
@@ -97,6 +118,11 @@ export function Navbar() {
       sessionStorage.setItem('scrollToSection', section)
       navigate('/')
     }
+  }
+
+  const setSolution = (next: SolutionType) => {
+    onSolutionChange?.(next)
+    setFeaturesMenuOpen(false)
   }
 
   return (
@@ -122,6 +148,49 @@ export function Navbar() {
 
           <div className="hidden md:flex items-center gap-6">
             {navLinks.map((l) => {
+              if (l.connected && l.name === 'Features') {
+                const active = isHome && activeSection === l.section
+                return (
+                  <div key={l.name} className="relative" ref={featuresMenuRef}>
+                    <button
+                      type="button"
+                      onClick={() => setFeaturesMenuOpen((v) => !v)}
+                      className={`inline-flex items-center gap-1 text-[16px] font-medium transition-colors relative py-1 ${active ? 'text-[var(--accent)]' : 'text-[var(--muted-foreground)] hover:text-[var(--foreground)]'}`}
+                    >
+                      Features
+                      <ChevronDown className={`h-4 w-4 transition-transform ${featuresMenuOpen ? 'rotate-180' : ''}`} />
+                      {active && (
+                        <motion.div
+                          layoutId="nav-underline"
+                          className="absolute -bottom-0.5 left-0 right-0 h-[2px] rounded-full bg-[var(--accent)]"
+                          transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                        />
+                      )}
+                    </button>
+                    {featuresMenuOpen && (
+                      <div className="absolute w-[300px] left-0 top-[calc(100%+8px)] z-50 w-56 rounded-xl border border-[var(--border)] bg-[var(--card)] p-1.5 shadow-lg">
+                        {([
+                          { id: 'mdm', label: 'MDM (Mobile Device Management)' },
+                        { id: 'lms', label: 'LMS (Learning Management) ' },
+                          { id: 'erp', label: 'ERP (Enterprise Resource Planning) ' },
+                        ] as const).map((item) => (
+                          <button
+                            key={item.id}
+                            type="button"
+                            className={`w-full rounded-lg px-3 py-2 text-left text-sm ${activeSolution === item.id ? 'bg-[var(--accent-bg)] text-[var(--accent)]' : 'text-[var(--foreground)] hover:bg-[var(--muted)]'}`}
+                            onClick={(e) => {
+                              goSection(e as unknown as React.MouseEvent, 'hero')
+                              setSolution(item.id)
+                            }}
+                          >
+                            {item.label}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )
+              }
               if (!l.connected) {
                 return (
                   <span
@@ -160,7 +229,7 @@ export function Navbar() {
               </IconButton>
             </Tooltip>
             <OnesazButton className="text-base rounded-md bg-[#6933d3] text-white" variant="contained" size="sm">Sign in</OnesazButton>
-            <OnesazButton className="text-base rounded-md text-black" variant="outlined" size="sm" endIcon={<ArrowRight className="h-3.5 w-3.5" />}>Get a Demo</OnesazButton>
+            <OnesazButton className="text-base rounded-md " variant="outlined" size="sm" endIcon={<ArrowRight className="h-3.5 w-3.5" />}>Get a Demo</OnesazButton>
           </div>
 
           <div className="flex md:hidden items-center gap-1">
@@ -207,23 +276,53 @@ export function Navbar() {
                         {l.name}
                       </span>
                     ) : (
-                      <motion.a
-                        key={l.name}
-                        href={`#${l.section}`}
-                        initial={{ opacity: 0, x: 16 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: i * 0.06 }}
-                        className={`block px-3 py-2.5 text-sm font-medium rounded-lg ${isHome && activeSection === l.section ? 'text-[var(--accent)] bg-[var(--accent-bg)]' : 'text-[var(--foreground)] hover:bg-[var(--muted)]'}`}
-                        onClick={(e) => goSection(e, l.section)}
-                      >
-                        {l.name}
-                      </motion.a>
+                      l.name === 'Features' ? (
+                        <motion.div
+                          key={l.name}
+                          initial={{ opacity: 0, x: 16 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: i * 0.06 }}
+                          className="space-y-1 rounded-lg border border-[var(--border)] p-2"
+                        >
+                          <div className="px-1 text-xs font-semibold text-[var(--muted-foreground)]">Features</div>
+                          {([
+                            { id: 'mdm', label: 'MDM' },
+                            { id: 'lms', label: 'LMS' },
+                            { id: 'erp', label: 'ERP' },
+                          ] as const).map((item) => (
+                            <button
+                              key={item.id}
+                              type="button"
+                              className={`block w-full rounded-lg px-3 py-2 text-left text-sm font-medium ${activeSolution === item.id ? 'text-[var(--accent)] bg-[var(--accent-bg)]' : 'text-[var(--foreground)] hover:bg-[var(--muted)]'}`}
+                              onClick={(e) => {
+                                setSolution(item.id)
+                                goSection(e as unknown as React.MouseEvent, 'hero')
+                                setMobileOpen(false)
+                              }}
+                            >
+                              {item.label}
+                            </button>
+                          ))}
+                        </motion.div>
+                      ) : (
+                        <motion.a
+                          key={l.name}
+                          href={`#${l.section}`}
+                          initial={{ opacity: 0, x: 16 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: i * 0.06 }}
+                          className={`block px-3 py-2.5 text-sm font-medium rounded-lg ${isHome && activeSection === l.section ? 'text-[var(--accent)] bg-[var(--accent-bg)]' : 'text-[var(--foreground)] hover:bg-[var(--muted)]'}`}
+                          onClick={(e) => goSection(e, l.section)}
+                        >
+                          {l.name}
+                        </motion.a>
+                      )
                     ),
                   )}
                 </div>
                 <div className="p-4 border-t space-y-2">
-                  <OnesazButton className="text-base rounded-md text-black" variant="outlined" size="sm" fullWidth>Sign in</OnesazButton>
-                  <Button fullWidth size="sm">Get a Demo</Button>
+                  <OnesazButton className="text-base rounded-md " variant="outlined" size="sm" fullWidth>Sign in</OnesazButton>
+                  <Button variant='outlined' size='sm' >Get a Demo</Button>
                 </div>
               </div>
             </motion.div>

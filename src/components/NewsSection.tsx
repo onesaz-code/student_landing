@@ -28,7 +28,14 @@ const newsUpdates = [
   },
 ];
 
-export function NewsSection() {
+export function NewsSection({ activeSolution = 'lms' }: { activeSolution?: 'lms' | 'erp' | 'mdm' }) {
+  if (activeSolution === 'mdm') {
+    return null
+  }
+
+  const _activeSolution = activeSolution
+  const updates = newsUpdates
+
   return (
     <section
       id="resources"
@@ -39,12 +46,14 @@ export function NewsSection() {
           <H2 className="tracking-tight mt-10">
           Resources <span className="gradient-text">& Tutorials</span>
           </H2>
-          <Text color="muted" fontWeight="semibold">Stay updated with the latest tutorials, guides, and best practices for using Acadhub.</Text>
+          <Text color="muted" fontWeight="semibold">
+            Stay updated with the latest tutorials, guides, and best practices for using Acadhub.
+          </Text>
         </motion.div>
 
         {/* News Grid */}
         <div className="grid md:grid-cols-3 gap-6 mb-6">
-          {newsUpdates.map((news, index) => (
+          {updates.map((news, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 30 }}

@@ -13,6 +13,10 @@ import {
   Receipt,
   Package,
   Bus,
+  ShieldCheck,
+  Network,
+  Activity,
+  LayoutDashboard,
 } from 'lucide-react'
 
 const modules = [
@@ -30,7 +34,30 @@ const modules = [
   { icon: Bus, name: 'Transport', desc: 'Route Optimization' },
 ]
 
-export function ModulesSection() {
+const mdmModules = [
+  { icon: LayoutDashboard, name: 'Policy Automation', desc: 'Auto policy assignment on enrollment, instant profile switching, and cloning for fast institute rollouts.' },
+  { icon: Network, name: 'Network Governance', desc: 'Push Wi-Fi and VPN profiles, restrict unknown networks, and monitor per-device data usage.' },
+  { icon: ShieldCheck, name: 'Security & Recovery', desc: 'Enforce FRP, block MDM uninstall, detect tampering, and remotely lock or wipe lost devices.' },
+  { icon: Activity, name: 'Live Audit Visibility', desc: 'Track activity logs, compliance status, inventory, and app usage with real-time alerts.' },
+]
+
+export function ModulesSection({ activeSolution = 'lms' }: { activeSolution?: 'lms' | 'erp' | 'mdm' }) {
+  const content = activeSolution === 'mdm'
+    ? {
+        titlePrefix: 'Complete',
+        titleAccent: 'MDM',
+        titleSuffix: 'Control Suite',
+        description: 'Every module required to manage, secure, and operate institutional Android fleets from one dashboard.',
+        items: mdmModules,
+      }
+    : {
+        titlePrefix: 'Complete',
+        titleAccent: 'AI-Driven',
+        titleSuffix: 'Module Suite',
+        description: 'Every module enhanced with artificial intelligence for smarter, faster, and more efficient operations.',
+        items: modules,
+      }
+
   return (
     <section
       id="modules"
@@ -52,19 +79,19 @@ export function ModulesSection() {
           viewport={{ once: true }}
         >
           <H2 className="tracking-tight mt-10 text-[#1F2937] dark:text-gray-100">
-            Complete{' '}
-            <span className="gradient-text">AI-Driven</span>{' '}
-            Module Suite
+            {content.titlePrefix}{' '}
+            <span className="gradient-text">{content.titleAccent}</span>{' '}
+            {content.titleSuffix}
           </H2>
           <Text
             color="muted" fontWeight="semibold"
           >
-            Every module enhanced with artificial intelligence for smarter, faster, and more efficient operations.
+            {content.description}
           </Text>
         </motion.div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5 lg:gap-6">
-          {modules.map((m, i) => {
+          {content.items.map((m, i) => {
             const Icon = m.icon
             return (
               <motion.div

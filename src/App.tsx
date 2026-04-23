@@ -1,4 +1,5 @@
 import { ThemeProvider, useTheme } from "@onesaz/ui";
+import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Navbar } from "./components/Navbar";
 import { HeroSection } from "./components/HeroSection";
@@ -17,7 +18,7 @@ import { Starfield } from "./components/Starfield";
 import { LightModeBackground } from "./components/LightModeBackground";
 import { About } from "./pages/About";
 import { PrivacyPolicy } from "./pages/PrivacyPolicy";
-import { InstituteRegistration } from "./pages/InstituteRegistration";
+// import { InstituteRegistration } from "./pages/InstituteRegistration";
 
 function Background() {
   const { resolvedTheme } = useTheme();
@@ -25,21 +26,23 @@ function Background() {
 }
 
 function HomePage() {
+  const [activeSolution, setActiveSolution] = useState<"lms" | "erp" | "mdm">("mdm");
+
   return (
     <div className="relative z-10">
-      <Navbar />
+      <Navbar activeSolution={activeSolution} onSolutionChange={setActiveSolution} />
       <main>
-        <HeroSection />
+        <HeroSection activeSolution={activeSolution} />
         <StatsSection />
-        <FeaturesSection />
-        <KeyFeaturesSection />
-        <ModulesSection />
-        <LogosSection />
-        <NewsSection />
-        <TestimonialsSection />
-        <WhyChooseSection />
+        <FeaturesSection activeSolution={activeSolution} onSolutionChange={setActiveSolution} />
+        <KeyFeaturesSection activeSolution={activeSolution} />
+        <ModulesSection activeSolution={activeSolution} />
+        <LogosSection activeSolution={activeSolution} />
+        <NewsSection activeSolution={activeSolution} />
+        <TestimonialsSection activeSolution={activeSolution} />
+        <WhyChooseSection activeSolution={activeSolution} />
         <FAQSection />
-        <CTASection />
+        <CTASection activeSolution={activeSolution} />
       </main>
       <Footer />
     </div>
@@ -61,7 +64,7 @@ export default function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/about" element={<About />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-            <Route path="/register" element={<InstituteRegistration />} />
+            {/* <Route path="/register" element={<InstituteRegistration />} />  */}
           </Routes>
         </div>
       </ThemeProvider>

@@ -1,8 +1,9 @@
 import { motion } from 'motion/react'
+import { useState } from 'react'
 import { Tabs, TabsList, TabsTrigger, TabsContent, Card, CardContent, H2, Text } from '@onesaz/ui'
 import {
   BookOpen, Building2, ClipboardCheck, BarChart3, Video, CalendarDays,
-  DollarSign, UserPlus, Users, Bus, Receipt, MessageSquare, MessageCircle, Package,
+  DollarSign, UserPlus, Users, Bus, Receipt, MessageSquare, MessageCircle, Package, Smartphone, ShieldCheck, AppWindow, Lock, Wrench, Globe, MapPin,
 } from 'lucide-react'
 
 const lms = [
@@ -25,6 +26,17 @@ const erp = [
   { icon: MessageCircle, title: 'WhatsApp Bulk Messaging', desc: 'Send bulk messages to parents, students, and staff.' },
   { icon: Package, title: 'Inventory & Assets', desc: 'Complete tracking of library books, lab equipment, and assets.' },
 ]
+
+const mdm = [
+  { icon: Smartphone, title: 'QR Enrollment', desc: 'Factory reset, tap 6 times, scan QR, and complete fully automatic onboarding with auto policy assignment.' },
+  { icon: Lock, title: 'Kiosk Lockdown Control', desc: 'Single-app or multi-app kiosk with blocked navigation keys, status bar, and notification panel.' },
+  { icon: Building2, title: 'Institute & Batch Policies', desc: 'Create institute-wise profiles and class/group rules with instant policy switching and cloning.' },
+  { icon: ShieldCheck, title: 'FRP & Tamper Protection', desc: 'Factory reset resistance, SIM change alerts, SafetyNet checks, and uninstall protection.' },
+  { icon: MapPin, title: 'Live Location Intelligence', desc: 'Track real-time GPS, review location history, and trigger policies via geofencing.' },
+  { icon: Wrench, title: 'Remote Support Toolkit', desc: 'Live screen view, remote control, remote reboot, screenshots, and device diagnostics.' },
+]
+
+type SolutionType = 'lms' | 'erp' | 'mdm'
 
 function FeatureGrid({ items }: { items: typeof lms }) {
   return (
@@ -49,7 +61,25 @@ function FeatureGrid({ items }: { items: typeof lms }) {
   )
 }
 
-export function FeaturesSection() {
+export function FeaturesSection({
+  activeSolution = 'lms',
+  onSolutionChange,
+}: {
+  activeSolution?: SolutionType
+  onSolutionChange?: (value: SolutionType) => void
+}) {
+  const [internalTab, setInternalTab] = useState<SolutionType>('lms')
+  const activeTab = activeSolution ?? internalTab
+
+  const handleValueChange = (value: string) => {
+    const nextValue = value as SolutionType
+    if (onSolutionChange) {
+      onSolutionChange(nextValue)
+      return
+    }
+    setInternalTab(nextValue)
+  }
+
   return (
     <section id="features" style={{ paddingTop: 'var(--section-py)', paddingBottom: 'var(--section-py)', scrollMarginTop: 'var(--navbar-height)' }}>
       <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6">
@@ -60,9 +90,9 @@ export function FeaturesSection() {
           <Text color="muted" fontWeight="semibold">Comprehensive features designed to simplify educational management and enhance learning.</Text>
         </motion.div>
 
-        <Tabs defaultValue="lms" className="w-full">
+        <Tabs value={activeTab} onValueChange={handleValueChange} className="w-full">
   <div className="flex justify-center mb-10 px-1">
-    <TabsList className="flex w-full max-w-2xl items-stretch rounded-xl border border-[var(--border)] bg-[var(--muted)] p-1.5 gap-1.5 shadow-sm min-h-[3.5rem]">
+    <TabsList className="flex w-full max-w-4xl items-stretch rounded-xl border border-[var(--border)] bg-[var(--muted)] p-1.5 gap-1.5 shadow-sm min-h-[3.5rem]">
 
       {/* LMS Tab */}
 <TabsTrigger
@@ -124,10 +154,53 @@ export function FeaturesSection() {
   <span>Enterprise Resource Planning (ERP)</span>
 </TabsTrigger>
 
+{/* MDM Tab */}
+<TabsTrigger
+  value="mdm"
+  className="
+    group flex flex-1 min-h-0 flex-col items-center justify-center
+    gap-1 rounded-lg px-3 py-2.5 text-center
+    text-xs font-bold
+    text-black dark:text-white
+    transition-colors duration-200
+    hover:text-black dark:hover:text-white
+    sm:flex-row sm:gap-2 sm:text-sm
+    data-[state=active]:bg-[var(--accent)]
+    data-[state=active]:text-white
+    dark:data-[state=active]:text-white
+    data-[state=active]:shadow-sm
+    whitespace-normal
+  "
+>
+  <Smartphone
+    className="
+      h-4 w-4 shrink-0
+      opacity-60
+      group-data-[state=active]:opacity-100
+      group-data-[state=active]:text-white
+    "
+    aria-hidden
+  />
+  <span>Mobile Device Management (MDM)</span>
+</TabsTrigger>
+
     </TabsList>
     </div>
-          <TabsContent value="lms"><FeatureGrid items={lms} /></TabsContent>
-          <TabsContent value="erp"><FeatureGrid items={erp} /></TabsContent>
+          {activeTab === 'lms' && (
+            <TabsContent value="lms">
+              <FeatureGrid items={lms} />
+            </TabsContent>
+          )}
+          {activeTab === 'erp' && (
+            <TabsContent value="erp">
+              <FeatureGrid items={erp} />
+            </TabsContent>
+          )}
+          {activeTab === 'mdm' && (
+            <TabsContent value="mdm">
+              <FeatureGrid items={mdm} />
+            </TabsContent>
+          )}
         </Tabs>
       </div>
     </section>

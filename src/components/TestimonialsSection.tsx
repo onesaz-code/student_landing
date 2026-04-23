@@ -1,5 +1,5 @@
 import { motion } from 'motion/react'
-import { Card, CardContent, Avatar, Separator, H2, Text, Caption, Box } from '@onesaz/ui'
+import { Card, CardContent, Separator, H2, Text, Caption, Box } from '@onesaz/ui'
 import { Star, Quote } from 'lucide-react'
 
 const TESTIMONIAL_VIDEO_SRC = '/video-B5skbVmn.mp4'
@@ -10,35 +10,45 @@ const testimonials = [
   { name: 'Dr. Aisha Rahman', role: 'Vice Principal', org: 'Sunrise Public School', feedback: "The parent engagement tools are outstanding. Parents can track their child's progress in real-time, and communication has never been easier." },
 ]
 
-export function TestimonialsSection() {
+export function TestimonialsSection({ activeSolution = 'lms' }: { activeSolution?: 'lms' | 'erp' | 'mdm' }) {
+  const showWalkthroughVideo = activeSolution !== 'mdm'
+  const content = {
+    titlePrefix: 'Trusted by',
+    titleAccent: 'education leaders',
+    description: 'See what educators say about transforming their institutions with Acadhub.',
+    items: testimonials,
+  }
+
   return (
     <section style={{ paddingTop: 'var(--section-py)', paddingBottom: 'var(--section-py)' }}>
       <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6">
         <motion.div className="text-center max-w-2xl mx-auto mb-12" initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
           <H2 className="tracking-tight mt-10">
-            Trusted by <span className="gradient-text">education leaders</span>
+            {content.titlePrefix} <span className="gradient-text">{content.titleAccent}</span>
           </H2>
-          <Text color="muted" fontWeight="semibold">See what educators say about transforming their institutions with Acadhub.</Text>
+          <Text color="muted" fontWeight="semibold">{content.description}</Text>
         </motion.div>
 
-        <motion.div className="max-w-3xl mx-auto mb-12" initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.15 }}>
-          <Card className="overflow-hidden p-0">
-            <div className="aspect-video w-full bg-[var(--muted)]">
-              <video
-                className="h-full w-full object-cover"
-                controls
-                playsInline
-                preload="metadata"
-                src={TESTIMONIAL_VIDEO_SRC}
-              >
-                Your browser does not support the video tag.
-              </video>
-            </div>
-          </Card>
-        </motion.div>
+        {showWalkthroughVideo ? (
+          <motion.div className="max-w-3xl mx-auto mb-12" initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.15 }}>
+            <Card className="overflow-hidden p-0">
+              <div className="aspect-video w-full bg-[var(--muted)]">
+                <video
+                  className="h-full w-full object-cover"
+                  controls
+                  playsInline
+                  preload="metadata"
+                  src={TESTIMONIAL_VIDEO_SRC}
+                >
+                  Your browser does not support the video tag.
+                </video>
+              </div>
+            </Card>
+          </motion.div>
+        ) : null}
 
         <div className="grid md:grid-cols-3 gap-4">
-          {testimonials.map((t, i) => (
+          {content.items.map((t, i) => (
             <motion.div key={i} initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.4, delay: i * 0.1 }}>
               <Card className="h-full hover:shadow-md transition-shadow">
                 <CardContent className="p-5">

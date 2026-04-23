@@ -34,7 +34,15 @@ function LogoCard({ item }: { item: (typeof INSTITUTION_LOGOS)[number] }) {
   )
 }
 
-export function LogosSection() {
+export function LogosSection({ activeSolution = 'lms' }: { activeSolution?: 'lms' | 'erp' | 'mdm' }) {
+  if (activeSolution === 'mdm') {
+    return null
+  }
+
+  const title = activeSolution === 'mdm'
+    ? <>Trusted for large-scale <span className="gradient-text">MDM deployments</span></>
+    : <>Trusted by leading <span className="gradient-text">Institutions</span></>
+
   return (
     <section className="py-10 border-y border-[var(--border)]">
       <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6">
@@ -42,7 +50,7 @@ export function LogosSection() {
           fontWeight="bold"
           className="mb-6 block text-center text-xl uppercase tracking-widest underline decoration-2 underline-offset-4"
         >
-          Trusted by leading <span className="gradient-text">Institutions</span>
+          {title}
         </Caption>
         <div className="relative overflow-hidden">
           <div className="absolute left-0 top-0 bottom-0 z-10 w-16 bg-gradient-to-r from-[var(--background)] to-transparent" />
