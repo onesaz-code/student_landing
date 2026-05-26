@@ -4,7 +4,7 @@ import { Button, IconButton, Tooltip, TooltipProvider, useTheme } from '@onesaz/
 import { motion, AnimatePresence } from 'motion/react'
 import { ArrowRight, Menu, X, Moon, Sun, ChevronDown } from 'lucide-react'
 import { Button as OnesazButton } from '@onesaz/ui'
-
+import { mdmBrand } from '../data/mdmSiteContent'
 
 const BRAND_LOGO_SRC = '/images/a7e1abaeef1b895c7157156ca5f0a1b9c2638b12.png'
 
@@ -228,8 +228,22 @@ export function Navbar({
                 {resolvedTheme === 'dark' ? <Sun className="" /> : <Moon className="" />}
               </IconButton>
             </Tooltip>
-            <OnesazButton className="text-base rounded-md bg-[#6933d3] text-white" variant="contained" size="sm">Sign in</OnesazButton>
-            <OnesazButton className="text-base rounded-md " variant="outlined" size="sm" endIcon={<ArrowRight className="h-3.5 w-3.5" />}>Get a Demo</OnesazButton>
+            <OnesazButton
+              type="button"
+              className="text-base rounded-md bg-[#6933d3] text-white"
+              variant="contained"
+              size="sm"
+              onClick={() => {
+                window.location.assign(mdmBrand.signInUrl)
+              }}
+            >
+              Sign in
+            </OnesazButton>
+            {activeSolution !== 'mdm' ? (
+              <OnesazButton className="text-base rounded-md " variant="outlined" size="sm" endIcon={<ArrowRight className="h-3.5 w-3.5" />}>
+                Get a Demo
+              </OnesazButton>
+            ) : null}
           </div>
 
           <div className="flex md:hidden items-center gap-1">
@@ -321,8 +335,24 @@ export function Navbar({
                   )}
                 </div>
                 <div className="p-4 border-t space-y-2">
-                  <OnesazButton className="text-base rounded-md " variant="outlined" size="sm" fullWidth>Sign in</OnesazButton>
-                  <Button variant='outlined' size='sm' >Get a Demo</Button>
+                  <OnesazButton
+                    type="button"
+                    className="text-base rounded-md "
+                    variant="outlined"
+                    size="sm"
+                    fullWidth
+                    onClick={() => {
+                      setMobileOpen(false)
+                      window.location.assign(mdmBrand.signInUrl)
+                    }}
+                  >
+                    Sign in
+                  </OnesazButton>
+                  {activeSolution !== 'mdm' ? (
+                    <Button variant="outlined" size="sm" fullWidth>
+                      Get a Demo
+                    </Button>
+                  ) : null}
                 </div>
               </div>
             </motion.div>

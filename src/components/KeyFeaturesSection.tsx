@@ -1,6 +1,7 @@
 import { motion } from 'motion/react'
 import { Card, CardContent, Badge, H2, Text } from '@onesaz/ui'
 import { Settings, Shield, ScanLine, TrendingUp, GraduationCap, FileQuestion, Smartphone, Lock, Wrench, MapPin, Globe, ShieldAlert } from 'lucide-react'
+import { mdmHomeAnchors } from '../data/mdmSiteContent'
 
 const features = [
   { icon: Settings, title: 'Customized Applications', desc: 'Our tech-savvy team listens to your needs and delivers fast, tailored solutions that fit your institution perfectly.' },
@@ -36,7 +37,14 @@ export function KeyFeaturesSection({ activeSolution = 'lms' }: { activeSolution?
       }
 
   return (
-    <section id="features" style={{ paddingTop: 'var(--section-py)', paddingBottom: 'var(--section-py)' }}>
+    <section
+      id={mdmHomeAnchors.security.id}
+      style={{
+        paddingTop: 'var(--section-py)',
+        paddingBottom: 'var(--section-py)',
+        scrollMarginTop: 'var(--navbar-height)',
+      }}
+    >
       <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6">
         <motion.div className="text-center max-w-2xl mx-auto mb-12" initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
           <H2 className="tracking-tight mt-10">

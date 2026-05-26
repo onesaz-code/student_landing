@@ -13,7 +13,7 @@ export function HeroSection({ activeSolution = 'mdm' }: { activeSolution?: 'lms'
         titleStart: 'Device Management for',
         titleAccent: 'Schools & Colleges',
         description: 'Unified management of Android devices across your institution. Secure, deploy, and manage student and staff devices from one intuitive platform.',
-        primary: 'Schedule a Demo',
+        primary: 'Get Started',
         secondary: 'View Solutions',
       }
     : {

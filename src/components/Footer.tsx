@@ -1,44 +1,44 @@
 import { Facebook, Twitter, Linkedin, Instagram, Mail, Phone, MapPin } from 'lucide-react';
+import * as React from 'react';
 import { Link } from 'react-router-dom';
+import { useActiveSolution } from '../context/ActiveSolutionContext';
+import { mdmBrand, mdmFooterCopyrightLinks, mdmFooterSections } from '../data/mdmSiteContent';
+
+const GDPR_ROUTE = '/gdpr';
+
+function FooterAnchor({ to, href, label }: { to?: string; href?: string; label: string }) {
+  const className =
+    'text-sm dark:text-[#94A3B8] dark:hover:text-[#818CF8] light:text-gray-300 light:hover:text-white transition-colors inline-block py-1 active:scale-95';
+  if (to) {
+    return (
+      <Link to={to} className={className}>
+        {label}
+      </Link>
+    );
+  }
+  return (
+    <a href={href} className={className}>
+      {label}
+    </a>
+  );
+}
 
 export function Footer() {
-  const footerSections = [
-    {
-      title: 'Product',
-      links: [
-        { name: 'Features', href: '#features' },
-        { name: 'Solutions', href: '#modules' },
-        { name: 'Pricing', href: '#pricing' },
-        { name: 'Security', href: '#security' },
-      ],
-    },
-    {
-      title: 'Company',
-      links: [
-        { name: 'Careers', href: '#careers' },
-        { name: 'Blog', href: '#blog' },
-        { name: 'Contact', href: '#contact' },
-      ],
-    },
-    {
-      title: 'Resources',
-      links: [
-        { name: 'Documentation', href: '#docs' },
-        { name: 'Help Center', href: '#help' },
-        { name: 'Case Studies', href: '#cases' },
-        { name: 'API', href: '#api' },
-      ],
-    },
-    {
-      title: 'Legal',
-      links: [
-        { name: 'Privacy Policy', href: '#privacy' },
-        { name: 'Terms of Service', href: '#terms' },
-        { name: 'Cookie Policy', href: '#cookies' },
-        { name: 'GDPR', href: '#gdpr' },
-      ],
-    },
-  ];
+  const { activeSolution } = useActiveSolution();
+  const hideGdpr = activeSolution === 'mdm';
+
+  const footerSections = React.useMemo(() => {
+    if (!hideGdpr) return mdmFooterSections;
+    return mdmFooterSections.map((section) => ({
+      ...section,
+      links: section.links.filter((link) => link.to !== GDPR_ROUTE),
+    }));
+  }, [hideGdpr]);
+
+  const copyrightLinks = React.useMemo(() => {
+    if (!hideGdpr) return mdmFooterCopyrightLinks;
+    return mdmFooterCopyrightLinks.filter((link) => link.to !== GDPR_ROUTE);
+  }, [hideGdpr]);
 
   return (
     <footer className="relative border-t dark:border-[#334155] light:border-[#1E293B] light:bg-[#0F172A] dark:bg-transparent" style={{ paddingTop: 'var(--spacing-major-section)' }}>{/* Added dark background for light mode with inverted text colors */}
@@ -49,68 +49,63 @@ export function Footer() {
           <div className="lg:col-span-2 sm:col-span-2">
         <div className="mb-4">
         <span className="gradient-text text-3xl sm:text-4xl lg:text-5xl font-bold">
-         ACADHUB
+         {mdmBrand.brandWordmark}
         </span>
-        <p className= "font-semibold mt-">One Stop Solution for All Educational needs</p>
+        <p className="font-semibold mt-2">{mdmBrand.taglineOneStop}</p>
         </div>
 
             <p className="text-sm dark:text-[#94A3B8] light:text-gray-300 mb-6 leading-relaxed max-w-xl mx-auto mb-8 text-muted-foreground font-semibold">
-              Transforming educational institutions with intelligent management solutions.
-              Streamline operations, enhance learning, and empower educators.
+              {mdmBrand.footerBlurb}
             </p>
             <div className="flex gap-3">
-              <a href="#" className="w-10 h-10 min-w-[2.5rem] rounded-lg dark:bg-[#1E293B] dark:hover:bg-[#334155] light:bg-white/10 light:hover:bg-white/20 border dark:border-[#334155] light:border-white/20 flex items-center justify-center transition-all duration-300 dark:hover:border-[#818CF8] light:hover:border-white/40 active:scale-95">
+              <a
+                href={mdmBrand.social.facebook}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Facebook"
+                className="w-10 h-10 min-w-[2.5rem] rounded-lg dark:bg-[#1E293B] dark:hover:bg-[#334155] light:bg-white/10 light:hover:bg-white/20 border dark:border-[#334155] light:border-white/20 flex items-center justify-center transition-all duration-300 dark:hover:border-[#818CF8] light:hover:border-white/40 active:scale-95"
+              >
                 <Facebook className="w-5 h-5 dark:text-[#94A3B8] dark:hover:text-[#818CF8] light:text-gray-300 light:hover:text-white transition-colors" />
               </a>
-              <a href="#" className="w-10 h-10 min-w-[2.5rem] rounded-lg dark:bg-[#1E293B] dark:hover:bg-[#334155] light:bg-white/10 light:hover:bg-white/20 border dark:border-[#334155] light:border-white/20 flex items-center justify-center transition-all duration-300 dark:hover:border-[#818CF8] light:hover:border-white/40 active:scale-95">
+              <a
+                href={mdmBrand.social.twitter}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="X (Twitter)"
+                className="w-10 h-10 min-w-[2.5rem] rounded-lg dark:bg-[#1E293B] dark:hover:bg-[#334155] light:bg-white/10 light:hover:bg-white/20 border dark:border-[#334155] light:border-white/20 flex items-center justify-center transition-all duration-300 dark:hover:border-[#818CF8] light:hover:border-white/40 active:scale-95"
+              >
                 <Twitter className="w-5 h-5 dark:text-[#94A3B8] dark:hover:text-[#818CF8] light:text-gray-300 light:hover:text-white transition-colors" />
               </a>
-              <a href="#" className="w-10 h-10 min-w-[2.5rem] rounded-lg dark:bg-[#1E293B] dark:hover:bg-[#334155] light:bg-white/10 light:hover:bg-white/20 border dark:border-[#334155] light:border-white/20 flex items-center justify-center transition-all duration-300 dark:hover:border-[#818CF8] light:hover:border-white/40 active:scale-95">
+              <a
+                href={mdmBrand.social.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn"
+                className="w-10 h-10 min-w-[2.5rem] rounded-lg dark:bg-[#1E293B] dark:hover:bg-[#334155] light:bg-white/10 light:hover:bg-white/20 border dark:border-[#334155] light:border-white/20 flex items-center justify-center transition-all duration-300 dark:hover:border-[#818CF8] light:hover:border-white/40 active:scale-95"
+              >
                 <Linkedin className="w-5 h-5 dark:text-[#94A3B8] dark:hover:text-[#818CF8] light:text-gray-300 light:hover:text-white transition-colors" />
               </a>
-              <a href="#" className="w-10 h-10 min-w-[2.5rem] rounded-lg dark:bg-[#1E293B] dark:hover:bg-[#334155] light:bg-white/10 light:hover:bg-white/20 border dark:border-[#334155] light:border-white/20 flex items-center justify-center transition-all duration-300 dark:hover:border-[#818CF8] light:hover:border-white/40 active:scale-95">
+              <a
+                href={mdmBrand.social.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="w-10 h-10 min-w-[2.5rem] rounded-lg dark:bg-[#1E293B] dark:hover:bg-[#334155] light:bg-white/10 light:hover:bg-white/20 border dark:border-[#334155] light:border-white/20 flex items-center justify-center transition-all duration-300 dark:hover:border-[#818CF8] light:hover:border-white/40 active:scale-95"
+              >
                 <Instagram className="w-5 h-5 dark:text-[#94A3B8] dark:hover:text-[#818CF8] light:text-gray-300 light:hover:text-white transition-colors" />
               </a>
             </div>
           </div>
 
-          {/* Links Columns */}
           {footerSections.map((section, index) => (
             <div key={index}>
               <h3 className="font-semibold dark:text-[#E2E8F0] light:text-white mb-4">{section.title}</h3>
               <ul className="space-y-3">
-                {section.title === 'Company' && (
-                  <li>
-                    <Link
-                      to="/about"
-                      className="text-sm dark:text-[#94A3B8] dark:hover:text-[#818CF8] light:text-gray-300 light:hover:text-white transition-colors inline-block py-1 active:scale-95"
-                    >
-                      About Us
-                    </Link>
+                {section.links.map((link, linkIndex) => (
+                  <li key={linkIndex}>
+                    <FooterAnchor label={link.label} to={link.to} href={link.href} />
                   </li>
-                )}
-                {section.title === 'Legal' && (
-                  <li>
-                    <Link
-                      to="/privacy-policy"
-                      className="text-sm dark:text-[#94A3B8] dark:hover:text-[#818CF8] light:text-gray-300 light:hover:text-white transition-colors inline-block py-1 active:scale-95"
-                    >
-                      Privacy Policy
-                    </Link>
-                  </li>
-                )}
-                {section.links
-                  .filter(link => !(section.title === 'Legal' && link.name === 'Privacy Policy'))
-                  .map((link, linkIndex) => (
-                    <li key={linkIndex}>
-                      <a
-                        href={link.href}
-                        className="text-sm dark:text-[#94A3B8] dark:hover:text-[#818CF8] light:text-gray-300 light:hover:text-white transition-colors inline-block py-1 active:scale-95"
-                      >
-                        {link.name}
-                      </a>
-                    </li>
-                  ))}
+                ))}
               </ul>
             </div>
           ))}
@@ -125,7 +120,7 @@ export function Footer() {
               </div>
               <div>
                 <div className="text-xs dark:text-[#94A3B8] light:text-gray-400">Email</div>
-                <div className="text-sm font-medium dark:text-[#E2E8F0] light:text-white">support@acadhub.com</div>
+                <a href={`mailto:${mdmBrand.emailSupport}`} className="text-sm font-medium dark:text-[#E2E8F0] light:text-white hover:underline">{mdmBrand.emailSupport}</a>
               </div>
             </div>
             <div className="flex items-center gap-3">
@@ -134,7 +129,7 @@ export function Footer() {
               </div>
               <div>
                 <div className="text-xs dark:text-[#94A3B8] light:text-gray-400">Phone</div>
-                <div className="text-sm font-medium dark:text-[#E2E8F0] light:text-white">+91 99123 40396</div>
+                <a href={`tel:${mdmBrand.phoneTel}`} className="text-sm font-medium dark:text-[#E2E8F0] light:text-white hover:underline">{mdmBrand.phone}</a>
               </div>
             </div>
             <div className="flex items-center gap-3">
@@ -147,13 +142,12 @@ export function Footer() {
                 </div>
 
                 <a
-                  href="https://www.google.com/maps/search/?api=1&query=Suvarna+Habitat,+Jai+Hind+Gandhi+Rd,+Cyber+Hills+Colony,+VIP+Hills,+Jaihind+Enclave,+Madhapur,+Hyderabad,+Telangana+500081"
+                  href={`https://www.google.com/maps/search/?api=1&query=${mdmBrand.mapsQuery}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-sm font-medium dark:text-[#E2E8F0] light:text-white hover:underline cursor-pointer"
                 >
-                  Suvarna Habitat, Jai Hind Gandhi Rd, Cyber Hills Colony, VIP Hills,
-                  Jaihind Enclave, Madhapur, Hyderabad, Telangana 500081
+                  {mdmBrand.addressLines.join(' ')}
                 </a>
               </div>
             </div>
@@ -164,18 +158,12 @@ export function Footer() {
         <div className="py-6 border-t dark:border-[#334155] light:border-white/10">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
             <p className="text-sm dark:text-[#94A3B8] light:text-gray-300">
-              © {new Date().getFullYear()} Acadhub. All rights reserved.
+              © {new Date().getFullYear()} {mdmBrand.company}. All rights reserved.
             </p>
             <div className="flex flex-wrap justify-center gap-4 md:gap-6">
-              <Link to="/privacy-policy" className="text-sm dark:text-[#94A3B8] dark:hover:text-[#818CF8] light:text-gray-300 light:hover:text-white transition-colors active:scale-95">
-                Privacy Policy
-              </Link>
-              <a href="#" className="text-sm dark:text-[#94A3B8] dark:hover:text-[#818CF8] light:text-gray-300 light:hover:text-white transition-colors active:scale-95">
-                Terms of Service
-              </a>
-              <a href="#" className="text-sm dark:text-[#94A3B8] dark:hover:text-[#818CF8] light:text-gray-300 light:hover:text-white transition-colors active:scale-95">
-                Cookie Policy
-              </a>
+              {copyrightLinks.map((link, i) => (
+                <FooterAnchor key={i} label={link.label} to={link.to} href={link.href} />
+              ))}
             </div>
           </div>
         </div>

@@ -1,6 +1,7 @@
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent, Button, Card, CardContent, H2, Text, HStack, Box } from '@onesaz/ui'
 import { motion } from 'motion/react'
 import { Headphones, MessageCircle } from 'lucide-react'
+import { mdmHomeAnchors } from '../data/mdmSiteContent'
 
 const faqs = [
   { q: 'How long does it take to implement Acadhub?', a: 'Implementation typically takes 2-4 weeks depending on your institution size. Our team ensures a smooth transition.' },
@@ -13,7 +14,14 @@ const faqs = [
 
 export function FAQSection() {
   return (
-    <section style={{ paddingTop: 'var(--section-py)', paddingBottom: 'var(--section-py)' }}>
+    <section
+      id={mdmHomeAnchors.helpCenter.id}
+      style={{
+        paddingTop: 'var(--section-py)',
+        paddingBottom: 'var(--section-py)',
+        scrollMarginTop: 'var(--navbar-height)',
+      }}
+    >
       <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6">
         <motion.div className="text-center max-w-2xl mx-auto mb-12" initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
           <H2 className="tracking-tight mt-10">
