@@ -1,26 +1,16 @@
 import { Facebook, Twitter, Linkedin, Instagram, Mail, Phone, MapPin } from 'lucide-react';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
+import { Text, Caption, Separator } from '@onesaz/ui';
 import { useActiveSolution } from '../context/ActiveSolutionContext';
 import { mdmBrand, mdmFooterCopyrightLinks, mdmFooterSections } from '../data/mdmSiteContent';
 
 const GDPR_ROUTE = '/gdpr';
 
 function FooterAnchor({ to, href, label }: { to?: string; href?: string; label: string }) {
-  const className =
-    'text-sm dark:text-[#94A3B8] dark:hover:text-[#818CF8] light:text-gray-300 light:hover:text-white transition-colors inline-block py-1 active:scale-95';
-  if (to) {
-    return (
-      <Link to={to} className={className}>
-        {label}
-      </Link>
-    );
-  }
-  return (
-    <a href={href} className={className}>
-      {label}
-    </a>
-  );
+  const cls = 'text-sm text-[var(--muted-foreground)] hover:text-[var(--foreground)] transition-colors inline-block py-1 active:scale-95';
+  if (to) return <Link to={to} className={cls}>{label}</Link>;
+  return <a href={href} className={cls}>{label}</a>;
 }
 
 export function Footer() {
@@ -41,66 +31,56 @@ export function Footer() {
   }, [hideGdpr]);
 
   return (
-    <footer className="relative border-t dark:border-[#334155] light:border-[#1E293B] light:bg-[#0F172A] dark:bg-transparent" style={{ paddingTop: 'var(--spacing-major-section)' }}>{/* Added dark background for light mode with inverted text colors */}
+    <footer
+      className="relative border-t border-[var(--border)] bg-[var(--background)]"
+      style={{ paddingTop: '48px' }}
+    >
       <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6">
-        {/* Main Footer */}
-        <div className="pb-8 grid sm:grid-cols-2 lg:grid-cols-6 gap-8 lg:gap-6">
-          {/* Brand Column */}
-          <div className="lg:col-span-2 sm:col-span-2">
-        <div className="mb-4">
-        <span className="gradient-text text-3xl sm:text-4xl lg:text-5xl font-bold">
-         {mdmBrand.brandWordmark}
-        </span>
-        <p className="font-semibold mt-2">{mdmBrand.taglineOneStop}</p>
-        </div>
 
-            <p className="text-sm dark:text-[#94A3B8] light:text-gray-300 mb-6 leading-relaxed max-w-xl mx-auto mb-8 text-muted-foreground font-semibold">
+        {/* Main grid */}
+        <div className="pb-6 grid sm:grid-cols-2 lg:grid-cols-6 gap-6 lg:gap-5">
+
+          {/* Brand column */}
+          <div className="lg:col-span-2 sm:col-span-2">
+            <div className="mb-3">
+              <span className="gradient-text text-2xl sm:text-3xl font-bold">
+                {mdmBrand.brandWordmark}
+              </span>
+              <Text fontWeight="semibold" className="!text-sm text-[var(--foreground)] mt-1.5">
+                {mdmBrand.taglineOneStop}
+              </Text>
+            </div>
+            <Text color="muted" className="!text-sm mb-4 leading-relaxed">
               {mdmBrand.footerBlurb}
-            </p>
+            </Text>
             <div className="flex gap-3">
-              <a
-                href={mdmBrand.social.facebook}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Facebook"
-                className="w-10 h-10 min-w-[2.5rem] rounded-lg dark:bg-[#1E293B] dark:hover:bg-[#334155] light:bg-white/10 light:hover:bg-white/20 border dark:border-[#334155] light:border-white/20 flex items-center justify-center transition-all duration-300 dark:hover:border-[#818CF8] light:hover:border-white/40 active:scale-95"
-              >
-                <Facebook className="w-5 h-5 dark:text-[#94A3B8] dark:hover:text-[#818CF8] light:text-gray-300 light:hover:text-white transition-colors" />
-              </a>
-              <a
-                href={mdmBrand.social.twitter}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="X (Twitter)"
-                className="w-10 h-10 min-w-[2.5rem] rounded-lg dark:bg-[#1E293B] dark:hover:bg-[#334155] light:bg-white/10 light:hover:bg-white/20 border dark:border-[#334155] light:border-white/20 flex items-center justify-center transition-all duration-300 dark:hover:border-[#818CF8] light:hover:border-white/40 active:scale-95"
-              >
-                <Twitter className="w-5 h-5 dark:text-[#94A3B8] dark:hover:text-[#818CF8] light:text-gray-300 light:hover:text-white transition-colors" />
-              </a>
-              <a
-                href={mdmBrand.social.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="LinkedIn"
-                className="w-10 h-10 min-w-[2.5rem] rounded-lg dark:bg-[#1E293B] dark:hover:bg-[#334155] light:bg-white/10 light:hover:bg-white/20 border dark:border-[#334155] light:border-white/20 flex items-center justify-center transition-all duration-300 dark:hover:border-[#818CF8] light:hover:border-white/40 active:scale-95"
-              >
-                <Linkedin className="w-5 h-5 dark:text-[#94A3B8] dark:hover:text-[#818CF8] light:text-gray-300 light:hover:text-white transition-colors" />
-              </a>
-              <a
-                href={mdmBrand.social.instagram}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Instagram"
-                className="w-10 h-10 min-w-[2.5rem] rounded-lg dark:bg-[#1E293B] dark:hover:bg-[#334155] light:bg-white/10 light:hover:bg-white/20 border dark:border-[#334155] light:border-white/20 flex items-center justify-center transition-all duration-300 dark:hover:border-[#818CF8] light:hover:border-white/40 active:scale-95"
-              >
-                <Instagram className="w-5 h-5 dark:text-[#94A3B8] dark:hover:text-[#818CF8] light:text-gray-300 light:hover:text-white transition-colors" />
-              </a>
+              {[
+                { href: mdmBrand.social.facebook, label: 'Facebook', Icon: Facebook },
+                { href: mdmBrand.social.twitter, label: 'X (Twitter)', Icon: Twitter },
+                { href: mdmBrand.social.linkedin, label: 'LinkedIn', Icon: Linkedin },
+                { href: mdmBrand.social.instagram, label: 'Instagram', Icon: Instagram },
+              ].map(({ href, label, Icon }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="w-9 h-9 min-w-[2.25rem] rounded-lg bg-[var(--muted)] hover:bg-[var(--accent-bg)] border border-[var(--border)] hover:border-[var(--accent)]/40 flex items-center justify-center transition-all duration-300 active:scale-95"
+                >
+                  <Icon className="w-4 h-4 text-[var(--muted-foreground)] transition-colors" />
+                </a>
+              ))}
             </div>
           </div>
 
+          {/* Nav columns */}
           {footerSections.map((section, index) => (
             <div key={index}>
-              <h3 className="font-semibold dark:text-[#E2E8F0] light:text-white mb-4">{section.title}</h3>
-              <ul className="space-y-3">
+              <Caption fontWeight="bold" className="!text-xs uppercase tracking-wider text-[var(--foreground)] mb-3 block">
+                {section.title}
+              </Caption>
+              <ul className="space-y-1.5">
                 {section.links.map((link, linkIndex) => (
                   <li key={linkIndex}>
                     <FooterAnchor label={link.label} to={link.to} href={link.href} />
@@ -111,62 +91,51 @@ export function Footer() {
           ))}
         </div>
 
-        {/* Contact Bar */}
-        <div className="py-6 border-t dark:border-[#334155] light:border-white/10">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 min-w-[2.5rem] rounded-lg dark:bg-[#818CF8]/10 light:bg-white/10 flex items-center justify-center flex-shrink-0 border dark:border-[#818CF8]/20 light:border-white/20">
-                <Mail className="w-5 h-5 dark:text-[#818CF8] light:text-[#4F46E5]" />
-              </div>
-              <div>
-                <div className="text-xs dark:text-[#94A3B8] light:text-gray-400">Email</div>
-                <a href={`mailto:${mdmBrand.emailSupport}`} className="text-sm font-medium dark:text-[#E2E8F0] light:text-white hover:underline">{mdmBrand.emailSupport}</a>
-              </div>
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 min-w-[2.5rem] rounded-lg dark:bg-[#818CF8]/10 light:bg-white/10 flex items-center justify-center flex-shrink-0 border dark:border-[#818CF8]/20 light:border-white/20">
-                <Phone className="w-5 h-5 dark:text-[#818CF8] light:text-[#4F46E5]" />
-              </div>
-              <div>
-                <div className="text-xs dark:text-[#94A3B8] light:text-gray-400">Phone</div>
-                <a href={`tel:${mdmBrand.phoneTel}`} className="text-sm font-medium dark:text-[#E2E8F0] light:text-white hover:underline">{mdmBrand.phone}</a>
-              </div>
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 min-w-[2.5rem] rounded-lg dark:bg-[#818CF8]/10 light:bg-white/10 flex items-center justify-center flex-shrink-0 border dark:border-[#818CF8]/20 light:border-white/20">
-                <MapPin className="w-5 h-5 dark:text-[#818CF8] light:text-[#4F46E5]" />
-              </div>
-              <div>
-                <div className="text-xs dark:text-[#94A3B8] light:text-gray-400">
-                  Location
-                </div>
+        <Separator className="bg-[var(--border)]" />
 
-                <a
-                  href={`https://www.google.com/maps/search/?api=1&query=${mdmBrand.mapsQuery}`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm font-medium dark:text-[#E2E8F0] light:text-white hover:underline cursor-pointer"
-                >
-                  {mdmBrand.addressLines.join(' ')}
-                </a>
+        {/* Contact bar */}
+        <div className="py-5">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {[
+              { Icon: Mail,   label: 'Email',    value: mdmBrand.emailSupport,          href: `mailto:${mdmBrand.emailSupport}` },
+              { Icon: Phone,  label: 'Phone',    value: mdmBrand.phone,                 href: `tel:${mdmBrand.phoneTel}` },
+              { Icon: MapPin, label: 'Location', value: mdmBrand.addressLines.join(' '), href: `https://www.google.com/maps/search/?api=1&query=${mdmBrand.mapsQuery}`, external: true },
+            ].map(({ Icon, label, value, href, external }) => (
+              <div key={label} className="flex items-start gap-3">
+                <div className="w-9 h-9 min-w-[2.25rem] rounded-lg bg-[var(--accent-bg)] flex items-center justify-center flex-shrink-0 border border-[var(--accent)]/20 mt-0.5">
+                  <Icon className="w-4 h-4 text-[var(--accent)]" />
+                </div>
+                <div className="min-w-0">
+                  <p className="text-xs font-medium text-[var(--muted-foreground)] mb-0.5">{label}</p>
+                  <a
+                    href={href}
+                    {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                    className="text-sm font-semibold text-[var(--foreground)] hover:text-[var(--accent)] hover:underline underline-offset-2 transition-colors break-words"
+                  >
+                    {value}
+                  </a>
+                </div>
               </div>
-            </div>
+            ))}
           </div>
         </div>
 
+        <Separator className="bg-[var(--border)]" />
+
         {/* Copyright */}
-        <div className="py-6 border-t dark:border-[#334155] light:border-white/10">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
-            <p className="text-sm dark:text-[#94A3B8] light:text-gray-300">
+        <div className="py-4">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-3">
+            <Caption className="!text-xs text-[var(--muted-foreground)]">
               © {new Date().getFullYear()} {mdmBrand.company}. All rights reserved.
-            </p>
-            <div className="flex flex-wrap justify-center gap-4 md:gap-6">
+            </Caption>
+            <div className="flex flex-wrap justify-center gap-4 md:gap-5">
               {copyrightLinks.map((link, i) => (
                 <FooterAnchor key={i} label={link.label} to={link.to} href={link.href} />
               ))}
             </div>
           </div>
         </div>
+
       </div>
     </footer>
   );

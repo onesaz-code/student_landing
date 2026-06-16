@@ -34,14 +34,8 @@ function LogoCard({ item }: { item: (typeof INSTITUTION_LOGOS)[number] }) {
   )
 }
 
-export function LogosSection({ activeSolution = 'lms' }: { activeSolution?: 'lms' | 'erp' | 'mdm' }) {
-  if (activeSolution === 'mdm') {
-    return null
-  }
-
-  const title = activeSolution === 'mdm'
-    ? <>Trusted for large-scale <span className="gradient-text">MDM deployments</span></>
-    : <>Trusted by leading <span className="gradient-text">Institutions</span></>
+export function LogosSection(_props: { activeSolution?: 'lms' | 'erp' | 'mdm' }) {
+  const title = <>Trusted by leading <span className="gradient-text">Institutions</span></>
 
   return (
     <section className="py-10 border-y border-[var(--border)]">

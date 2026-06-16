@@ -13,7 +13,7 @@ const features = [
 ]
 
 const mdmFeatures = [
-  { icon: Smartphone, title: 'Zero-Touch Enrollment', desc: 'Enroll devices in minutes with QR provisioning and automatic policy assignment.' },
+  { icon: Smartphone, title: 'QR Enrollment', desc: 'Enroll devices in minutes with QR provisioning and automatic policy assignment.' },
   { icon: Lock, title: 'Kiosk Enforcement', desc: 'Lock devices into single-app or multi-app mode with strict navigation restrictions.' },
   { icon: Shield, title: 'FRP + Tamper Resistance', desc: 'Protect against reset bypass, SIM swaps, and unauthorized agent removal.' },
   { icon: Wrench, title: 'Remote Support Tools', desc: 'Diagnose and resolve issues with remote view, control, screenshots, and reboot.' },
@@ -24,17 +24,17 @@ const mdmFeatures = [
 export function KeyFeaturesSection({ activeSolution = 'lms' }: { activeSolution?: 'lms' | 'erp' | 'mdm' }) {
   const content = activeSolution === 'mdm'
     ? {
-        title: 'Core Capabilities That',
-        highlight: 'Drive MDM Success',
-        description: 'Powerful MDM capabilities designed to secure, control, and support institute devices at scale.',
-        items: mdmFeatures,
-      }
+      title: 'Core Capabilities That',
+      highlight: 'Drive MDM Success',
+      description: 'Powerful MDM capabilities designed to secure, control, and support institute devices at scale.',
+      items: mdmFeatures,
+    }
     : {
-        title: 'Core Capabilities That',
-        highlight: 'Drive Success',
-        description: 'Powerful features designed to transform how educational institutions operate and deliver learning outcomes.',
-        items: features,
-      }
+      title: 'Core Capabilities That',
+      highlight: 'Drive Success',
+      description: 'Powerful features designed to transform how educational institutions operate and deliver learning outcomes.',
+      items: features,
+    }
 
   return (
     <section
@@ -48,7 +48,7 @@ export function KeyFeaturesSection({ activeSolution = 'lms' }: { activeSolution?
       <div className="max-w-[var(--container-max)] mx-auto px-4 sm:px-6">
         <motion.div className="text-center max-w-2xl mx-auto mb-12" initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
           <H2 className="tracking-tight mt-10">
-          {content.title} <span className="gradient-text">{content.highlight}</span>
+            {content.title} <span className="gradient-text">{content.highlight}</span>
           </H2>
           <Text color="muted" fontWeight="semibold">{content.description}</Text>
         </motion.div>

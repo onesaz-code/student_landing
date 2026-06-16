@@ -18,6 +18,8 @@
     --accent: #0EA5E9;
     --accent-hover: #0284C7;
     --accent-foreground: #ffffff;
+    /* Soft accent surface used by icon chips / active pills (derived from --accent) */
+    --accent-bg: color-mix(in srgb, var(--accent) 12%, transparent);
     --ring: #0EA5E9;
     --destructive: #dc2626;
     --destructive-foreground: #ffffff;
@@ -41,6 +43,7 @@
     --border: #1E3A5F;
     --accent: #38BDF8;
     --accent-hover: #0EA5E9;
+    --accent-bg: color-mix(in srgb, var(--accent) 24%, transparent);
     --destructive: #ef4444;
   }
 

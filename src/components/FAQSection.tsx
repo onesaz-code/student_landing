@@ -1,6 +1,5 @@
-import { Accordion, AccordionItem, AccordionTrigger, AccordionContent, Button, Card, CardContent, H2, Text, HStack, Box } from '@onesaz/ui'
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent, H2, Text } from '@onesaz/ui'
 import { motion } from 'motion/react'
-import { Headphones, MessageCircle } from 'lucide-react'
 import { mdmHomeAnchors } from '../data/mdmSiteContent'
 
 const faqs = [
@@ -42,23 +41,6 @@ export function FAQSection() {
             ))}
           </Accordion>
         </div>
-
-        {/* <motion.div className="max-w-2xl mx-auto mt-10" initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-          <Card className="border-[var(--accent)]/20">
-            <CardContent className="p-5">
-              <HStack spacing={4} align="center" className="flex-col sm:flex-row">
-                <Box display="flex" className="h-10 w-10 items-center justify-center rounded-lg accent-gradient flex-shrink-0">
-                  <Headphones className="h-5 w-5 text-white" />
-                </Box>
-                <div className="flex-1 text-center sm:text-left">
-                  <Text fontWeight="medium" className="!text-sm">Still have questions?</Text>
-                  <Text color="muted" className="!text-xs">Our support team is here 24/7 to help you.</Text>
-                </div>
-                <Button size="sm" startIcon={<MessageCircle className="h-4 w-4" />}>Chat Now</Button>
-              </HStack>
-            </CardContent>
-          </Card>
-        </motion.div> */}
       </div>
     </section>
   )

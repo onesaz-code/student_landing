@@ -1,6 +1,6 @@
 import { motion } from 'motion/react';
 import { Calendar, ArrowRight } from 'lucide-react';
-import { Button as OnesazButton, H2, Text } from '@onesaz/ui';
+import { Button as OnesazButton, Card, CardContent, Badge, H2, Text } from '@onesaz/ui';
 const newsUpdates = [
   {
     title: 'Configure Settings in Acadhub',
@@ -28,12 +28,7 @@ const newsUpdates = [
   },
 ];
 
-export function NewsSection({ activeSolution = 'lms' }: { activeSolution?: 'lms' | 'erp' | 'mdm' }) {
-  if (activeSolution === 'mdm') {
-    return null
-  }
-
-  const _activeSolution = activeSolution
+export function NewsSection(_props: { activeSolution?: 'lms' | 'erp' | 'mdm' }) {
   const updates = newsUpdates
 
   return (
@@ -60,63 +55,47 @@ export function NewsSection({ activeSolution = 'lms' }: { activeSolution?: 'lms'
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="dark:bg-[#1E293B] light:bg-white rounded-xl overflow-hidden border dark:border-[#334155] light:border-[#E2E8F0] light:shadow-sm dark:hover:border-[#818CF8] light:hover:border-[#4F46E5] transition-all duration-300 group"
             >
-              {/* Image */}
-              <div className="relative h-48 overflow-hidden">
-                <img
-                  src={news.image}
-                  alt={news.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-                <div className="absolute top-4 left-4">
-                  <span className="px-3 py-1 dark:bg-[#1E293B] light:bg-white/90 dark:text-[#E2E8F0] light:text-[#0F172A] text-xs font-semibold rounded-full border dark:border-[#334155] light:border-[#E2E8F0]">
-                    {news.category}
-                  </span>
+              <Card className="group h-full overflow-hidden p-0 bg-[var(--card)] border border-[var(--border)] rounded-xl shadow-sm transition-all duration-300 hover:shadow-md hover:border-[var(--accent)]/40">
+                {/* Image */}
+                <div className="relative h-48 overflow-hidden">
+                  <img
+                    src={news.image}
+                    alt={news.title}
+                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  />
+                  <div className="absolute top-4 left-4">
+                    <Badge className="inline-flex items-center rounded-full border border-[var(--border)] bg-[var(--card)] px-3 py-1 text-xs font-semibold text-[var(--foreground)]">
+                      {news.category}
+                    </Badge>
+                  </div>
                 </div>
-              </div>
 
-              {/* Content */}
-              <div className="p-5">
-                <div className="flex items-center gap-2 text-xs text-muted-foreground mb-3">
-                  <Calendar className="w-4 h-4" />
-                  <span>{news.date}</span>
-                </div>
-                
-                <h3 className="text-lg font-semibold dark:text-[#E2E8F0] light:text-[#0F172A] mb-2 group-hover:text-[#4F46E5] transition-colors">
-                  {news.title}
-                </h3>
-                
-                <Text color="muted" fontWeight="regular">
-                  {news.description}
-                </Text>
+                {/* Content */}
+                <CardContent className="p-5">
+                  <div className="flex items-center gap-2 text-xs text-[var(--muted-foreground)] mb-3">
+                    <Calendar className="w-4 h-4" />
+                    <span>{news.date}</span>
+                  </div>
 
-                <OnesazButton
-  onClick={() => window.open(news.youtubeUrl, '_blank')}
-  variant="ghost"
-  className="
-    dark:text-[#818CF8]
-    light:text-[#4F46E5]
-    hover:bg-transparent
-    p-0
-    h-auto
-    font-semibold
-    underline
-    underline-offset-4
-    decoration-2
-    hover:decoration-2
-    flex items-center gap-2
-    group/btn
-    mt-4
-  "
->
-  Watch Tutorial
+                  <Text fontWeight="semibold" className="!text-lg mb-2 transition-colors group-hover:text-[var(--accent)]">
+                    {news.title}
+                  </Text>
 
-  <ArrowRight
-    className="h-4 w-4 bg-[#6933d3] text-white rounded-full"
-  />
-</OnesazButton>
-              </div>
+                  <Text color="muted" className="!text-sm leading-relaxed">
+                    {news.description}
+                  </Text>
+
+                  <OnesazButton
+                    onClick={() => window.open(news.youtubeUrl, '_blank')}
+                    variant="link"
+                    className="mt-4 h-auto p-0 font-semibold text-[var(--accent)] underline underline-offset-4 decoration-2 hover:bg-transparent"
+                    endIcon={<ArrowRight className="h-4 w-4" />}
+                  >
+                    Watch Tutorial
+                  </OnesazButton>
+                </CardContent>
+              </Card>
             </motion.div>
           ))}
         </div>
@@ -124,7 +103,9 @@ export function NewsSection({ activeSolution = 'lms' }: { activeSolution?: 'lms'
         {/* CTA */}
         <div className="text-center">
           <OnesazButton
-          size="lg" endIcon={<ArrowRight className="h-4 w-4 bg-[#6933d3]" />} className="text-sm px-6 text-white px-6 text-base rounded-md bg-[#6933d3] text-white"  
+            size="lg"
+            className="px-6 rounded-md bg-[var(--accent)] text-[var(--accent-foreground)] hover:bg-[var(--accent-hover)]"
+            endIcon={<ArrowRight className="h-4 w-4" />}
           >
             View All Tutorials
           </OnesazButton>

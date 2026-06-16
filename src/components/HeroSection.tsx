@@ -249,9 +249,9 @@ export function HeroSection({ activeSolution = 'mdm' }: { activeSolution?: 'lms'
         {isMdm ? (
           <div className="grid w-full items-center gap-10 lg:grid-cols-2">
             <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.25 }} className="text-center lg:text-left">
-              <Badge variant="outlined" className="mb-6 text-sm border-[#6933d3] p-1.5">
-                <Sparkles className="h-3 w-3 mr-1.5 text-base rounded-full bg-[#6933d3] text-white" size={16} aria-hidden />
-                <span className="text-[#6933d3]">{heroContent.badge}</span>
+              <Badge variant="outlined" className="mb-6 text-sm border-[var(--accent)] p-1.5">
+                <Sparkles className="h-3 w-3 mr-1.5 text-base rounded-full bg-[var(--accent)] text-[var(--accent-foreground)]" size={16} aria-hidden />
+                <span className="text-[var(--accent)]">{heroContent.badge}</span>
               </Badge>
               <H1 className="!text-4xl sm:!text-5xl lg:!text-6xl !leading-[1.1] tracking-tight">
                 Device Management for <span className="gradient-text">Schools & Colleges</span>

@@ -11,7 +11,11 @@ const testimonials = [
 ]
 
 export function TestimonialsSection({ activeSolution = 'lms' }: { activeSolution?: 'lms' | 'erp' | 'mdm' }) {
-  const showWalkthroughVideo = activeSolution !== 'mdm'
+  if (activeSolution === 'mdm') {
+    return null
+  }
+
+  const showWalkthroughVideo = true
   const content = {
     titlePrefix: 'Trusted by',
     titleAccent: 'education leaders',

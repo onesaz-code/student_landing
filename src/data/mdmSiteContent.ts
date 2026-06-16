@@ -18,7 +18,7 @@ export const mdmBrand = {
   mapsQuery:
     'Suvarna+Habitat,+Jai+Hind+Gandhi+Rd,+Cyber+Hills+Colony,+VIP+Hills,+Jaihind+Enclave,+Madhapur,+Hyderabad,+Telangana+500081',
   footerBlurb:
-    'Cloud MDM purpose-built for education: enroll devices fast, enforce policies, support faculty and IT, and stay audit-ready—all from one admin console.',
+    'MDM built for schools: control student tabs, apps, and Android devices from one console so classrooms stay focused and IT stays in charge.',
   social: {
     facebook: 'https://www.facebook.com/',
     twitter: 'https://x.com',

@@ -78,7 +78,7 @@ export function ModulesSection({ activeSolution = 'lms' }: { activeSolution?: 'l
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <H2 className="tracking-tight mt-10 text-[#1F2937] dark:text-gray-100">
+          <H2 className="tracking-tight mt-10">
             {content.titlePrefix}{' '}
             <span className="gradient-text">{content.titleAccent}</span>{' '}
             {content.titleSuffix}
@@ -101,18 +101,18 @@ export function ModulesSection({ activeSolution = 'lms' }: { activeSolution?: 'l
                 viewport={{ once: true }}
                 transition={{ duration: 0.3, delay: i * 0.03 }}
               >
-                <Card className="h-full border border-gray-200/90 bg-white shadow-sm dark:border-gray-700/80 dark:bg-[#131C31] rounded-xl transition-all duration-200 hover:shadow-md hover:-translate-y-0.5 hover:border-violet-200/60 dark:hover:border-violet-500/25">
+                <Card className="h-full bg-[var(--card)] border border-[var(--border)] shadow-sm rounded-xl transition-all duration-200 hover:shadow-md hover:-translate-y-0.5 hover:border-[var(--accent)]/40">
                   <CardContent className="p-4 sm:p-5 text-center flex flex-col items-center">
-                    <div className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-[#EDE9FE] dark:bg-violet-950/50 mb-3">
-                      <Icon className="w-5 h-5 text-[#7C3AED] dark:text-violet-400" strokeWidth={2} />
+                    <div className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-[var(--accent-bg)] mb-3">
+                      <Icon className="w-5 h-5 text-[var(--accent)]" strokeWidth={2} />
                     </div>
                     <Text
                       fontWeight="semibold"
-                      className="!text-sm sm:!text-[15px] text-[#1F2937] dark:text-gray-100 mb-1"
+                      className="!text-sm sm:!text-[15px] mb-1"
                     >
                       {m.name}
                     </Text>
-                    <Text color="muted" className="!text-xs sm:!text-[13px] text-[#6B7280] dark:text-gray-400 leading-snug">
+                    <Text color="muted" className="!text-xs sm:!text-[13px] leading-snug">
                       {m.desc}
                     </Text>
                   </CardContent>
