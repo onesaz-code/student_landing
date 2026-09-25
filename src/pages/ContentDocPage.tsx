@@ -58,7 +58,14 @@ export function ContentDocPage({ title, sections: rawSections }: ContentDocPageP
   const navigate = useNavigate()
   const { date, sections } = React.useMemo(() => extractLastUpdated(rawSections), [rawSections])
 
-  React.useEffect(() => { window.scrollTo(0, 0) }, [])
+  React.useEffect(() => {
+    const id = window.location.hash.replace(/^#/, '')
+    if (!id) {
+      window.scrollTo(0, 0)
+      return
+    }
+    document.getElementById(id)?.scrollIntoView()
+  }, [])
 
   // Count only titled sections for numbering
   let sectionCounter = 0
@@ -113,6 +120,8 @@ export function ContentDocPage({ title, sections: rawSections }: ContentDocPageP
                 return (
                   <div
                     key={i}
+                    id={section.id}
+                    style={section.id ? { scrollMarginTop: 'var(--navbar-height)' } : undefined}
                     className={`px-6 sm:px-8 py-6 ${i < sections.length - 1 ? 'border-b border-[var(--border)]' : ''} ${isIntro ? 'bg-[var(--muted)]/40' : ''}`}
                   >
                     {/* Section header */}

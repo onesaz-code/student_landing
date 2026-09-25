@@ -28,6 +28,8 @@ export const mdmBrand = {
 } as const;
 
 export type MdmDocSection = {
+  /** In-page anchor, e.g. privacy-policy#data-deletion */
+  id?: string;
   title?: string;
   paragraphs?: string[];
   bullets?: string[];
@@ -199,7 +201,7 @@ export const mdmContactSections: MdmDocSection[] = [
 export const mdmPrivacySections: MdmDocSection[] = [
   {
     paragraphs: [
-      'Last updated May 23, 2026',
+      'Last updated September 25, 2026',
       `This privacy notice for Acadhub Edu Tech Pvt Lmtd ("Company," "we," "us," or "our"), describes how and why we might collect, store, use, and/or share ("process") your information when you use our services ("Services"), such as when you:`,
     ],
   },
@@ -244,6 +246,7 @@ export const mdmPrivacySections: MdmDocSection[] = [
       'Do We Make Updates to This Notice?',
       'How Can You Contact Us About This Notice?',
       'How Can You Review, Update, or Delete the Data We Collect From You?',
+      'Meta (Facebook & Instagram) Connected Data',
     ],
   },
   {
@@ -375,6 +378,45 @@ export const mdmPrivacySections: MdmDocSection[] = [
     title: '11. How Can You Review, Update, or Delete the Data We Collect From You?',
     paragraphs: [
       'Based on the applicable laws of your country, you may have the right to request access to the personal information we collect from you, change that information, or delete it. To request to review, update, or delete your personal information, please submit a request by contacting us directly.',
+    ],
+  },
+  {
+    id: 'data-deletion',
+    title: '12. Meta (Facebook & Instagram) Connected Data',
+    paragraphs: [
+      'When an institute connects Meta (Facebook and Instagram) to Acadhub CRM, we store, for that institute only:',
+    ],
+    bullets: [
+      'An encrypted Meta access token, and, when a Facebook Page is selected, an encrypted Page access token',
+      'The identifiers and names of the connected ad account and Facebook Page',
+      'The Instagram professional account identifier, if one is selected',
+      'The Business Manager identifier and the permissions granted at connect',
+      'Which Acadhub user connected the account, and when',
+    ],
+  },
+  {
+    paragraphs: [
+      'We use this only so the institute can manage its own advertising and posting from the CRM. We do not store Meta users\' personal profile information, such as names, email addresses, or profile pictures. We do not sell this data.',
+    ],
+  },
+  {
+    title: 'How to Delete This Data',
+    paragraphs: [
+      'An institute administrator can delete it in the product: CRM → Integrations → Meta → Disconnect. That deletes the Meta connection record, including both access tokens and the connected-account identifiers, from our active database immediately.',
+      'You can also email info@acadhub.com and ask us to delete it. We will do that within 30 days.',
+      'Disconnecting does not delete the Facebook Page, the Instagram account, or ads and posts already published on Meta. Those stay on Meta until the institute removes them there.',
+    ],
+  },
+  {
+    title: 'How This Data Is Stored',
+    paragraphs: [
+      'Access tokens are encrypted before they are stored and are not sent to the browser. The connection record is kept in our database. Data is transmitted over HTTPS.',
+    ],
+  },
+  {
+    title: 'Contact',
+    paragraphs: [
+      'Questions about deleting this data: info@acadhub.com.',
     ],
   },
 ];
