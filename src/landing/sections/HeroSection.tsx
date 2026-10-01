@@ -29,7 +29,7 @@ export function HeroSection() {
             {/* Frosted panel behind the text; its edges are feathered so there are no hard corners */}
             <div
               aria-hidden
-              className="absolute inset-0 -z-10 bg-white/55 backdrop-blur-[2px] max-[639px]:-inset-x-3"
+              className="absolute inset-0 -z-10 bg-white/25 backdrop-blur-[1px] max-[639px]:-inset-x-3"
               style={{
                 WebkitMaskImage:
                   'linear-gradient(to right, transparent, #000 4%, #000 96%, transparent), linear-gradient(to bottom, transparent, #000 8%, #000 92%, transparent)',
