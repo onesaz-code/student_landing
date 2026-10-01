@@ -1,0 +1,157 @@
+/*
+ * ONESAZ landing page — design tokens and base styles.
+ * Scoped to `.lp` (the landing root) so the existing app styles are untouched.
+ */
+@import url('https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap');
+
+.lp {
+  /* Brand */
+  --brand: #2447d1;
+  --brand-hover: #1a36a8;
+  --brand-tint: #eef2fd;
+  --accent: #e0a030;
+
+  /* Ink */
+  --ink-900: #0f1729;
+  --ink-600: #3f4758;
+  --ink-400: #7c879b;
+
+  /* Lines and surfaces */
+  --line: #e6e9f0;
+  --surface: #ffffff;
+  --surface-alt: #f5f7fb;
+  --surface-dark: #0b1426;
+  --surface-footer: #0e1116;
+
+  /* Status */
+  --success: #1f9d63;
+  --danger: #b42318;
+
+  /* Layout */
+  --header-h: 72px;
+  --content-max: 1160px;
+  --gutter: 32px;
+
+  --font-display: 'Schibsted Grotesk', system-ui, sans-serif;
+  --font-body: 'Geist', system-ui, -apple-system, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, monospace;
+
+  font-family: var(--font-body);
+  color: var(--ink-900);
+  background: var(--surface);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+@media (max-width: 639px) {
+  .lp { --gutter: 16px; }
+}
+
+.lp *, .lp *::before, .lp *::after { box-sizing: border-box; }
+/* :where() keeps this at zero specificity so Tailwind colour classes on links still win. */
+:where(.lp) a { color: inherit; text-decoration: none; }
+.lp button { font-family: inherit; }
+.lp h1, .lp h2, .lp h3 { text-wrap: balance; }
+.lp p { text-wrap: pretty; }
+
+/* Focus ring for every interactive element */
+.lp :focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* Page container: content capped at 1160 px with side gutters */
+.lp-container {
+  width: 100%;
+  max-width: calc(var(--content-max) + var(--gutter) * 2);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+/* Type styles */
+.lp-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--brand);
+}
+.lp-display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(40px, 4.8vw, 68px);
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+}
+.lp-h1 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(34px, 4vw, 52px);
+  line-height: 1.06;
+  letter-spacing: -0.035em;
+}
+.lp-h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(30px, 3.4vw, 44px);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+}
+.lp-lead {
+  font-size: clamp(16px, 1.3vw, 18px);
+  line-height: 1.6;
+  color: var(--ink-600);
+}
+
+/* Buttons */
+.lp .lp-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 48px;
+  padding: 0 22px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background-color 150ms, color 150ms, border-color 150ms, transform 150ms;
+  white-space: nowrap;
+}
+.lp .lp-btn-sm { height: 40px; padding: 0 18px; font-size: 14px; }
+.lp .lp-btn-primary { background: var(--brand); color: #fff; }
+.lp .lp-btn-primary:hover { background: var(--brand-hover); }
+.lp .lp-btn-secondary { background: #fff; color: var(--ink-900); border-color: #d9dce3; }
+.lp .lp-btn-secondary:hover { border-color: var(--ink-400); }
+.lp .lp-btn-on-dark { background: #fff; color: #1b2f7a; font-weight: 600; }
+.lp .lp-btn-on-dark:hover { background: #eef2fd; }
+.lp .lp-btn-ghost-dark { background: transparent; color: #fff; border-color: rgba(255, 255, 255, 0.35); }
+.lp .lp-btn-ghost-dark:hover { border-color: #fff; }
+
+/* Sections */
+.lp-section { padding-block: 112px; }
+.lp-section-alt { background: var(--surface-alt); }
+@media (max-width: 899px) { .lp-section { padding-block: 80px; } }
+@media (max-width: 639px) { .lp-section { padding-block: 64px; } }
+
+/* Anchor targets clear the sticky header */
+.lp [id] { scroll-margin-top: calc(var(--header-h) + 8px); }
+
+/* Mega menu panel motion */
+@keyframes lp-menu-in {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: none; }
+}
+.lp-menu-in { animation: lp-menu-in 180ms ease-out; }
+
+@media (prefers-reduced-motion: reduce) {
+  .lp *, .lp *::before, .lp *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
