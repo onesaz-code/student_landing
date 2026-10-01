@@ -55,7 +55,7 @@ export function ProductTour() {
   }
 
   return (
-    <div id="product-tour" className="mt-24 flex w-full flex-col items-center gap-7 text-left max-[639px]:mt-16">
+    <div id="product-tour" className="mt-16 flex w-full flex-col items-center gap-7 text-left max-[639px]:mt-12">
       <div className="flex flex-col items-center gap-2.5 text-center">
         <span className="lp-eyebrow">See it in action</span>
         <h2 className="font-[family-name:var(--font-display)] text-[clamp(24px,2.6vw,34px)] font-semibold tracking-[-0.02em] text-[color:var(--ink-900)]">

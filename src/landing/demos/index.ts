@@ -15,4 +15,5 @@ export const DEMOS: Partial<Record<ProductSlug, DemoComponent>> = {
   crm: React.lazy(() => import('./CrmDemo')),
   'descriptive-evaluation': React.lazy(() => import('./DescriptiveEvaluationDemo')),
   'question-bank': React.lazy(() => import('./QuestionBankDemo')),
+  attendance: React.lazy(() => import('./AttendanceDemo')),
 }
