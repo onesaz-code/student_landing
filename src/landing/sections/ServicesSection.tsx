@@ -1,9 +1,9 @@
 import { SERVICE_CARDS } from '../content/home'
 
 /** "More than software": the six services every client gets. */
-export function ServicesSection() {
+export function ServicesSection({ id = 'services' }: { id?: string }) {
   return (
-    <section id="services" className="lp-section">
+    <section id={id} className="lp-section">
       <div className="lp-container flex flex-col gap-12">
         <div className="flex flex-wrap items-end justify-between gap-x-16 gap-y-6">
           <div className="flex max-w-[640px] flex-col gap-4">

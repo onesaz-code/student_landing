@@ -7,11 +7,11 @@ import { TESTIMONIAL_VIDEO } from '../content/home'
  * "Trusted by education leaders": a poster in the design's style; pressing play
  * swaps in the real testimonial video with native controls.
  */
-export function TestimonialsSection() {
+export function TestimonialsSection({ id = 'testimonials' }: { id?: string }) {
   const [playing, setPlaying] = React.useState(false)
 
   return (
-    <section id="testimonials" className="lp-section">
+    <section id={id} className="lp-section">
       <div className="lp-container flex flex-col items-center gap-14 max-[639px]:gap-10">
         <SectionHeader
           eyebrow="Testimonials"

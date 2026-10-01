@@ -106,7 +106,7 @@ export function MobileMenu({ open, onClose }: { open: boolean; onClose: () => vo
                         onClick={onClose}
                         className="flex items-center gap-2.5 rounded-md px-2 py-2.5 text-[15px] text-[color:var(--ink-600)] hover:bg-[color:var(--surface-alt)]"
                       >
-                        {l.dot && <span className="h-2 w-2 shrink-0 rounded-full" style={{ background: l.dot }} />}
+                        {l.icon && <l.icon size={16} strokeWidth={1.75} aria-hidden className="shrink-0" style={{ color: l.color }} />}
                         {l.label}
                       </Link>
                     ))}

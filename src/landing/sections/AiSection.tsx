@@ -12,9 +12,9 @@ const ICONS: Record<(typeof AI_CARDS)[number]['key'], LucideIcon> = {
 }
 
 /** "AI that is already doing the work": four AI capabilities, each linking to its product. */
-export function AiSection() {
+export function AiSection({ id = 'ai' }: { id?: string }) {
   return (
-    <section id="ai" className="lp-section">
+    <section id={id} className="lp-section">
       <div className="lp-container flex flex-col items-center gap-12">
         <SectionHeader
           eyebrow="ONESAZ AI"

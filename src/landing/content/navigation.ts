@@ -1,10 +1,14 @@
+import type { LucideIcon } from 'lucide-react'
+import { PLATFORM_FEATURE_ICONS, PRODUCT_ICONS, ROLE_ICONS } from '../components/productIcons'
 import { FEATURES, PRODUCTS, RESOURCES, SOLUTIONS, productPath, type ProductSlug } from './names'
 
 export interface NavLink {
   label: string
   to: string
-  /** Product colour dot shown before the label. */
-  dot?: string
+  /** Flat icon shown before the label (products and platform features). */
+  icon?: LucideIcon
+  /** Icon colour (the product's colour). */
+  color?: string
   description?: string
 }
 
@@ -30,9 +34,17 @@ export interface NavMenu {
   promos?: NavPromo[]
 }
 
+/** Icon colours for platform features (they have no product colour of their own). */
+const FEATURE_COLORS = {
+  adaptive: '#E0A030',
+  payments: '#CA8A04',
+  sms: '#25A35A',
+  app: '#475569',
+} as const
+
 const product = (slug: ProductSlug): NavLink => {
   const p = PRODUCTS.find((x) => x.slug === slug)!
-  return { label: p.name, to: productPath(slug), dot: p.color }
+  return { label: p.name, to: productPath(slug), icon: PRODUCT_ICONS[slug], color: p.color }
 }
 
 export const MENUS: NavMenu[] = [
@@ -44,7 +56,7 @@ export const MENUS: NavMenu[] = [
       {
         title: 'Company',
         links: [
-          { label: 'About Acadhub', to: '/about' },
+          { label: 'About ONESAZ', to: '/about' },
           { label: 'Why ONESAZ', to: '/about#why-onesaz' },
           { label: 'Services', to: '/about#services' },
         ],
@@ -80,7 +92,7 @@ export const MENUS: NavMenu[] = [
           product('attendance'),
           product('question-bank'),
           product('ai-tutor'),
-          { label: FEATURES.adaptive, to: productPath('ai-tutor') },
+          { label: FEATURES.adaptive, to: productPath('ai-tutor'), icon: PLATFORM_FEATURE_ICONS.adaptive, color: FEATURE_COLORS.adaptive },
         ],
       },
       {
@@ -92,7 +104,7 @@ export const MENUS: NavMenu[] = [
           product('descriptive-evaluation'),
           product('erp'),
           product('crm'),
-          { label: FEATURES.payments, to: productPath('erp') },
+          { label: FEATURES.payments, to: productPath('erp'), icon: PLATFORM_FEATURE_ICONS.payments, color: FEATURE_COLORS.payments },
         ],
       },
       {
@@ -103,8 +115,8 @@ export const MENUS: NavMenu[] = [
           product('mdm'),
           product('ai-calling-agent'),
           product('video-calling'),
-          { label: FEATURES.sms, to: '/resources#platform-modules' },
-          { label: FEATURES.app, to: '/resources#platform-modules' },
+          { label: FEATURES.sms, to: '/resources#platform-modules', icon: PLATFORM_FEATURE_ICONS.sms, color: FEATURE_COLORS.sms },
+          { label: FEATURES.app, to: '/resources#platform-modules', icon: PLATFORM_FEATURE_ICONS.app, color: FEATURE_COLORS.app },
         ],
       },
     ],
@@ -122,16 +134,16 @@ export const MENUS: NavMenu[] = [
       {
         title: 'By Role',
         links: [
-          { label: 'Management & Owners', to: '/solutions#roles' },
-          { label: 'Principals', to: '/solutions#roles' },
-          { label: 'Teachers', to: '/solutions#roles' },
-          { label: 'Parents & Students', to: '/solutions#roles' },
+          { label: 'Management & Owners', to: '/solutions#roles', icon: ROLE_ICONS.management, color: 'var(--brand)' },
+          { label: 'Principals', to: '/solutions#roles', icon: ROLE_ICONS.principals, color: 'var(--brand)' },
+          { label: 'Teachers', to: '/solutions#roles', icon: ROLE_ICONS.teachers, color: 'var(--brand)' },
+          { label: 'Parents & Students', to: '/solutions#roles', icon: ROLE_ICONS.parentsStudents, color: 'var(--brand)' },
         ],
       },
       {
         title: 'By Product',
         // Tight column: short names, per the naming standard.
-        links: PRODUCTS.map((p) => ({ label: p.short, to: productPath(p.slug), dot: p.color })),
+        links: PRODUCTS.map((p) => ({ label: p.short, to: productPath(p.slug), icon: PRODUCT_ICONS[p.slug], color: p.color })),
       },
       {
         title: 'Services',
@@ -194,7 +206,7 @@ export const FOOTER_COLUMNS: { title: string; links: NavLink[] }[] = [
     title: 'Administration & Connect',
     links: [
       ...(['erp', 'crm', 'mdm', 'ai-calling-agent', 'video-calling'] as ProductSlug[]).map(product),
-      { label: FEATURES.app, to: '/resources#platform-modules' },
+      { label: FEATURES.app, to: '/resources#platform-modules', icon: PLATFORM_FEATURE_ICONS.app, color: FEATURE_COLORS.app },
     ],
   },
   {
@@ -212,7 +224,7 @@ export const FOOTER_COLUMNS: { title: string; links: NavLink[] }[] = [
   {
     title: 'Company',
     links: [
-      { label: 'About Acadhub', to: '/about' },
+      { label: 'About ONESAZ', to: '/about' },
       { label: 'Why ONESAZ', to: '/about#why-onesaz' },
       { label: 'Our Clients', to: '/about#our-clients' },
       { label: 'Testimonials', to: '/about#testimonials' },

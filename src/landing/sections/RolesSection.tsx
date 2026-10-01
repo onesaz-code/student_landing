@@ -6,12 +6,12 @@ import { ROLE_VIEWS } from '../content/home'
 type RoleId = (typeof ROLE_VIEWS)[number]['id']
 
 /** "A workspace for everyone": a mock dashboard that changes with the selected role. */
-export function RolesSection() {
-  const [id, setId] = React.useState<RoleId>('principal')
-  const role = ROLE_VIEWS.find((r) => r.id === id)!
+export function RolesSection({ id = 'roles' }: { id?: string }) {
+  const [active, setActive] = React.useState<RoleId>('principal')
+  const role = ROLE_VIEWS.find((r) => r.id === active)!
 
   return (
-    <section id="roles" className="lp-section lp-section-alt">
+    <section id={id} className="lp-section lp-section-alt">
       <div className="lp-container flex flex-col items-center gap-10">
         <SectionHeader
           eyebrow="For every role"
@@ -22,15 +22,15 @@ export function RolesSection() {
         <Segmented
           label="Role"
           options={ROLE_VIEWS.map((r) => ({ id: r.id, label: r.label }))}
-          value={id}
-          onChange={setId}
+          value={active}
+          onChange={setActive}
           controls="roles-panel"
         />
 
         <div
           id="roles-panel"
           role="tabpanel"
-          key={id}
+          key={active}
           className="lp-fade flex w-full max-w-[1000px] flex-col gap-6 rounded-2xl border border-[#E1E4EA] bg-white p-8 shadow-[0_32px_64px_-32px_rgba(15,23,41,.22)] max-[639px]:p-5"
         >
           <div className="flex items-center justify-between gap-4">

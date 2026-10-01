@@ -1,17 +1,19 @@
 import { Link } from 'react-router-dom'
 import { STEPS } from '../content/home'
+import { useDemoPath } from '../components/useDemoPath'
 
 /** "How we take your institution live": four numbered steps on a timeline. */
-export function HowItWorksSection() {
+export function HowItWorksSection({ id = 'how-it-works' }: { id?: string }) {
+  const demoPath = useDemoPath()
   return (
-    <section id="how-it-works" className="lp-section lp-section-alt">
+    <section id={id} className="lp-section lp-section-alt">
       <div className="lp-container flex flex-col gap-16 max-[639px]:gap-10">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div className="flex max-w-[640px] flex-col gap-4">
             <span className="lp-eyebrow">Working with ONESAZ</span>
             <h2 className="lp-h2">How we take your institution live.</h2>
           </div>
-          <Link to="/#book-a-demo" className="lp-btn lp-btn-secondary">
+          <Link to={demoPath} className="lp-btn lp-btn-secondary">
             Plan your rollout
           </Link>
         </div>

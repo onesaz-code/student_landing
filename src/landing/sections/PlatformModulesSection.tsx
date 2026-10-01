@@ -42,7 +42,7 @@ const SPOKE = 278
  * "Inside the platform": twelve modules on a ring around a centre card.
  * Click or arrow keys select a module. Under 760 px the ring becomes a two-column list.
  */
-export function PlatformModulesSection() {
+export function PlatformModulesSection({ id = 'platform-modules' }: { id?: string }) {
   const [active, setActive] = React.useState(1)
   const nodeRefs = React.useRef<(HTMLButtonElement | null)[]>([])
   const n = MODULES.length
@@ -78,7 +78,7 @@ export function PlatformModulesSection() {
   )
 
   return (
-    <section id="platform-modules" className="lp-section lp-section-alt">
+    <section id={id} className="lp-section lp-section-alt">
       <div className="lp-container flex flex-col items-center gap-6">
         <SectionHeader
           eyebrow="Inside the platform"

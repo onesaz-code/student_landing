@@ -5,6 +5,7 @@ import { Segmented } from '../components/Segmented'
 import { SectionHeader } from '../components/SectionHeader'
 import { SOLUTION_DETAILS } from '../content/home'
 import { CTA, SOLUTIONS, productBySlug, productPath } from '../content/names'
+import { useDemoPath } from '../components/useDemoPath'
 
 type SolutionId = (typeof SOLUTIONS)[number]['id']
 
@@ -88,28 +89,29 @@ function SolutionVisual({ id }: { id: SolutionId }) {
 }
 
 /** "Solutions for every kind of institution": switch between institution types. */
-export function SolutionsSection() {
-  const [id, setId] = React.useState<SolutionId>('schools')
-  const d = SOLUTION_DETAILS[id]
-  const label = SOLUTIONS.find((s) => s.id === id)!.name
+export function SolutionsSection({ id = 'solutions' }: { id?: string }) {
+  const demoPath = useDemoPath()
+  const [active, setActive] = React.useState<SolutionId>('schools')
+  const d = SOLUTION_DETAILS[active]
+  const label = SOLUTIONS.find((s) => s.id === active)!.name
 
   return (
-    <section id="solutions" className="lp-section">
+    <section id={id} className="lp-section">
       <div className="lp-container flex flex-col items-center gap-10">
         <SectionHeader eyebrow="Who we serve" title="Solutions for every kind of institution." />
 
         <Segmented
           label="Institution type"
           options={SOLUTIONS.map((s) => ({ id: s.id, label: s.name }))}
-          value={id}
-          onChange={setId}
+          value={active}
+          onChange={setActive}
           controls="solutions-panel"
         />
 
         <div
           id="solutions-panel"
           role="tabpanel"
-          key={id}
+          key={active}
           className="lp-fade flex w-full overflow-hidden rounded-2xl border border-[color:var(--line)] bg-white max-[899px]:flex-col"
         >
           <div className="flex flex-grow flex-col gap-[18px] p-12 max-[899px]:p-8 max-[639px]:p-6">
@@ -145,7 +147,7 @@ export function SolutionsSection() {
                 })}
               </div>
             </div>
-            <Link to="/#book-a-demo" className="lp-btn lp-btn-primary mt-3 self-start">
+            <Link to={demoPath} className="lp-btn lp-btn-primary mt-3 self-start">
               {CTA.demo}
             </Link>
           </div>
@@ -153,7 +155,7 @@ export function SolutionsSection() {
             aria-hidden
             className="flex min-w-[340px] flex-[0_1_420px] items-center justify-center border-l border-[#EEF0F3] bg-[#F6F7F9] p-8 max-[899px]:min-w-0 max-[899px]:flex-auto max-[899px]:border-l-0 max-[899px]:border-t max-[639px]:px-4"
           >
-            <SolutionVisual id={id} />
+            <SolutionVisual id={active} />
           </div>
         </div>
       </div>

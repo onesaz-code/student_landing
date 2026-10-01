@@ -3,11 +3,13 @@ import { ArrowRight, Check } from 'lucide-react'
 import { SectionHeader } from '../components/SectionHeader'
 import { PRODUCT_FAMILIES } from '../content/home'
 import { productPath } from '../content/names'
+import { useDemoPath } from '../components/useDemoPath'
 
 /** "Everything your institution needs": six product family cards, each linking to its product page. */
-export function ProductsSection() {
+export function ProductsSection({ id = 'products' }: { id?: string }) {
+  const demoPath = useDemoPath()
   return (
-    <section id="products" className="lp-section">
+    <section id={id} className="lp-section">
       <div className="lp-container flex flex-col items-center gap-14 max-[639px]:gap-10">
         <SectionHeader
           eyebrow="Our products"
@@ -71,7 +73,7 @@ export function ProductsSection() {
             <b className="font-semibold text-white">Start with the product you need.</b> Add the others as your institution grows.
           </p>
           <Link
-            to="/#book-a-demo"
+            to={demoPath}
             className="inline-flex h-[42px] items-center rounded-lg bg-white px-[18px] text-[14px] font-medium text-[color:var(--ink-900)] transition-colors hover:bg-[#EEF2FD]"
           >
             Talk to our team

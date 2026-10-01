@@ -4,9 +4,9 @@ import { SectionHeader } from '../components/SectionHeader'
 import { TUTORIALS } from '../content/home'
 
 /** "Resources & Tutorials": three video tutorials (open on YouTube). */
-export function TutorialsSection() {
+export function TutorialsSection({ id = 'tutorials', showAllLink = true }: { id?: string; showAllLink?: boolean }) {
   return (
-    <section id="tutorials" className="lp-section lp-section-alt">
+    <section id={id} className="lp-section lp-section-alt">
       <div className="lp-container flex flex-col items-center gap-14 max-[639px]:gap-10">
         <SectionHeader
           eyebrow="Resources"
@@ -63,10 +63,12 @@ export function TutorialsSection() {
           ))}
         </div>
 
-        <Link to="/resources#tutorials" className="lp-btn lp-btn-primary">
-          View all tutorials
-          <ArrowRight size={16} />
-        </Link>
+        {showAllLink && (
+          <Link to="/resources#tutorials" className="lp-btn lp-btn-primary">
+            View all tutorials
+            <ArrowRight size={16} />
+          </Link>
+        )}
       </div>
     </section>
   )

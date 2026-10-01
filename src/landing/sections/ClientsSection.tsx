@@ -37,10 +37,10 @@ function LogoCard({ client, hidden }: { client: Client; hidden: boolean }) {
  * The rows never pause on hover, click or tap. With reduced motion they stop and scroll by hand.
  * Logos load eagerly: lazy loading misses images that move into view by transform, leaving empty cards.
  */
-export function ClientsSection() {
+export function ClientsSection({ id = 'clients' }: { id?: string }) {
   return (
     <section
-      id="clients"
+      id={id}
       className="flex flex-col items-center gap-11 overflow-hidden bg-[color:var(--surface-alt)] pb-[84px] pt-[76px] max-[639px]:gap-8 max-[639px]:pb-16 max-[639px]:pt-14"
     >
       <h2 className="mx-6 border-b-[3px] border-[color:var(--ink-900)] pb-1.5 text-center text-[clamp(20px,2.2vw,30px)] font-bold uppercase leading-[1.3] tracking-[.14em] text-[color:var(--ink-900)]">

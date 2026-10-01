@@ -3,9 +3,9 @@ import { DemoForm } from '../components/DemoForm'
 import { BRAND } from '../content/names'
 
 /** Closing call to action: dark panel with the demo form. */
-export function BookDemoSection() {
+export function BookDemoSection({ id = 'book-a-demo' }: { id?: string }) {
   return (
-    <section id="book-a-demo" className="bg-[color:var(--surface-alt)] pb-28 pt-[104px] max-[899px]:py-20 max-[639px]:py-16">
+    <section id={id} className="bg-[color:var(--surface-alt)] pb-28 pt-[104px] max-[899px]:py-20 max-[639px]:py-16">
       <div className="lp-container">
         <div className="relative flex items-center justify-between gap-16 overflow-hidden rounded-[20px] bg-[color:var(--ink-900)] p-20 max-[999px]:flex-col max-[999px]:items-stretch max-[999px]:gap-10 max-[999px]:p-12 max-[639px]:rounded-2xl max-[639px]:p-5 max-[639px]:pt-10">
           <div

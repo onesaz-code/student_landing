@@ -1,35 +1,10 @@
 import * as React from 'react'
 import { Link } from 'react-router-dom'
-import {
-  ArrowRight,
-  BookOpen,
-  Database,
-  FileCheck2,
-  GraduationCap,
-  Landmark,
-  PenLine,
-  Phone,
-  TabletSmartphone,
-  Users,
-  Video,
-  type LucideIcon,
-} from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import { CTA, productBySlug, productPath, type ProductSlug } from '../content/names'
 import { TOUR } from '../content/tour'
 import { DEMOS } from '../demos'
-
-const ICONS: Partial<Record<ProductSlug, LucideIcon>> = {
-  erp: Landmark,
-  lms: BookOpen,
-  'omr-scanning': FileCheck2,
-  mdm: TabletSmartphone,
-  'ai-calling-agent': Phone,
-  'video-calling': Video,
-  'ai-tutor': GraduationCap,
-  crm: Users,
-  'descriptive-evaluation': PenLine,
-  'question-bank': Database,
-}
+import { PRODUCT_ICONS } from '../components/productIcons'
 
 /**
  * "See it in action": one tab per product (10, equal size), each showing the
@@ -71,7 +46,7 @@ export function ProductTour() {
       >
         {TOUR.map((t, i) => {
           const p = productBySlug(t.slug)!
-          const Icon = ICONS[t.slug] ?? BookOpen
+          const Icon = PRODUCT_ICONS[t.slug]
           const on = t.slug === active
           return (
             <button

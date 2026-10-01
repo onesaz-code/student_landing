@@ -18,6 +18,7 @@ import {
 import { SectionHeader } from '../components/SectionHeader'
 import { SEPARATE_TOOLS, WITHOUT_ONESAZ, WITH_ONESAZ } from '../content/home'
 import { BRAND, CTA } from '../content/names'
+import { useDemoPath } from '../components/useDemoPath'
 
 const TOOL_ICONS: Record<(typeof SEPARATE_TOOLS)[number]['key'], LucideIcon> = {
   learning: BookOpen,
@@ -33,9 +34,10 @@ const TOOL_ICONS: Record<(typeof SEPARATE_TOOLS)[number]['key'], LucideIcon> = {
 }
 
 /** "Other companies sell you separate tools": ten vendors on the left, one ONESAZ on the right. */
-export function WhyOnesazSection() {
+export function WhyOnesazSection({ id = 'why-onesaz' }: { id?: string }) {
+  const demoPath = useDemoPath()
   return (
-    <section id="why-onesaz" className="lp-section bg-[color:var(--surface-dark)] text-white">
+    <section id={id} className="lp-section bg-[color:var(--surface-dark)] text-white">
       <div className="lp-container flex flex-col items-center gap-14 max-[639px]:gap-10">
         <SectionHeader
           onDark
@@ -141,7 +143,7 @@ export function WhyOnesazSection() {
               ))}
             </ul>
             <Link
-              to="/#book-a-demo"
+              to={demoPath}
               className="flex h-[50px] items-center justify-center gap-2 rounded-[10px] bg-white text-[15px] font-semibold text-[color:var(--brand)] transition-colors hover:bg-[#EEF2FD]"
             >
               {CTA.demo}

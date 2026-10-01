@@ -2,21 +2,23 @@ import * as React from 'react'
 import { Link } from 'react-router-dom'
 import { Minus, Plus } from 'lucide-react'
 import { FAQS } from '../content/home'
+import { useDemoPath } from '../components/useDemoPath'
 
 /** "The questions that matter": accordion, one answer open at a time. */
-export function FaqSection() {
+export function FaqSection({ id = 'faqs' }: { id?: string }) {
+  const demoPath = useDemoPath()
   const [open, setOpen] = React.useState(0)
   const baseId = React.useId()
 
   return (
-    <section id="faqs" className="lp-section">
+    <section id={id} className="lp-section">
       <div className="lp-container flex gap-24 max-[999px]:flex-col max-[999px]:gap-10">
         <div className="flex w-[380px] shrink-0 flex-col gap-4 max-[999px]:w-full max-[999px]:max-w-[640px]">
           <span className="lp-eyebrow">Questions</span>
           <h2 className="lp-h2">The questions that matter before you decide.</h2>
           <p className="lp-lead !text-[16px]">
             Every vendor shows a clean dashboard. Here is what actually sets ONESAZ apart. Have another question?{' '}
-            <Link to="/#book-a-demo" className="font-medium !text-[color:var(--brand)] hover:underline">
+            <Link to={demoPath} className="font-medium !text-[color:var(--brand)] hover:underline">
               Ask us directly.
             </Link>
           </p>

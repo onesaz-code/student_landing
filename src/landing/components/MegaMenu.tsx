@@ -29,7 +29,7 @@ function MenuLink({ link, onNavigate }: { link: NavLink; onNavigate: () => void 
       onClick={onNavigate}
       className="-mx-2 flex items-center gap-2.5 rounded-md px-2 py-2 text-[14px] text-[color:var(--ink-900)] transition-colors hover:bg-[rgba(36,71,209,0.06)] hover:text-[color:var(--brand)]"
     >
-      {link.dot && <span className="h-2 w-2 shrink-0 rounded-full" style={{ background: link.dot }} />}
+      {link.icon && <link.icon size={16} strokeWidth={1.75} aria-hidden className="shrink-0" style={{ color: link.color }} />}
       {link.label}
     </Link>
   )
