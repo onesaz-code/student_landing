@@ -604,30 +604,29 @@ export const SERVICE_CARDS = [
 
 /* ── Resources & Tutorials ───────────────────────────────── */
 
+/** The three tutorial videos from the existing site; covers are the videos' own YouTube thumbnails. */
+
 export const TUTORIALS = [
   {
-    cover: ['Settings Guide:', 'Organization & Admission Setup'],
+    thumb: 'https://img.youtube.com/vi/aTQP5eip46o/maxresdefault.jpg',
     date: 'Nov 20, 2024',
     title: 'Configure settings in ONESAZ',
     text: 'Learn how to configure the Settings section in ONESAZ, including Organization Settings and Admission Settings.',
     href: 'https://youtu.be/aTQP5eip46o',
-    art: 'settings',
   },
   {
-    cover: ['Student App &', 'Parent Login Guide'],
+    thumb: 'https://img.youtube.com/vi/tybGsgFb3DM/maxresdefault.jpg',
     date: 'Nov 18, 2024',
     title: 'Exam analysis in the student and parent app',
     text: 'Discover how students and parents can view exams and detailed exam analysis through the ONESAZ app.',
     href: 'https://youtu.be/tybGsgFb3DM',
-    art: 'app',
   },
   {
-    cover: ['Create Test Papers', 'in ONESAZ'],
+    thumb: 'https://img.youtube.com/vi/K4zNGrLcDU0/maxresdefault.jpg',
     date: 'Nov 15, 2024',
     title: 'How to create a test in ONESAZ',
     text: 'Step-by-step guide on creating tests in ONESAZ, from selecting classes to choosing questions from the question bank.',
     href: 'https://youtu.be/K4zNGrLcDU0',
-    art: 'test',
   },
 ] as const
 
