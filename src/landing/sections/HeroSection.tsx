@@ -17,14 +17,28 @@ export function HeroSection() {
       }}
     >
       {/* Intro band: campus photo in full colour, text on a frosted-glass panel */}
-      <div className="relative isolate pb-20 pt-16 max-[639px]:pb-12 max-[639px]:pt-8">
+      {/* Tall enough to show the whole photo (1456 × 735) on desktop; content centred inside */}
+      <div className="relative isolate flex min-h-[50.5vw] flex-col justify-center pb-20 pt-16 max-[899px]:min-h-0 max-[639px]:pb-12 max-[639px]:pt-8">
         <div
           aria-hidden
-          className="absolute inset-0 -z-10 bg-cover bg-center [mask-image:linear-gradient(to_bottom,#000_86%,transparent)]"
+          className="absolute inset-0 -z-10 bg-cover bg-center [mask-image:linear-gradient(to_bottom,#000_95%,transparent)]"
           style={{ backgroundImage: `url(${HERO_IMAGE})` }}
         />
         <div className="lp-container flex flex-col items-center">
-          <div className="flex w-full max-w-[1040px] flex-col items-center rounded-[24px] border border-white/70 bg-white/30 px-12 pb-12 pt-10 shadow-[0_30px_60px_-30px_rgba(15,23,41,.35)] backdrop-blur-[1px] max-[899px]:px-8 max-[639px]:rounded-[18px] max-[639px]:px-5 max-[639px]:pb-8 max-[639px]:pt-7">
+          <div className="relative flex w-full max-w-[1040px] flex-col items-center px-12 pb-12 pt-10 max-[899px]:px-8 max-[639px]:px-2 max-[639px]:pb-8 max-[639px]:pt-7">
+            {/* Frosted panel behind the text; its edges are feathered so there are no hard corners */}
+            <div
+              aria-hidden
+              className="absolute inset-0 -z-10 bg-white/55 backdrop-blur-[2px] max-[639px]:-inset-x-3"
+              style={{
+                WebkitMaskImage:
+                  'linear-gradient(to right, transparent, #000 4%, #000 96%, transparent), linear-gradient(to bottom, transparent, #000 8%, #000 92%, transparent)',
+                WebkitMaskComposite: 'source-in',
+                maskImage:
+                  'linear-gradient(to right, transparent, #000 4%, #000 96%, transparent), linear-gradient(to bottom, transparent, #000 8%, #000 92%, transparent)',
+                maskComposite: 'intersect',
+              }}
+            />
             <span className="inline-flex items-center gap-2 whitespace-nowrap rounded-full border border-[#C9D4F6] bg-white/85 px-4 py-1.5 text-[14px] font-medium text-[color:var(--brand)] max-[639px]:px-3 max-[639px]:text-[13px]">
               <span className="h-2 w-2 shrink-0 rounded-full bg-[color:var(--brand)]" />
               {/* Phones show the tagline alone so the badge stays on one line */}
@@ -51,7 +65,7 @@ export function HeroSection() {
               Management
             </h1>
 
-            <p className="mt-7 max-w-[820px] text-[clamp(16px,1.5vw,20px)] font-medium leading-relaxed text-[#1E293B] [text-shadow:0_0_14px_rgba(255,255,255,.95),0_0_4px_rgba(255,255,255,.9)] max-[639px]:mt-5">
+            <p className="mt-7 max-w-[820px] text-[clamp(16px,1.5vw,20px)] font-medium leading-relaxed text-[#0B1120] [text-shadow:0_0_14px_rgba(255,255,255,.95),0_0_4px_rgba(255,255,255,.9)] max-[639px]:mt-5">
               {BRAND.name} brings academics, administration, examinations, communication, payments and student learning together on one
               AI-powered platform. Stop paying a different vendor for every part of your institution.
             </p>
