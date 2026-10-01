@@ -1,0 +1,66 @@
+/* LMS tour demo: 12s loop (send lesson -> student tablet -> live progress -> needs help). */
+@keyframes lms-dot { 0%, 100% { opacity: 1 } 50% { opacity: .3 } }
+@keyframes lms-sb { 0%, 6.7% { transform: none } 8.3% { transform: scale(.92) } 10.0% { transform: none } 100% { transform: none } }
+@keyframes lms-st0 { 0% { opacity: 1 } 8.33% { opacity: 1 } 10.42% { opacity: 0 } 100% { opacity: 0 } }
+@keyframes lms-st1 { 0% { opacity: 0 } 10.42% { opacity: 0 } 12.50% { opacity: 1 } 16.25% { opacity: 1 } 18.33% { opacity: 0 } 100% { opacity: 0 } }
+@keyframes lms-st2 { 0% { opacity: 0 } 18.33% { opacity: 0 } 20.42% { opacity: 1 } 94.58% { opacity: 1 } 96.67% { opacity: 0 } 100% { opacity: 0 } }
+@keyframes lms-row { 0%, 8.3% { box-shadow: 0 0 0 0 rgba(36,71,209,0) } 12.5% { box-shadow: 0 0 0 5px rgba(36,71,209,.15) } 20.8%, 100% { box-shadow: 0 0 0 0 rgba(36,71,209,0) } }
+@keyframes lms-avg { 0% { opacity: 0; transform: translateY(4px) } 74.17% { opacity: 0; transform: translateY(4px) } 76.25% { opacity: 1; transform: none } 94.58% { opacity: 1; transform: none } 96.67% { opacity: 0; transform: translateY(4px) } 100% { opacity: 0 } }
+@keyframes lms-b0 { 0%, 26.7% { transform: scaleX(0) } 66.7%, 96.7% { transform: scaleX(1) } 100% { transform: scaleX(0) } }
+@keyframes lms-b0a { 0% { opacity: 1 } 65.42% { opacity: 1 } 66.67% { opacity: 0 } 100% { opacity: 0 } }
+@keyframes lms-b0b { 0% { opacity: 0 } 66.67% { opacity: 0 } 67.92% { opacity: 1 } 95.42% { opacity: 1 } 96.67% { opacity: 0 } 100% { opacity: 0 } }
+@keyframes lms-b1 { 0%, 61.7% { transform: scaleX(0) } 77.5%, 96.7% { transform: scaleX(1) } 100% { transform: scaleX(0) } }
+@keyframes lms-b1a { 0% { opacity: 1 } 76.25% { opacity: 1 } 77.50% { opacity: 0 } 100% { opacity: 0 } }
+@keyframes lms-b1b { 0% { opacity: 0 } 77.50% { opacity: 0 } 78.75% { opacity: 1 } 95.42% { opacity: 1 } 96.67% { opacity: 0 } 100% { opacity: 0 } }
+@keyframes lms-wait { 0% { opacity: 1 } 79.58% { opacity: 1 } 81.67% { opacity: 0 } 100% { opacity: 0 } }
+@keyframes lms-help { 0% { opacity: 0; transform: translateY(4px) } 81.67% { opacity: 0; transform: translateY(4px) } 83.75% { opacity: 1; transform: none } 94.58% { opacity: 1; transform: none } 96.67% { opacity: 0; transform: translateY(4px) } 100% { opacity: 0 } }
+@keyframes lms-vp { 0%, 28.3% { transform: scaleX(0) } 56.7%, 100% { transform: scaleX(1) } }
+@keyframes lms-opt { 0%, 65.8% { background: #fff; border-color: #E4E7EE } 67.5%, 100% { background: #E7F5EE; border-color: #7FCBA4 } }
+@keyframes lms-ok { 0% { opacity: 0; transform: translateY(4px) } 68.33% { opacity: 0; transform: translateY(4px) } 70.42% { opacity: 1; transform: none } 94.58% { opacity: 1; transform: none } 96.67% { opacity: 0; transform: translateY(4px) } 100% { opacity: 0 } }
+@keyframes lms-s0 { 0% { opacity: 1 } 24.17% { opacity: 1 } 26.67% { opacity: 0 } 100% { opacity: 0 } }
+@keyframes lms-s1 { 0% { opacity: 0 } 26.67% { opacity: 0 } 29.17% { opacity: 1 } 55.83% { opacity: 1 } 58.33% { opacity: 0 } 100% { opacity: 0 } }
+@keyframes lms-s2 { 0% { opacity: 0 } 58.33% { opacity: 0 } 60.83% { opacity: 1 } 94.17% { opacity: 1 } 96.67% { opacity: 0 } 100% { opacity: 0 } }
+@keyframes lms-nt { 0%, 20.0% { opacity: 0; transform: translateY(-12px) } 22.5%, 25.0% { opacity: 1; transform: none } 27.5%, 100% { opacity: 0; transform: translateY(-12px) } }
+
+.lms-root .lms-dot { animation: lms-dot 1.2s ease-in-out infinite }
+.lms-root .lms-sb { animation: lms-sb 12s ease-out infinite }
+.lms-root .lms-st0 { animation: lms-st0 12s linear infinite }
+.lms-root .lms-st1 { animation: lms-st1 12s linear infinite }
+.lms-root .lms-st2 { animation: lms-st2 12s linear infinite }
+.lms-root .lms-row { animation: lms-row 12s ease-out infinite }
+.lms-root .lms-avg { animation: lms-avg 12s linear infinite }
+.lms-root .lms-b0 { animation: lms-b0 12s ease-out infinite }
+.lms-root .lms-b0a { animation: lms-b0a 12s linear infinite }
+.lms-root .lms-b0b { animation: lms-b0b 12s linear infinite }
+.lms-root .lms-b1 { animation: lms-b1 12s ease-out infinite }
+.lms-root .lms-b1a { animation: lms-b1a 12s linear infinite }
+.lms-root .lms-b1b { animation: lms-b1b 12s linear infinite }
+.lms-root .lms-wait { animation: lms-wait 12s linear infinite }
+.lms-root .lms-help { animation: lms-help 12s linear infinite }
+.lms-root .lms-vp { animation: lms-vp 12s linear infinite }
+.lms-root .lms-opt { animation: lms-opt 12s linear infinite }
+.lms-root .lms-ok { animation: lms-ok 12s linear infinite }
+.lms-root .lms-s0 { animation: lms-s0 12s linear infinite }
+.lms-root .lms-s1 { animation: lms-s1 12s linear infinite }
+.lms-root .lms-s2 { animation: lms-s2 12s linear infinite }
+.lms-root .lms-nt { animation: lms-nt 12s ease-out infinite }
+
+/* Design: .mdmgrid collapses and the tablet (.mtab) moves first below 760px. */
+@media (max-width: 759px) {
+  .lms-root .lms-grid { grid-template-columns: minmax(0, 1fr) }
+  .lms-root .lms-tab { order: -1 }
+}
+
+/* Static frame = end state: delivered, bars full, quiz answered, help list shown. */
+@media (prefers-reduced-motion: reduce) {
+  .lms-root * { animation: none !important; transition: none !important; }
+  .lms-root .lms-st0,
+  .lms-root .lms-st1,
+  .lms-root .lms-b0a,
+  .lms-root .lms-b1a,
+  .lms-root .lms-wait,
+  .lms-root .lms-s0,
+  .lms-root .lms-s1,
+  .lms-root .lms-nt { opacity: 0 }
+  .lms-root .lms-opt { background: #E7F5EE; border-color: #7FCBA4 }
+}

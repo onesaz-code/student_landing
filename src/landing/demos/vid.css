@@ -1,0 +1,40 @@
+/* Video Calling demo — ported from the design's .cap / .pip / .mainglow / .livedot rules */
+@keyframes vid-cap1 { 0%, 0.00% { opacity: 0; transform: translateY(6px); } 1.5%, 23.5% { opacity: 1; transform: none; } 25.0%, 100% { opacity: 0; transform: translateY(-4px); } }
+@keyframes vid-cap2 { 0%, 24.99% { opacity: 0; transform: translateY(6px); } 26.5%, 48.5% { opacity: 1; transform: none; } 50.0%, 100% { opacity: 0; transform: translateY(-4px); } }
+@keyframes vid-cap3 { 0%, 49.99% { opacity: 0; transform: translateY(6px); } 51.5%, 73.5% { opacity: 1; transform: none; } 75.0%, 100% { opacity: 0; transform: translateY(-4px); } }
+@keyframes vid-cap4 { 0%, 74.99% { opacity: 0; transform: translateY(6px); } 76.5%, 98.5% { opacity: 1; transform: none; } 100% { opacity: 0; transform: translateY(-4px); } }
+@keyframes vid-pipglow {
+  0%, 0.0% { box-shadow: none; }
+  1.5%, 23.5% { box-shadow: 0 0 0 3px #34D399; }
+  25.0%, 50.0% { box-shadow: none; }
+  51.5%, 73.5% { box-shadow: 0 0 0 3px #34D399; }
+  75.0%, 100% { box-shadow: none; }
+}
+@keyframes vid-mainglow {
+  0%, 25.0% { box-shadow: none; }
+  26.5%, 48.5% { box-shadow: inset 0 0 0 3px #34D399; }
+  50.0%, 75.0% { box-shadow: none; }
+  76.5%, 98.5% { box-shadow: inset 0 0 0 3px #34D399; }
+  100% { box-shadow: none; }
+}
+@keyframes vid-livedot { 0%, 100% { opacity: 1; } 50% { opacity: .3; } }
+
+.vid-root .vid-cap { opacity: 0; }
+.vid-root .vid-cap1 { animation: vid-cap1 12s linear infinite; }
+.vid-root .vid-cap2 { animation: vid-cap2 12s linear infinite; }
+.vid-root .vid-cap3 { animation: vid-cap3 12s linear infinite; }
+.vid-root .vid-cap4 { animation: vid-cap4 12s linear infinite; }
+.vid-root .vid-pip { animation: vid-pipglow 12s linear infinite; }
+.vid-root .vid-mainglow { animation: vid-mainglow 12s linear infinite; }
+.vid-root .vid-livedot { animation: vid-livedot 1.2s ease-in-out infinite; }
+
+/* Phones: stack the two columns */
+@media (max-width: 640px) {
+  .vid-root .vid-grid { grid-template-columns: minmax(0, 1fr) !important; }
+}
+
+/* Reduced motion: show one static caption (Ananya's reply) */
+@media (prefers-reduced-motion: reduce) {
+  .vid-root * { animation: none !important; transition: none !important; }
+  .vid-root .vid-cap2 { opacity: 1; }
+}

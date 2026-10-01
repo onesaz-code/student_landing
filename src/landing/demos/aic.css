@@ -1,0 +1,80 @@
+/* AI Calling demo — ported from the design's AICALL block (12 s loop) */
+@keyframes aic-c0 { 0% { opacity: 0; transform: translateY(5px); } 15.00% { opacity: 0; transform: translateY(5px); } 17.08% { opacity: 1; transform: none; } 32.92% { opacity: 1; transform: none; } 35.00% { opacity: 0; } 100% { opacity: 0; } }
+@keyframes aic-c1 { 0% { opacity: 0; transform: translateY(5px); } 35.83% { opacity: 0; transform: translateY(5px); } 37.92% { opacity: 1; transform: none; } 47.92% { opacity: 1; transform: none; } 50.00% { opacity: 0; } 100% { opacity: 0; } }
+@keyframes aic-c2 { 0% { opacity: 0; transform: translateY(5px); } 50.83% { opacity: 0; transform: translateY(5px); } 52.92% { opacity: 1; transform: none; } 67.92% { opacity: 1; transform: none; } 70.00% { opacity: 0; } 100% { opacity: 0; } }
+@keyframes aic-c3 { 0% { opacity: 0; transform: translateY(5px); } 70.83% { opacity: 0; transform: translateY(5px); } 72.92% { opacity: 1; transform: none; } 77.92% { opacity: 1; transform: none; } 80.00% { opacity: 0; } 100% { opacity: 0; } }
+@keyframes aic-st0 { 0% { opacity: 1; } 11.25% { opacity: 1; } 13.33% { opacity: 0; } 100% { opacity: 0; } }
+@keyframes aic-st1 { 0% { opacity: 0; } 13.33% { opacity: 0; } 15.42% { opacity: 1; } 79.58% { opacity: 1; } 81.67% { opacity: 0; } 100% { opacity: 0; } }
+@keyframes aic-st2 { 0% { opacity: 0; } 81.67% { opacity: 0; } 83.75% { opacity: 1; } 96.25% { opacity: 1; } 98.33% { opacity: 0; } 100% { opacity: 0; } }
+@keyframes aic-glow { 0% { opacity: 1; } 11.67% { opacity: 1; } 13.33% { opacity: 0; } 15.00% { opacity: 0; } 16.67% { opacity: 1; } 33.33% { opacity: 1; } 35.00% { opacity: 0; } 50.83% { opacity: 0; } 52.50% { opacity: 1; } 68.33% { opacity: 1; } 70.00% { opacity: 0; } 100% { opacity: 0; } }
+@keyframes aic-bars { 0% { opacity: 0; } 14.17% { opacity: 0; } 16.25% { opacity: 1; } 79.58% { opacity: 1; } 81.67% { opacity: 0; } 100% { opacity: 0; } }
+@keyframes aic-pulse { 0% { transform: scale(1); opacity: .9; } 100% { transform: scale(1.7); opacity: 0; } }
+@keyframes aic-q0 { 0% { opacity: 1; } 11.25% { opacity: 1; } 13.33% { opacity: 0; } 100% { opacity: 0; } }
+@keyframes aic-q1 { 0% { opacity: 0; } 13.33% { opacity: 0; } 15.42% { opacity: 1; } 79.58% { opacity: 1; } 81.67% { opacity: 0; } 100% { opacity: 0; } }
+@keyframes aic-q2 { 0% { opacity: 0; } 81.67% { opacity: 0; } 83.75% { opacity: 1; } 100% { opacity: 1; } }
+@keyframes aic-q3 { 0% { opacity: 1; } 86.25% { opacity: 1; } 88.33% { opacity: 0; } 100% { opacity: 0; } }
+@keyframes aic-q4 { 0% { opacity: 0; } 88.33% { opacity: 0; } 90.42% { opacity: 1; } 100% { opacity: 1; } }
+@keyframes aic-hl { 0%, 81.7% { background: #F7F4FF; } 85.0%, 100% { background: #fff; } }
+@keyframes aic-s3 { 0% { opacity: 0; transform: translateY(5px); } 83.33% { opacity: 0; transform: translateY(5px); } 85.83% { opacity: 1; transform: none; } 95.42% { opacity: 1; transform: none; } 97.92% { opacity: 0; } 100% { opacity: 0; } }
+@keyframes aic-s4 { 0% { opacity: 0; transform: translateY(5px); } 85.83% { opacity: 0; transform: translateY(5px); } 88.33% { opacity: 1; transform: none; } 95.42% { opacity: 1; transform: none; } 97.92% { opacity: 0; } 100% { opacity: 0; } }
+@keyframes aic-s5 { 0% { opacity: 0; transform: translateY(5px); } 88.33% { opacity: 0; transform: translateY(5px); } 90.83% { opacity: 1; transform: none; } 95.42% { opacity: 1; transform: none; } 97.92% { opacity: 0; } 100% { opacity: 0; } }
+@keyframes aic-log { 0% { opacity: 0; } 90.83% { opacity: 0; } 93.33% { opacity: 1; } 95.42% { opacity: 1; } 97.92% { opacity: 0; } 100% { opacity: 0; } }
+@keyframes aic-wait { 0% { opacity: 1; } 80.42% { opacity: 1; } 82.50% { opacity: 0; } 100% { opacity: 0; } }
+@keyframes aic-wave { 0%, 100% { transform: scaleY(.5); } 50% { transform: scaleY(1.2); } }
+@keyframes aic-livedot { 0%, 100% { opacity: 1; } 50% { opacity: .3; } }
+
+.aic-root .aic-c0 { animation: aic-c0 12s linear infinite; }
+.aic-root .aic-c1 { animation: aic-c1 12s linear infinite; }
+.aic-root .aic-c2 { animation: aic-c2 12s linear infinite; }
+.aic-root .aic-c3 { animation: aic-c3 12s linear infinite; }
+.aic-root .aic-st0 { animation: aic-st0 12s linear infinite; }
+.aic-root .aic-st1 { animation: aic-st1 12s linear infinite; }
+.aic-root .aic-st2 { animation: aic-st2 12s linear infinite; }
+.aic-root .aic-glow { animation: aic-glow 12s linear infinite; }
+.aic-root .aic-bars { animation: aic-bars 12s linear infinite; }
+.aic-root .aic-pulse { animation: aic-pulse 1.6s ease-out infinite; }
+.aic-root .aic-q0 { animation: aic-q0 12s linear infinite; }
+.aic-root .aic-q1 { animation: aic-q1 12s linear infinite; }
+.aic-root .aic-q2 { animation: aic-q2 12s linear infinite; }
+.aic-root .aic-q3 { animation: aic-q3 12s linear infinite; }
+.aic-root .aic-q4 { animation: aic-q4 12s linear infinite; }
+.aic-root .aic-hl { animation: aic-hl 12s linear infinite; }
+.aic-root .aic-s3 { animation: aic-s3 12s linear infinite; }
+.aic-root .aic-s4 { animation: aic-s4 12s linear infinite; }
+.aic-root .aic-s5 { animation: aic-s5 12s linear infinite; }
+.aic-root .aic-log { animation: aic-log 12s linear infinite; }
+.aic-root .aic-wait { animation: aic-wait 12s linear infinite; }
+.aic-root .aic-wave { animation: aic-wave 1s ease-in-out infinite; transform-origin: center; }
+.aic-root .aic-livedot { animation: aic-livedot 1.2s ease-in-out infinite; }
+
+/* Phones: stack phone above the call list, drop avatars/meta and the summary checklist */
+@media (max-width: 640px) {
+  .aic-root .aic-grid { grid-template-columns: minmax(0, 1fr) !important; }
+  .aic-root .aic-av,
+  .aic-root .aic-meta { display: none !important; }
+  .aic-root .aic-sum > span:last-child { display: none; }
+}
+
+/* Reduced motion: freeze on the finished call (last transcript line, outcomes, summary) */
+@media (prefers-reduced-motion: reduce) {
+  .aic-root * { animation: none !important; transition: none !important; }
+  .aic-root .aic-c0,
+  .aic-root .aic-c1,
+  .aic-root .aic-c3,
+  .aic-root .aic-st0,
+  .aic-root .aic-st1,
+  .aic-root .aic-q0,
+  .aic-root .aic-q1,
+  .aic-root .aic-q3,
+  .aic-root .aic-wait,
+  .aic-root .aic-glow,
+  .aic-root .aic-bars { opacity: 0; }
+  .aic-root .aic-c2,
+  .aic-root .aic-st2,
+  .aic-root .aic-q2,
+  .aic-root .aic-q4,
+  .aic-root .aic-s3,
+  .aic-root .aic-s4,
+  .aic-root .aic-s5,
+  .aic-root .aic-log { opacity: 1; }
+}

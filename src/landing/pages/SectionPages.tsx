@@ -1,5 +1,6 @@
 import { PageHero } from '../components/PageHero'
 import { PlannedSection } from '../components/PlannedSection'
+import { BookDemoSection } from '../sections/BookDemoSection'
 import { RESOURCES, SOLUTIONS } from '../content/names'
 
 const HOME = { label: 'Home', to: '/' }
@@ -70,7 +71,8 @@ export function ContactPage() {
         title="Talk to the ONESAZ team."
         lead="Whether you are exploring ONESAZ for the first time or already use it every day, we are here to help."
       />
-      <PlannedSection id="book-a-demo" eyebrow="Book a demo" title="Bring ONESAZ to your institution." phase="Phase 4" />
+      {/* Same form as the home page; the rest of this page is built in Phase 4 */}
+      <BookDemoSection />
       <PlannedSection id="support" eyebrow="Technical support" title="Already using ONESAZ? We’re here to help." phase="Phase 4" alt />
       <PlannedSection id="faqs" eyebrow="FAQs" title="Before you get in touch" phase="Phase 4" />
     </>

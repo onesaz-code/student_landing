@@ -1,0 +1,26 @@
+/* CRM tour demo: 12s loop, lead card moves New -> Contacted -> Visit -> Admitted. */
+@keyframes crm-n0 { 0% { opacity: 1 } 62.08% { opacity: 1 } 63.33% { opacity: 0 } 100% { opacity: 0 } }
+@keyframes crm-n1 { 0% { opacity: 0 } 63.33% { opacity: 0 } 64.58% { opacity: 1 } 95.42% { opacity: 1 } 96.67% { opacity: 0 } 100% { opacity: 0 } }
+@keyframes crm-lead { 0%, 18.3% { left: 0% } 21.7%, 39.2% { left: 25% } 42.5%, 60.0% { left: 50% } 63.3%, 96.7% { left: 75% } 100% { left: 0% } }
+@keyframes crm-a0 { 0% { opacity: 0; transform: translateY(4px) } 23.33% { opacity: 0; transform: translateY(4px) } 25.42% { opacity: 1; transform: none } 94.58% { opacity: 1; transform: none } 96.67% { opacity: 0; transform: translateY(4px) } 100% { opacity: 0 } }
+@keyframes crm-a1 { 0% { opacity: 0; transform: translateY(4px) } 44.17% { opacity: 0; transform: translateY(4px) } 46.25% { opacity: 1; transform: none } 94.58% { opacity: 1; transform: none } 96.67% { opacity: 0; transform: translateY(4px) } 100% { opacity: 0 } }
+@keyframes crm-a2 { 0% { opacity: 0; transform: translateY(4px) } 65.00% { opacity: 0; transform: translateY(4px) } 67.08% { opacity: 1; transform: none } 94.58% { opacity: 1; transform: none } 96.67% { opacity: 0; transform: translateY(4px) } 100% { opacity: 0 } }
+
+.crm-root .crm-n0 { animation: crm-n0 12s linear infinite }
+.crm-root .crm-n1 { animation: crm-n1 12s linear infinite }
+.crm-root .crm-lead { left: 0; animation: crm-lead 12s cubic-bezier(.5, 0, .2, 1) infinite }
+.crm-root .crm-a0 { animation: crm-a0 12s linear infinite }
+.crm-root .crm-a1 { animation: crm-a1 12s linear infinite }
+.crm-root .crm-a2 { animation: crm-a2 12s linear infinite }
+
+/* Design mobile rule: tighter lead card padding below 640px. */
+@media (max-width: 639px) {
+  .crm-root .crm-lead > span { padding: 6px }
+}
+
+/* Static frame = end state: lead admitted, count 43, full activity log. */
+@media (prefers-reduced-motion: reduce) {
+  .crm-root * { animation: none !important; transition: none !important; }
+  .crm-root .crm-n0 { opacity: 0 }
+  .crm-root .crm-lead { left: 75% }
+}

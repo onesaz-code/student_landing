@@ -1,0 +1,40 @@
+/* Descriptive Evaluation demo (ported from design). All names prefixed de-. 12s loop. */
+@keyframes de-livedot { 0%, 100% { opacity: 1 } 50% { opacity: .3 } }
+.de-root .de-livedot { animation: de-livedot 1.2s ease-in-out infinite }
+
+/* Key phrases highlighted in the handwritten answer. */
+@keyframes de-h0 { 0%, 8.3% { background: transparent } 10.8%, 96.7% { background: rgba(34,197,94,.22) } 100% { background: transparent } }
+@keyframes de-h1 { 0%, 15.0% { background: transparent } 17.5%, 96.7% { background: rgba(34,197,94,.22) } 100% { background: transparent } }
+@keyframes de-h2 { 0%, 21.7% { background: transparent } 24.2%, 96.7% { background: rgba(34,197,94,.22) } 100% { background: transparent } }
+.de-root .de-h0 { animation: de-h0 12s linear infinite }
+.de-root .de-h1 { animation: de-h1 12s linear infinite }
+.de-root .de-h2 { animation: de-h2 12s linear infinite }
+
+/* Rubric criterion scores appear one by one. */
+@keyframes de-c0 { 0%, 30% { opacity: 0; transform: translateY(4px) } 32.08%, 94.58% { opacity: 1; transform: none } 96.67% { opacity: 0; transform: translateY(4px) } 100% { opacity: 0 } }
+@keyframes de-c1 { 0%, 35% { opacity: 0; transform: translateY(4px) } 37.08%, 94.58% { opacity: 1; transform: none } 96.67% { opacity: 0; transform: translateY(4px) } 100% { opacity: 0 } }
+@keyframes de-c2 { 0%, 40% { opacity: 0; transform: translateY(4px) } 42.08%, 94.58% { opacity: 1; transform: none } 96.67% { opacity: 0; transform: translateY(4px) } 100% { opacity: 0 } }
+@keyframes de-c3 { 0%, 45% { opacity: 0; transform: translateY(4px) } 47.08%, 94.58% { opacity: 1; transform: none } 96.67% { opacity: 0; transform: translateY(4px) } 100% { opacity: 0 } }
+.de-root .de-c0 { animation: de-c0 12s linear infinite }
+.de-root .de-c1 { animation: de-c1 12s linear infinite }
+.de-root .de-c2 { animation: de-c2 12s linear infinite }
+.de-root .de-c3 { animation: de-c3 12s linear infinite }
+
+/* Status: "Evaluating…" -> "6 / 8". */
+@keyframes de-s0 { 0%, 50.42% { opacity: 1 } 52.5%, 100% { opacity: 0 } }
+@keyframes de-s1 { 0%, 52.5% { opacity: 0 } 54.58%, 94.58% { opacity: 1 } 96.67%, 100% { opacity: 0 } }
+.de-root .de-s0 { animation: de-s0 12s linear infinite }
+.de-root .de-s1 { animation: de-s1 12s linear infinite }
+
+/* "Writing feedback…" -> feedback card. */
+@keyframes de-w { 0%, 57.92% { opacity: 1 } 60%, 100% { opacity: 0 } }
+@keyframes de-fb { 0%, 60% { opacity: 0; transform: translateY(4px) } 62.08%, 94.58% { opacity: 1; transform: none } 96.67% { opacity: 0; transform: translateY(4px) } 100% { opacity: 0 } }
+.de-root .de-w { animation: de-w 12s linear infinite }
+.de-root .de-fb { animation: de-fb 12s linear infinite }
+
+@media (prefers-reduced-motion: reduce) {
+  .de-root * { animation: none !important; transition: none !important; }
+  /* Static frame: evaluation finished. */
+  .de-root .de-s0, .de-root .de-w { opacity: 0 }
+  .de-root .de-h0, .de-root .de-h1, .de-root .de-h2 { background: rgba(34,197,94,.22) }
+}
