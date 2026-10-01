@@ -17,15 +17,15 @@ export function HeroSection() {
       }}
     >
       {/* Intro band: campus photo in full colour, text on a frosted-glass panel */}
-      {/* Tall enough to show the whole photo (1456 × 735) on desktop; content centred inside */}
-      <div className="relative isolate flex min-h-[50.5vw] flex-col justify-center pb-20 pt-16 max-[899px]:min-h-0 max-[639px]:pb-12 max-[639px]:pt-8">
+      {/* Follows the photo's shape (1456 × 735) but is capped at 640px so the hero never gets too tall */}
+      <div className="relative isolate flex min-h-[min(50.5vw,640px)] flex-col justify-center pb-12 pt-10 max-[899px]:min-h-0 max-[639px]:pb-12 max-[639px]:pt-8">
         <div
           aria-hidden
           className="absolute inset-0 -z-10 bg-cover bg-center [mask-image:linear-gradient(to_bottom,#000_95%,transparent)]"
           style={{ backgroundImage: `url(${HERO_IMAGE})` }}
         />
         <div className="lp-container flex flex-col items-center">
-          <div className="relative flex w-full max-w-[1040px] flex-col items-center px-12 pb-12 pt-10 max-[899px]:px-8 max-[639px]:px-2 max-[639px]:pb-8 max-[639px]:pt-7">
+          <div className="relative flex w-full max-w-[1040px] flex-col items-center px-12 pb-9 pt-8 max-[899px]:px-8 max-[639px]:px-2 max-[639px]:pb-8 max-[639px]:pt-7">
             {/* Frosted panel behind the text; its edges are feathered so there are no hard corners */}
             <div
               aria-hidden
@@ -46,7 +46,7 @@ export function HeroSection() {
               {BRAND.tagline}
             </span>
 
-            <h1 className="lp-display mt-8 !text-[clamp(34px,4vw,58px)] text-[#0B1120] [text-shadow:0_0_24px_rgba(255,255,255,.85)] max-[639px]:mt-6">
+            <h1 className="lp-display mt-6 !text-[clamp(34px,4vw,58px)] text-[#0B1120] [text-shadow:0_0_24px_rgba(255,255,255,.85)] max-[639px]:mt-6">
               Transform Your Institution with <br className="max-[639px]:hidden" />
               <span
                 style={{
@@ -65,13 +65,13 @@ export function HeroSection() {
               Management
             </h1>
 
-            <p className="mt-7 max-w-[820px] text-[clamp(16px,1.5vw,20px)] font-medium leading-relaxed text-[#0B1120] [text-shadow:0_0_14px_rgba(255,255,255,.95),0_0_4px_rgba(255,255,255,.9)] max-[639px]:mt-5">
+            <p className="mt-5 max-w-[820px] text-[clamp(16px,1.5vw,20px)] font-semibold leading-relaxed text-black [text-shadow:0_0_10px_rgba(255,255,255,.9)] max-[639px]:mt-5">
               {BRAND.name} brings academics, administration, examinations, communication, payments and student learning together on one
               AI-powered platform. Stop paying a different vendor for every part of your institution.
             </p>
           </div>
 
-          <div className="mt-10 flex flex-wrap justify-center gap-4 max-[639px]:mt-7 max-[639px]:w-full max-[639px]:flex-col">
+          <div className="mt-6 flex flex-wrap justify-center gap-4 max-[639px]:mt-7 max-[639px]:w-full max-[639px]:flex-col">
             <Link
               to="/#book-a-demo"
               className="lp-btn lp-btn-primary h-[54px] px-[26px] text-[16px] shadow-[0_12px_28px_-12px_rgba(36,71,209,.7)]"

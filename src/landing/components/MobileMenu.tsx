@@ -22,7 +22,7 @@ const SECTIONS: Section[] = [
 ]
 
 /**
- * Mobile menu (under 900 px): a full-height drawer where every header menu
+ * Mobile menu (under 1024 px): a full-height drawer where every header menu
  * becomes an accordion, so every mega-menu link is reachable on phones.
  * Esc closes it, body scroll is locked and focus stays inside.
  */

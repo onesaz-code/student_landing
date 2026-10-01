@@ -14,7 +14,9 @@ function LogoCard({ client, hidden }: { client: Client; hidden: boolean }) {
   // A logo that fails to load is dropped instead of leaving an empty card
   if (failed) return null
   return (
-    <li className="mr-6 flex h-[104px] min-w-[200px] shrink-0 items-center justify-center rounded-2xl border border-[color:var(--line)] bg-white px-8 transition-shadow duration-200 hover:shadow-[0_16px_32px_-20px_rgba(20,40,110,.35)] max-[639px]:mr-4 max-[639px]:h-[84px] max-[639px]:min-w-[150px] max-[639px]:px-5">
+    // No card: the logo sits on the section background. mix-blend-multiply drops the white
+    // background many logo files have, so there are no visible boxes or corners.
+    <li className="flex h-[96px] shrink-0 items-center justify-center px-9 [-webkit-tap-highlight-color:transparent] max-[639px]:h-[72px] max-[639px]:px-5">
       <img
         src={client.logo}
         alt={hidden ? '' : client.name}
@@ -23,7 +25,7 @@ function LogoCard({ client, hidden }: { client: Client; hidden: boolean }) {
         loading="eager"
         decoding="async"
         onError={() => setFailed(true)}
-        className="block h-[68px] w-auto max-w-[200px] object-contain max-[639px]:h-[52px] max-[639px]:max-w-[150px]"
+        className="block h-[72px] w-auto max-w-[190px] select-none object-contain mix-blend-multiply max-[639px]:h-[52px] max-[639px]:max-w-[140px]"
       />
     </li>
   )
@@ -50,7 +52,7 @@ export function ClientsSection() {
         {ROWS.map((row, r) => (
           <div key={r} className="lp-marquee w-full select-none overflow-hidden">
             <div
-              className={`lp-marquee-track flex w-max py-1.5 ${r === 1 ? 'lp-marquee-reverse' : ''}`}
+              className={`lp-marquee-track flex w-max bg-[color:var(--surface-alt)] py-1.5 ${r === 1 ? 'lp-marquee-reverse' : ''}`}
               style={{ animationDuration: `${row.length * SECONDS_PER_LOGO}s` }}
             >
               {[0, 1].map((copy) => (

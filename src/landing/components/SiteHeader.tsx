@@ -14,7 +14,7 @@ const canHover = () => typeof window !== 'undefined' && window.matchMedia('(hove
 /**
  * Sticky site header (Scalefusion pattern): logo left, five menus centred,
  * Login and "Book a demo" right. Menus open on hover, click, Enter or Space;
- * close on Esc, outside click or link click. Under 900 px the menu button opens
+ * close on Esc, outside click or link click. Under 1024 px the menu button opens
  * the mobile drawer.
  */
 export function SiteHeader() {
@@ -103,10 +103,10 @@ export function SiteHeader() {
         scrolled ? 'shadow-[0_6px_20px_-12px_rgba(15,23,41,0.25)]' : ''
       }`}
     >
-      <div className="lp-container flex h-full items-center justify-between gap-6">
+      <div className="lp-container flex h-full items-center justify-between gap-6 max-[399px]:gap-2">
         <Logo />
 
-        <nav aria-label="Main" className="hidden h-full items-stretch gap-0.5 min-[900px]:flex">
+        <nav aria-label="Main" className="hidden h-full items-stretch gap-0.5 min-[1024px]:flex">
           {MENUS.map((m) => {
             const isOpen = open === m.id
             return (
@@ -153,15 +153,15 @@ export function SiteHeader() {
           </div>
         </nav>
 
-        <div className="flex items-center gap-5">
+        <div className="flex items-center gap-5 max-[399px]:gap-1">
           <a
             href={CTA.loginHref}
-            className="hidden items-center gap-2 text-[15px] font-semibold text-[color:var(--brand)] hover:text-[color:var(--brand-hover)] min-[900px]:inline-flex"
+            className="hidden items-center gap-2 text-[15px] font-semibold text-[color:var(--brand)] hover:text-[color:var(--brand-hover)] min-[1024px]:inline-flex"
           >
             <LogIn size={18} />
             {CTA.login}
           </a>
-          <Link to={CTA.demoPath} className="lp-btn lp-btn-primary lp-btn-sm">
+          <Link to={CTA.demoPath} className="lp-btn lp-btn-primary lp-btn-sm max-[399px]:!px-3 max-[399px]:!text-[13px]">
             {CTA.demo}
           </Link>
           <button
@@ -169,7 +169,7 @@ export function SiteHeader() {
             aria-label="Open menu"
             aria-expanded={mobileOpen}
             onClick={() => setMobileOpen(true)}
-            className="flex h-11 w-11 items-center justify-center rounded-lg text-[color:var(--ink-900)] min-[900px]:hidden"
+            className="flex h-11 w-11 items-center justify-center rounded-lg text-[color:var(--ink-900)] min-[1024px]:hidden"
           >
             <Menu size={22} />
           </button>
