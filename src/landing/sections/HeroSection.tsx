@@ -27,11 +27,14 @@ export function HeroSection() {
         />
         <div className="lp-container flex flex-col items-center">
           <div className="relative flex w-full max-w-[1040px] flex-col items-center px-12 pb-9 pt-8 max-[899px]:px-8 max-[639px]:px-2 max-[639px]:pb-8 max-[639px]:pt-7">
-            {/* Frosted panel behind the text; its edges are feathered so there are no hard corners */}
+            {/* Light white backing behind the text (no blur), feathered so there are no hard corners */}
             <div
               aria-hidden
-              className="absolute inset-0 -z-10 bg-white/25 backdrop-blur-[1px] max-[639px]:-inset-x-3"
+              className="absolute inset-0 -z-10 max-[639px]:-inset-x-3"
               style={{
+                // Brightest behind the text, fading out towards the edges so the photo still shows around it
+                background:
+                  'radial-gradient(ellipse 60% 65% at 50% 50%, rgba(255,255,255,.5) 0%, rgba(255,255,255,.28) 60%, rgba(255,255,255,0) 100%)',
                 WebkitMaskImage:
                   'linear-gradient(to right, transparent, #000 4%, #000 96%, transparent), linear-gradient(to bottom, transparent, #000 8%, #000 92%, transparent)',
                 WebkitMaskComposite: 'source-in',
@@ -47,26 +50,34 @@ export function HeroSection() {
               {BRAND.tagline}
             </span>
 
-            <h1 className="lp-display mt-6 !text-[clamp(34px,4vw,58px)] text-[#0B1120] [text-shadow:0_0_24px_rgba(255,255,255,.85)] max-[639px]:mt-6">
+            {/* Heading in one gradient: navy to brand blue to violet (dark enough to read on the light photo) */}
+            <h1
+              className="lp-display mt-6 !text-[clamp(34px,4vw,58px)] max-[639px]:mt-6"
+              style={{
+                background: 'linear-gradient(90deg, #0B1426 0%, #2447D1 55%, #6A4BD8 100%)',
+                WebkitBackgroundClip: 'text',
+                backgroundClip: 'text',
+                color: 'transparent',
+                // Soft white glow around the letters keeps them readable without hiding the photo
+                filter: 'drop-shadow(0 0 10px rgba(255,255,255,.95)) drop-shadow(0 0 2px rgba(255,255,255,.9))',
+              }}
+            >
               Transform Your Institution with <br className="max-[639px]:hidden" />
-              <span
-                style={{
-                  background: 'linear-gradient(90deg, #4CAF50 0%, #8DB83A 40%, #E8A020 75%, #F39C12 100%)',
-                  WebkitBackgroundClip: 'text',
-                  backgroundClip: 'text',
-                  color: 'transparent',
-                  whiteSpace: 'nowrap',
-                  // Gradient text: a glow would show through the transparent fill
-                  textShadow: 'none',
-                }}
-              >
-                AI-Powered
-              </span>{' '}
-              Education <br className="max-[639px]:hidden" />
+              <span className="whitespace-nowrap">AI-Powered</span> Education <br className="max-[639px]:hidden" />
               Management
             </h1>
 
-            <p className="mt-5 max-w-[820px] text-[clamp(16px,1.5vw,20px)] font-semibold leading-relaxed text-black [text-shadow:0_0_10px_rgba(255,255,255,.9)] max-[639px]:mt-5">
+            <p className="relative isolate mt-5 max-w-[820px] text-[clamp(16px,1.5vw,20px)] font-semibold leading-relaxed text-black [text-shadow:0_0_12px_rgba(255,255,255,1),0_0_2px_rgba(255,255,255,1)] max-[639px]:mt-5">
+              {/* Soft white band behind the paragraph only: solid behind every line, feathered on all edges */}
+              <span
+                aria-hidden
+                className="absolute -inset-x-12 -inset-y-4 -z-10 backdrop-blur-[2px] max-[639px]:-inset-x-4"
+                style={{
+                  background: 'linear-gradient(to right, transparent, rgba(255,255,255,.8) 9%, rgba(255,255,255,.8) 91%, transparent)',
+                  WebkitMaskImage: 'linear-gradient(to bottom, transparent, #000 22%, #000 78%, transparent)',
+                  maskImage: 'linear-gradient(to bottom, transparent, #000 22%, #000 78%, transparent)',
+                }}
+              />
               {BRAND.name} brings academics, administration, examinations, communication, payments and student learning together on one
               AI-powered platform. Stop paying a different vendor for every part of your institution.
             </p>
