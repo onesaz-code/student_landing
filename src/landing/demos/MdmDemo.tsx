@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { DemoWindow } from './DemoWindow'
+import { DemoWindow, OnesazMark } from './DemoWindow'
 import './mdm.css'
 
 const ACCENT = '#B7791F'
@@ -42,16 +42,6 @@ const TabletIco = ({ size }: { size: number }) => (
     <path d="M11 18h2" />
   </Ico>
 )
-
-function OnesazMark({ size }: { size: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 32 32" aria-hidden>
-      <rect width="32" height="32" rx="8" fill="#2447D1" />
-      <circle cx="15" cy="17" r="7" fill="none" stroke="#fff" strokeWidth="3.2" />
-      <circle cx="22.5" cy="9.5" r="2.8" fill="#E0A030" />
-    </svg>
-  )
-}
 
 function Step({ n }: { n: number }) {
   return (

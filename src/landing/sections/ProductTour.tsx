@@ -113,10 +113,10 @@ export function ProductTour() {
           key={active}
           className="lp-fade grid grid-cols-[minmax(0,5fr)_minmax(0,7fr)] items-center gap-14 max-[899px]:grid-cols-1 max-[899px]:gap-8"
         >
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col">
             <span className="inline-flex items-center gap-2 self-start text-[13px] font-semibold" style={{ color: product.color }}>
               <span
-                className="rounded-full px-[9px] py-1 font-[family-name:var(--font-mono)] text-[11px] font-bold tracking-[.04em] text-white"
+                className="rounded-md px-2 py-[3px] font-[family-name:var(--font-mono)] text-[10.5px] font-bold tracking-[.06em] text-white"
                 style={{ background: solidFill(product.color) }}
               >
                 {product.badge}
@@ -124,35 +124,31 @@ export function ProductTour() {
               {product.name}
             </span>
 
-            <div className="flex flex-col gap-3">
-              <h3 className="font-[family-name:var(--font-display)] text-[clamp(24px,2.4vw,32px)] font-semibold leading-[1.18] tracking-[-0.025em] text-[color:var(--ink-900)]">
-                {item.title}
-              </h3>
-              <p className="text-[16px] leading-[1.65] text-[#5B6478]">{item.text}</p>
-            </div>
+            <h3 className="mt-5 max-w-[20ch] font-[family-name:var(--font-display)] text-[clamp(24px,2.3vw,31px)] font-semibold leading-[1.2] tracking-[-0.02em] text-[color:var(--ink-900)] max-[899px]:max-w-none">
+              {item.title}
+            </h3>
+            <p className="mt-3 max-w-[46ch] text-[15.5px] leading-[1.6] text-[color:var(--ink-600)]">{item.text}</p>
 
-            <ol className="flex flex-col gap-[18px] pt-1">
+            {/* The three points: numbered list with thin dividers */}
+            <ol className="mt-6 flex flex-col border-t border-[#EEF0F4]">
               {item.steps.map((s, i) => (
-                <li key={s.title} className="flex items-start gap-3.5">
-                  <span
-                    className="flex h-[30px] w-[30px] shrink-0 items-center justify-center rounded-full text-[13px] font-bold"
-                    style={{ background: product.tint, color: product.color }}
-                  >
-                    {i + 1}
+                <li key={s.title} className="grid grid-cols-[32px_minmax(0,1fr)] border-b border-[#EEF0F4] py-3.5">
+                  <span className="pt-[3px] font-[family-name:var(--font-mono)] text-[12px] font-semibold" style={{ color: product.color }}>
+                    {String(i + 1).padStart(2, '0')}
                   </span>
-                  <div className="flex flex-col gap-[3px] pt-1">
-                    <span className="text-[16px] font-semibold text-[color:var(--ink-900)]">{s.title}</span>
-                    <span className="text-[14.5px] leading-[1.55] text-[#5B6478]">{s.text}</span>
+                  <div className="flex flex-col gap-0.5">
+                    <span className="text-[15px] font-semibold text-[color:var(--ink-900)]">{s.title}</span>
+                    <span className="text-[14px] leading-[1.55] text-[color:var(--ink-600)]">{s.text}</span>
                   </div>
                 </li>
               ))}
             </ol>
 
-            <div className="mt-1 flex flex-wrap gap-2.5">
+            <div className="mt-6 flex flex-wrap gap-2.5">
               <Link
                 to="/#book-a-demo"
-                className="inline-flex h-11 items-center gap-2 rounded-[10px] px-[18px] text-[14px] font-semibold"
-                style={{ background: product.tint, color: product.color }}
+                className="inline-flex h-11 items-center gap-2 rounded-[10px] px-[18px] text-[14px] font-semibold text-white"
+                style={{ background: solidFill(product.color) }}
               >
                 {CTA.demo}
                 <ArrowRight size={16} />

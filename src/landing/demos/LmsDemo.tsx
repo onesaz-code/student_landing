@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 import './lms.css'
-import { DemoWindow } from './DemoWindow'
+import { DemoWindow, OnesazMark } from './DemoWindow'
 
 const MONO = 'font-[family-name:var(--font-mono)]'
 
@@ -24,16 +24,6 @@ function Ico({ size, children }: { size: number; children: ReactNode }) {
 
 const PlayPath = <path d="M8 5v14l11-7z" />
 const CheckPath = <path d="m5 12 5 5 9-10" />
-
-function Logo({ size }: { size: number }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 32 32" className="shrink-0">
-      <rect width="32" height="32" rx="8" fill="#2447D1" />
-      <circle cx="15" cy="17" r="7" fill="none" stroke="#fff" strokeWidth="3.2" />
-      <circle cx="22.5" cy="9.5" r="2.8" fill="#E0A030" />
-    </svg>
-  )
-}
 
 function Step({ n, color = '#2447D1', children }: { n: number; color?: string; children: ReactNode }) {
   return (
@@ -209,7 +199,7 @@ export default function LmsDemo() {
             <div className="w-full max-w-[200px] rounded-[18px] bg-[#151A26] p-[9px] shadow-[0_18px_30px_-18px_rgba(20,24,40,.7)]">
               <div className="relative box-border h-[262px] overflow-hidden rounded-[10px] bg-[#F5F7FB] p-2.5">
                 <span className="mb-2.5 flex items-center gap-1.5 text-[10.5px] font-semibold text-[#0F1729]">
-                  <Logo size={16} />
+                  <OnesazMark size={16} />
                   ONESAZ
                   <span className="ml-auto text-[8.5px] font-normal text-[#98A2B3]">10:24</span>
                 </span>
@@ -270,7 +260,7 @@ export default function LmsDemo() {
 
                 {/* Push notification */}
                 <span className="lms-nt absolute inset-x-2 top-2 flex items-center gap-[7px] rounded-[9px] bg-[#0F1729] px-[9px] py-[7px] text-white shadow-[0_8px_16px_-8px_rgba(0,0,0,.5)]">
-                  <Logo size={16} />
+                  <OnesazMark size={16} />
                   <span className="flex flex-col">
                     <span className="text-[9.5px] font-semibold">New lesson from Ms. Rao</span>
                     <span className="text-[8.5px] text-[#A9B2C3]">Light and chlorophyll</span>
