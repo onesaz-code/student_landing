@@ -19,7 +19,7 @@ const COLUMNS = [
     { name: 'Arjun K.', sub: 'Class 8' },
     { name: 'Sana M.', sub: 'Class 3' },
   ],
-  [{ name: 'Vikram R.', sub: 'Class 11' }],
+  [{ name: 'Ravi R.', sub: 'Class 11' }],
   [{ name: 'Neha P.', sub: 'Class 6' }],
   [{ name: 'Rahul D.', sub: 'Class 9' }],
 ]
@@ -37,6 +37,16 @@ const ACTIVITY = [
   },
   { cls: 'crm-a2', dot: '#1F9D63', text: 'Fee paid · admission confirmed' },
 ]
+
+/** Full name, or first name only on small phones so it fits the narrow columns. */
+function Name({ name }: { name: string }) {
+  return (
+    <>
+      <span className="max-[479px]:hidden">{name}</span>
+      <span className="hidden max-[479px]:inline">{name.split(' ')[0]}</span>
+    </>
+  )
+}
 
 function Step({ n, children }: { n: number; children: ReactNode }) {
   return (
@@ -63,12 +73,12 @@ export default function CrmDemo() {
             <span className={`${MONO} text-[10px] tracking-[.04em] text-[#98A2B3]`}>COUNSELLOR · MS. RAO</span>
           </span>
 
-          <div className="rounded-xl border border-[#EDF0F5] bg-[#F7F8FB] px-2 py-3">
+          <div className="rounded-xl border border-[#EDF0F5] bg-[#F7F8FB] px-2 py-3 max-[379px]:px-1">
             <div className="grid grid-cols-4">
               {STAGES.map((s, i) => (
                 <span
                   key={s.full}
-                  className="flex min-w-0 items-center justify-between gap-1 border-b-2 px-1 pb-2 text-[11px] font-semibold text-[#3F4758]"
+                  className="flex min-w-0 items-center justify-between gap-1 border-b-2 px-1 pb-2 text-[11px] max-[479px]:gap-0.5 max-[479px]:px-0.5 max-[479px]:text-[10.5px] font-semibold text-[#3F4758]"
                   style={{
                     borderBottomColor: i === STAGES.length - 1 ? INDIGO : '#E4E7EC',
                   }}
@@ -93,10 +103,12 @@ export default function CrmDemo() {
             <div className="relative mb-1.5 mt-2 h-[52px]">
               <span className="crm-lead absolute top-0 box-border w-1/4 px-1">
                 <span
-                  className="flex min-w-0 flex-col gap-0.5 rounded-lg border-[1.5px] bg-white p-2 shadow-[0_8px_18px_-10px_rgba(79,70,229,.6)]"
+                  className="flex min-w-0 flex-col gap-0.5 rounded-lg border-[1.5px] bg-white p-2 max-[479px]:px-1.5 shadow-[0_8px_18px_-10px_rgba(79,70,229,.6)]"
                   style={{ borderColor: INDIGO }}
                 >
-                  <span className={`${ELLIPSIS} text-[11.5px] font-bold text-[#0F1729]`}>Priya S.</span>
+                  <span className={`${ELLIPSIS} text-[11.5px] font-bold text-[#0F1729]`}>
+                    <Name name="Priya S." />
+                  </span>
                   <span className={`${ELLIPSIS} text-[9.5px] max-[639px]:hidden`} style={{ color: INDIGO }}>
                     Class 6 · Website
                   </span>
@@ -110,9 +122,11 @@ export default function CrmDemo() {
                   {col.map((lead) => (
                     <span
                       key={lead.name}
-                      className="flex min-w-0 flex-col gap-0.5 rounded-lg border border-[#EDF0F5] bg-white px-2 py-[7px]"
+                      className="flex min-w-0 flex-col gap-0.5 rounded-lg border border-[#EDF0F5] bg-white px-2 py-[7px] max-[479px]:px-1.5"
                     >
-                      <span className={`${ELLIPSIS} text-[11px] font-semibold text-[#5B6478]`}>{lead.name}</span>
+                      <span className={`${ELLIPSIS} text-[11px] font-semibold text-[#5B6478]`}>
+                        <Name name={lead.name} />
+                      </span>
                       <span className={`${ELLIPSIS} text-[9.5px] text-[#98A2B3] max-[639px]:hidden`}>{lead.sub}</span>
                     </span>
                   ))}

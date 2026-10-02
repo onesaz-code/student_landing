@@ -32,11 +32,16 @@ const ICONS: Record<string, LucideIcon> = {
   'ai-calling': Phone,
 }
 
-// Ring geometry (px, in the 750 × 750 ring box)
-const BOX = 750
+// Ring geometry (px, in the 600 × 600 ring box)
+const BOX = 600
 const C = BOX / 2
-const R = 312
-const SPOKE = 278
+const R = 248
+const SPOKE = 222
+const DASHED = 412
+const GLOW = 264
+const CARD = 264
+/** Room above and below the ring for the top and bottom labels. */
+const LABEL_SPACE = 28
 
 /**
  * "Inside the platform": twelve modules on a ring around a centre card.
@@ -70,7 +75,7 @@ export function PlatformModulesSection({ id = 'platform-modules' }: { id?: strin
       <span className="text-[14px] text-[color:var(--ink-600)]">
         {cur.group} · {cur.name}
       </span>
-      <span className="font-[family-name:var(--font-display)] text-[22px] font-semibold tracking-[-0.02em] text-[color:var(--ink-900)]">
+      <span className="font-[family-name:var(--font-display)] text-[20px] font-semibold tracking-[-0.02em] text-[color:var(--ink-900)]">
         {cur.stat}
       </span>
       <span className="text-[14px] leading-[1.55] text-[color:var(--ink-600)]">{cur.desc}</span>
@@ -87,105 +92,109 @@ export function PlatformModulesSection({ id = 'platform-modules' }: { id?: strin
         />
 
         {/* Ring (760 px and up) */}
-        <div className="relative shrink-0 max-[899px]:[zoom:.82] max-[759px]:hidden" style={{ width: BOX, height: BOX }}>
-          <div
-            className="absolute rounded-full border-[1.5px] border-dashed border-[#DCE3F5]"
-            style={{ left: 117, top: 117, width: 516, height: 516 }}
-          />
+        <div className="relative shrink-0 max-[759px]:hidden" style={{ width: BOX, height: BOX + LABEL_SPACE * 2 }}>
+          {/* Inner box: the ring itself, with room above and below for labels */}
+          <div className="absolute left-0" style={{ top: LABEL_SPACE, width: BOX, height: BOX }}>
+            <div
+              className="absolute rounded-full border-[1.5px] border-dashed border-[#DCE3F5]"
+              style={{ left: C - DASHED / 2, top: C - DASHED / 2, width: DASHED, height: DASHED }}
+            />
 
-          {MODULES.map((m, i) => {
-            const on = i === active
-            const deg = (i / n) * 360 - 90
-            return (
-              <div
-                key={`spoke-${m.key}`}
-                aria-hidden
-                className="absolute origin-[0_50%] rounded-sm transition-[background,height] duration-[250ms]"
-                style={{
-                  left: C,
-                  top: C,
-                  width: SPOKE,
-                  height: on ? 4 : 1.5,
-                  marginTop: on ? -2 : -0.75,
-                  background: on ? 'var(--brand)' : '#DCE3F5',
-                  transform: `rotate(${deg}deg)`,
-                }}
-              />
-            )
-          })}
-
-          <div
-            aria-hidden
-            className="absolute rounded-full"
-            style={{
-              left: 210,
-              top: 210,
-              width: 330,
-              height: 330,
-              background: 'radial-gradient(circle, rgba(36,71,209,.10), rgba(36,71,209,0) 70%)',
-            }}
-          />
-          <div
-            key={cur.key}
-            aria-live="polite"
-            className="lp-fade absolute z-[1] flex flex-col items-center justify-center gap-3 rounded-full border border-[#E8ECF5] bg-white px-10 text-center shadow-[0_30px_60px_-30px_rgba(20,40,110,.25)]"
-            style={{ left: 220, top: 220, width: 310, height: 310 }}
-          >
-            {centre}
-          </div>
-
-          <div role="group" aria-label="Platform modules">
             {MODULES.map((m, i) => {
               const on = i === active
-              const a = (i / n) * Math.PI * 2 - Math.PI / 2
-              const x = Math.round(C + R * Math.cos(a))
-              const y = Math.round(C + R * Math.sin(a))
-              const size = on ? 80 : 68
-              const Icon = ICONS[m.key]
+              const deg = (i / n) * 360 - 90
               return (
-                <React.Fragment key={m.key}>
-                  <button
-                    ref={(el) => {
-                      nodeRefs.current[i] = el
-                    }}
-                    type="button"
-                    aria-pressed={on}
-                    aria-label={m.name}
-                    tabIndex={on ? 0 : -1}
-                    onClick={() => setActive(i)}
-                    onKeyDown={(e) => onKey(e, i)}
-                    className="absolute z-[2] flex items-center justify-center rounded-full transition-[transform,box-shadow,background,width,height,margin] duration-200 hover:-translate-y-0.5 focus-visible:outline-[3px] focus-visible:outline-offset-4 focus-visible:outline-[rgba(36,71,209,.35)]"
-                    style={{
-                      left: x,
-                      top: y,
-                      width: size,
-                      height: size,
-                      marginLeft: -size / 2,
-                      marginTop: -size / 2,
-                      background: on ? 'var(--brand)' : '#fff',
-                      color: on ? '#fff' : 'var(--ink-600)',
-                      border: on ? '1px solid var(--brand)' : '1px solid #E3E7EF',
-                      boxShadow: on ? '0 16px 32px -12px rgba(36,71,209,.55)' : '0 4px 12px -8px rgba(15,23,41,.15)',
-                    }}
-                  >
-                    <Icon size={22} strokeWidth={1.75} />
-                  </button>
-                  <span
-                    aria-hidden
-                    className="pointer-events-none absolute w-40 text-center text-[14px]"
-                    style={{
-                      left: x,
-                      top: y + size / 2 + 10,
-                      marginLeft: -80,
-                      fontWeight: on ? 600 : 500,
-                      color: on ? 'var(--ink-900)' : 'var(--ink-600)',
-                    }}
-                  >
-                    {m.label}
-                  </span>
-                </React.Fragment>
+                <div
+                  key={`spoke-${m.key}`}
+                  aria-hidden
+                  className="absolute origin-[0_50%] rounded-sm transition-[background,height] duration-[250ms]"
+                  style={{
+                    left: C,
+                    top: C,
+                    width: SPOKE,
+                    height: on ? 4 : 1.5,
+                    marginTop: on ? -2 : -0.75,
+                    background: on ? 'var(--brand)' : '#DCE3F5',
+                    transform: `rotate(${deg}deg)`,
+                  }}
+                />
               )
             })}
+
+            <div
+              aria-hidden
+              className="absolute rounded-full"
+              style={{
+                left: C - GLOW / 2,
+                top: C - GLOW / 2,
+                width: GLOW,
+                height: GLOW,
+                background: 'radial-gradient(circle, rgba(36,71,209,.10), rgba(36,71,209,0) 70%)',
+              }}
+            />
+            <div
+              key={cur.key}
+              aria-live="polite"
+              className="lp-fade absolute z-[1] flex flex-col items-center justify-center gap-3 rounded-full border border-[#E8ECF5] bg-white px-8 text-center shadow-[0_30px_60px_-30px_rgba(20,40,110,.25)]"
+              style={{ left: C - CARD / 2, top: C - CARD / 2, width: CARD, height: CARD }}
+            >
+              {centre}
+            </div>
+
+            <div role="group" aria-label="Platform modules">
+              {MODULES.map((m, i) => {
+                const on = i === active
+                const a = (i / n) * Math.PI * 2 - Math.PI / 2
+                const x = Math.round(C + R * Math.cos(a))
+                const y = Math.round(C + R * Math.sin(a))
+                const size = on ? 68 : 58
+                const Icon = ICONS[m.key]
+                return (
+                  <React.Fragment key={m.key}>
+                    <button
+                      ref={(el) => {
+                        nodeRefs.current[i] = el
+                      }}
+                      type="button"
+                      aria-pressed={on}
+                      aria-label={m.name}
+                      tabIndex={on ? 0 : -1}
+                      onClick={() => setActive(i)}
+                      onKeyDown={(e) => onKey(e, i)}
+                      className="absolute z-[2] flex items-center justify-center rounded-full transition-[transform,box-shadow,background,width,height,margin] duration-200 focus-visible:outline-[3px] focus-visible:outline-offset-4 focus-visible:outline-[rgba(36,71,209,.35)]"
+                      style={{
+                        left: x,
+                        top: y,
+                        width: size,
+                        height: size,
+                        marginLeft: -size / 2,
+                        marginTop: -size / 2,
+                        background: on ? 'var(--brand)' : '#fff',
+                        color: on ? '#fff' : 'var(--ink-600)',
+                        border: on ? '1px solid var(--brand)' : '1px solid #E3E7EF',
+                        boxShadow: on ? '0 16px 32px -12px rgba(36,71,209,.55)' : '0 4px 12px -8px rgba(15,23,41,.15)',
+                      }}
+                    >
+                      <Icon size={20} strokeWidth={1.75} />
+                    </button>
+                    <span
+                      aria-hidden
+                      className="pointer-events-none absolute w-40 text-center text-[13.5px]"
+                      style={{
+                        left: x,
+                        // Top-half labels sit above their node so the spokes never run through them
+                        top: y < C - 1 ? y - size / 2 - 26 : y + size / 2 + 8,
+                        marginLeft: -80,
+                        fontWeight: on ? 600 : 500,
+                        color: on ? 'var(--ink-900)' : 'var(--ink-600)',
+                      }}
+                    >
+                      {m.label}
+                    </span>
+                  </React.Fragment>
+                )
+              })}
+            </div>
           </div>
         </div>
         <p className="text-[15px] text-[#667085] max-[759px]:hidden">Use the arrow keys to move around the ring.</p>

@@ -23,9 +23,9 @@ export function DemoWindow({ title, meta, children, bodyClassName = '' }: DemoWi
           </svg>
           <span className="truncate">{title}</span>
         </span>
-        {meta && <span className="shrink-0 text-[12px] text-[#667085]">{meta}</span>}
+        {meta && <span className="shrink-0 text-[12px] text-[#667085] max-[379px]:hidden">{meta}</span>}
       </div>
-      <div className={`bg-[#FBFCFE] p-5 ${bodyClassName}`}>{children}</div>
+      <div className={`bg-[#FBFCFE] p-5 max-[379px]:p-3 ${bodyClassName}`}>{children}</div>
     </div>
   )
 }

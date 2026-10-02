@@ -15,7 +15,6 @@ import {
   X,
   type LucideIcon,
 } from 'lucide-react'
-import { SectionHeader } from '../components/SectionHeader'
 import { SEPARATE_TOOLS, WITHOUT_ONESAZ, WITH_ONESAZ } from '../content/home'
 import { BRAND, CTA } from '../content/names'
 import { useDemoPath } from '../components/useDemoPath'
@@ -33,122 +32,137 @@ const TOOL_ICONS: Record<(typeof SEPARATE_TOOLS)[number]['key'], LucideIcon> = {
   ai: Phone,
 }
 
+// Dark plum panel with a soft glow and faint rings, like the reference feature banners
+const PANEL_BG =
+  'repeating-radial-gradient(circle at 50% 55%, rgba(255,255,255,.028) 0 1px, transparent 1px 84px), radial-gradient(55% 65% at 50% 55%, rgba(128,58,112,.55) 0%, rgba(84,36,78,.32) 42%, rgba(30,21,30,0) 78%), radial-gradient(45% 55% at 100% 0%, rgba(98,64,150,.28) 0%, rgba(98,64,150,0) 70%), #1A1519'
+// Same blue as the Book a demo button (--brand)
+const WITH_BG = 'var(--brand)'
+const CHECK = '#E3DC4B'
+
 /** "Other companies sell you separate tools": ten vendors on the left, one ONESAZ on the right. */
 export function WhyOnesazSection({ id = 'why-onesaz' }: { id?: string }) {
   const demoPath = useDemoPath()
   return (
-    <section id={id} className="lp-section bg-[color:var(--surface-dark)] text-white">
-      <div className="lp-container flex flex-col items-center gap-14 max-[639px]:gap-10">
-        <SectionHeader
-          onDark
-          eyebrow="Why ONESAZ is different"
-          title={
-            <>
-              Other companies sell you separate tools.
-              <br />
-              <span className="text-[#7FA2FF]">ONESAZ gives you one platform.</span>
-            </>
-          }
-          lead="Everything an institution needs, from learning and exams to devices and parent messages, in one product with one login and one bill."
-        />
-
-        <div className="grid w-full grid-cols-[minmax(0,1fr)_64px_minmax(0,1.12fr)] items-stretch gap-5 max-[999px]:grid-cols-1 max-[999px]:gap-4">
-          {/* Without ONESAZ */}
-          <div className="flex flex-col gap-5 rounded-[20px] border border-white/10 bg-white/[.04] p-7 max-[639px]:p-5">
-            <div className="flex flex-col gap-1.5">
-              <span className="font-[family-name:var(--font-mono)] text-[12px] font-semibold tracking-[.1em] text-[#F28B7D]">
-                WITHOUT ONESAZ
-              </span>
-              <span className="font-[family-name:var(--font-display)] text-[22px] font-semibold text-[#D5DAE4]">
-                10 separate tools from 10 vendors
-              </span>
-            </div>
-            <ul className="grid grid-cols-2 gap-2 max-[639px]:gap-1.5">
-              {SEPARATE_TOOLS.map((t) => {
-                const Icon = TOOL_ICONS[t.key]
-                return (
-                  <li
-                    key={t.key}
-                    className="flex h-[50px] items-center gap-2.5 rounded-[10px] border border-dashed border-white/[.18] bg-white/[.03] px-3 max-[639px]:h-11 max-[639px]:px-2.5"
-                  >
-                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-[7px] bg-white/[.07] text-[#8B95A8]">
-                      <Icon size={15} strokeWidth={1.75} />
-                    </span>
-                    <span className="text-[13.5px] text-[#A9B2C3] max-[639px]:text-[12.5px]">{t.label}</span>
-                  </li>
-                )
-              })}
-            </ul>
-            <ul className="mt-auto flex flex-col gap-2.5 border-t border-white/10 pt-[18px]">
-              {WITHOUT_ONESAZ.map((line) => (
-                <li key={line} className="flex items-center gap-2.5 text-[15px] text-[#D5DAE4]">
-                  <span className="flex h-[22px] w-[22px] shrink-0 items-center justify-center rounded-full bg-[rgba(240,110,95,.16)] text-[#F28B7D]">
-                    <X size={11} strokeWidth={3.2} />
-                  </span>
-                  {line}
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Arrow */}
-          <div className="flex items-center justify-center" aria-hidden>
-            <span className="flex h-14 w-14 items-center justify-center rounded-full bg-[color:var(--accent)] text-[color:var(--surface-dark)] shadow-[0_0_0_10px_rgba(224,160,48,.15)]">
-              <ArrowRight size={24} strokeWidth={2.4} className="max-[999px]:rotate-90" />
+    <section id={id} className="bg-white py-[72px] max-[639px]:py-12">
+      <div className="lp-container">
+        <div
+          className="flex flex-col items-center gap-11 rounded-[28px] px-14 py-14 text-white max-[999px]:px-8 max-[639px]:gap-8 max-[639px]:rounded-[20px] max-[639px]:px-4 max-[639px]:py-10"
+          style={{ background: PANEL_BG }}
+        >
+          <div className="flex max-w-[860px] flex-col items-center gap-3 text-center">
+            <span className="lp-eyebrow" style={{ color: CHECK }}>
+              Why ONESAZ is different
             </span>
+            <h2 className="font-[family-name:var(--font-display)] text-[clamp(26px,3vw,40px)] font-semibold leading-[1.15] tracking-[-0.02em] text-white">
+              Others offer separate tools
+              <br />
+              <span className="text-[#9DB4FF]">ONESAZ gives you one platform.</span>
+            </h2>
+            <p className="max-w-[620px] text-[16px] leading-[1.6] text-[#C9C0CC] max-[639px]:text-[15px]">
+              Everything an institution needs, from learning and exams to devices and parent messages, in one product with one login and one
+              bill.
+            </p>
           </div>
 
-          {/* With ONESAZ */}
-          <div className="relative flex flex-col gap-5 overflow-hidden rounded-[22px] bg-[color:var(--brand)] p-[30px] shadow-[0_24px_48px_-24px_rgba(0,0,0,.55)] max-[639px]:p-5">
-            <div className="flex items-start justify-between gap-3">
-              <div className="flex flex-col gap-1.5">
-                <span className="font-[family-name:var(--font-mono)] text-[12px] font-semibold tracking-[.1em] text-[#FFD48A]">
-                  WITH ONESAZ
+          <div className="grid w-full max-w-[1000px] grid-cols-[minmax(0,1fr)_48px_minmax(0,1fr)] items-stretch gap-4 max-[899px]:grid-cols-1">
+            {/* Without ONESAZ */}
+            <div className="flex flex-col gap-4 rounded-[18px] border border-white/10 bg-white/[.04] p-6 max-[639px]:p-4">
+              <div className="flex flex-col gap-1">
+                <span className="font-[family-name:var(--font-mono)] text-[11.5px] font-semibold tracking-[.1em] text-[#F29A8C]">
+                  WITHOUT ONESAZ
                 </span>
-                <span className="font-[family-name:var(--font-display)] text-[22px] font-semibold text-white">
-                  All 10, inside one platform
+                <span className="font-[family-name:var(--font-display)] text-[18px] font-semibold text-[#E4DDE6]">
+                  10 separate tools from 10 vendors
                 </span>
               </div>
-              <span className="flex shrink-0 items-center gap-2 rounded-[10px] bg-white px-2.5 py-1.5">
-                <img src={BRAND.logoSrc} alt="" width={22} height={22} className="h-[22px] w-[22px]" />
-                <span className="font-[family-name:var(--font-display)] text-[15px] font-bold text-[color:var(--ink-900)]">
-                  {BRAND.name}
-                </span>
+              <ul className="grid grid-cols-2 gap-2 max-[639px]:gap-1.5">
+                {SEPARATE_TOOLS.map((t) => {
+                  const Icon = TOOL_ICONS[t.key]
+                  return (
+                    <li
+                      key={t.key}
+                      className="flex min-h-[42px] items-center gap-2 rounded-[10px] py-1.5 border border-dashed border-white/[.16] px-2.5"
+                    >
+                      <Icon size={15} strokeWidth={1.75} className="shrink-0 text-[#9C93A0]" />
+                      <span className="text-[13px] leading-[1.25] text-[#B9B0BD] max-[639px]:text-[12.5px]">{t.label}</span>
+                    </li>
+                  )
+                })}
+              </ul>
+              <ul className="mt-auto flex flex-col gap-2 border-t border-white/10 pt-4">
+                {WITHOUT_ONESAZ.map((line) => (
+                  <li key={line} className="flex items-center gap-2.5 text-[14px] text-[#D9D1DB]">
+                    <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[rgba(240,110,95,.18)] text-[#F29A8C]">
+                      <X size={11} strokeWidth={3} />
+                    </span>
+                    {line}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Arrow */}
+            <div className="flex items-center justify-center" aria-hidden>
+              <span
+                className="flex h-11 w-11 items-center justify-center rounded-full text-[#1A1519] shadow-[0_0_0_8px_rgba(227,220,75,.12)]"
+                style={{ background: CHECK }}
+              >
+                <ArrowRight size={20} strokeWidth={2.4} className="max-[899px]:rotate-90" />
               </span>
             </div>
-            <ul className="grid grid-cols-2 gap-2 max-[639px]:gap-1.5">
-              {SEPARATE_TOOLS.map((t) => {
-                const Icon = TOOL_ICONS[t.key]
-                return (
-                  <li
-                    key={t.key}
-                    className="flex h-[46px] items-center gap-2.5 rounded-[10px] border border-white/20 bg-white/[.14] px-3 max-[639px]:h-11 max-[639px]:px-2.5"
-                  >
-                    <span className="flex h-[26px] w-[26px] shrink-0 items-center justify-center rounded-[7px] bg-white text-[color:var(--brand)]">
-                      <Icon size={14} strokeWidth={1.75} />
-                    </span>
-                    <span className="text-[13.5px] font-medium text-white max-[639px]:text-[12.5px]">{t.label}</span>
-                  </li>
-                )
-              })}
-            </ul>
-            <ul className="mt-auto flex flex-col gap-2.5 border-t border-white/20 pt-[18px]">
-              {WITH_ONESAZ.map((line) => (
-                <li key={line} className="flex items-center gap-2.5 text-[15px] font-medium text-white">
-                  <span className="flex h-[22px] w-[22px] shrink-0 items-center justify-center rounded-full bg-white text-[color:var(--success)]">
-                    <Check size={12} strokeWidth={3.2} />
+
+            {/* With ONESAZ */}
+            <div className="flex flex-col gap-4 rounded-[18px] p-6 max-[639px]:p-4" style={{ background: WITH_BG }}>
+              <div className="flex items-start justify-between gap-3">
+                <div className="flex flex-col gap-1">
+                  <span className="font-[family-name:var(--font-mono)] text-[11.5px] font-semibold tracking-[.1em] text-[#FFD48A]">
+                    WITH ONESAZ
                   </span>
-                  {line}
-                </li>
-              ))}
-            </ul>
-            <Link
-              to={demoPath}
-              className="flex h-[50px] items-center justify-center gap-2 rounded-[10px] bg-white text-[15px] font-semibold text-[color:var(--brand)] transition-colors hover:bg-[#EEF2FD]"
-            >
-              {CTA.demo}
-              <ArrowRight size={16} />
-            </Link>
+                  <span className="font-[family-name:var(--font-display)] text-[18px] font-semibold text-white">
+                    All 10, inside one platform
+                  </span>
+                </div>
+                <span className="flex shrink-0 items-center gap-1.5 rounded-[8px] bg-white px-2 py-1">
+                  <img src={BRAND.logoSrc} alt="" width={18} height={18} className="h-[18px] w-[18px]" />
+                  <span className="font-[family-name:var(--font-display)] text-[13px] font-bold text-[color:var(--ink-900)]">
+                    {BRAND.name}
+                  </span>
+                </span>
+              </div>
+              <ul className="grid grid-cols-2 gap-2 max-[639px]:gap-1.5">
+                {SEPARATE_TOOLS.map((t) => {
+                  const Icon = TOOL_ICONS[t.key]
+                  return (
+                    <li key={t.key} className="flex min-h-[42px] items-center gap-2 rounded-[10px] py-1.5 bg-white/[.13] px-2.5">
+                      <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-[6px] bg-white text-[color:var(--brand)]">
+                        <Icon size={13} strokeWidth={1.9} />
+                      </span>
+                      <span className="text-[13px] leading-[1.25] font-medium text-white max-[639px]:text-[12.5px]">{t.label}</span>
+                    </li>
+                  )
+                })}
+              </ul>
+              <ul className="flex flex-col gap-2 border-t border-white/20 pt-4">
+                {WITH_ONESAZ.map((line) => (
+                  <li key={line} className="flex items-center gap-2.5 text-[14px] font-medium text-white">
+                    <span
+                      className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[#1A1519]"
+                      style={{ background: CHECK }}
+                    >
+                      <Check size={12} strokeWidth={3.2} />
+                    </span>
+                    {line}
+                  </li>
+                ))}
+              </ul>
+              <Link
+                to={demoPath}
+                className="mt-auto flex h-11 items-center justify-center gap-2 rounded-[10px] bg-white text-[14.5px] font-semibold text-[color:var(--brand)]"
+              >
+                {CTA.demo}
+                <ArrowRight size={16} />
+              </Link>
+            </div>
           </div>
         </div>
       </div>

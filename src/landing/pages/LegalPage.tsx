@@ -26,7 +26,7 @@ function withEmailLinks(text: string): React.ReactNode {
 
 function Section({ s }: { s: MdmDocSection }) {
   return (
-    <section id={s.id} className="flex flex-col gap-3">
+    <section id={s.id} className="flex flex-col gap-3 [overflow-wrap:anywhere]">
       {s.title && <h2 className="text-[20px] font-semibold text-[color:var(--ink-900)]">{s.title}</h2>}
       {s.paragraphs?.map((p, i) => (
         <p key={i} className="text-[15.5px] leading-[1.75] text-[color:var(--ink-600)]">
@@ -34,7 +34,9 @@ function Section({ s }: { s: MdmDocSection }) {
         </p>
       ))}
       {s.bullets && (
-        <ul className={`flex flex-col gap-2 pl-5 text-[15.5px] leading-[1.7] text-[color:var(--ink-600)] ${s.ordered ? 'list-decimal' : 'list-disc'}`}>
+        <ul
+          className={`flex flex-col gap-2 pl-5 text-[15.5px] leading-[1.7] text-[color:var(--ink-600)] ${s.ordered ? 'list-decimal' : 'list-disc'}`}
+        >
           {s.bullets.map((b, i) => (
             <li key={i}>{withEmailLinks(b)}</li>
           ))}

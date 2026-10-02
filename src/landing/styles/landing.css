@@ -128,6 +128,10 @@ body { margin: 0; background: #fff; }
   transition: background-color 150ms, color 150ms, border-color 150ms, transform 150ms;
   white-space: nowrap;
 }
+/* Long labels wrap on small phones instead of pushing past the screen edge */
+@media (max-width: 479px) {
+  .lp .lp-btn { max-width: 100%; height: auto; min-height: 48px; padding-block: 10px; white-space: normal; text-align: center; }
+}
 .lp .lp-btn-sm { height: 40px; padding: 0 18px; font-size: 14px; }
 .lp .lp-btn-primary { background: var(--brand); color: #fff; }
 .lp .lp-btn-primary:hover { background: var(--brand-hover); }

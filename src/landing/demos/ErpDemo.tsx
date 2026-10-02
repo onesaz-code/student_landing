@@ -57,9 +57,9 @@ export default function ErpDemo() {
         </div>
 
         <Card step={3} title="Admissions pipeline">
-          <div className="flex gap-2.5">
+          <div className="grid grid-cols-4 gap-2.5 max-[479px]:grid-cols-2 max-[479px]:gap-x-3 max-[479px]:gap-y-3">
             {PIPELINE.map((col) => (
-              <div key={col.label} className="flex min-w-0 flex-1 basis-0 flex-col gap-1.5">
+              <div key={col.label} className="flex min-w-0 flex-col gap-1.5">
                 <span className="truncate text-[11px] text-[#667085]">{col.label}</span>
                 {Array.from({ length: col.cards }, (_, i) => (
                   <span key={i} className="block h-[18px] rounded-[5px]" style={{ background: col.done ? GREEN : '#E3E8F4' }} />
