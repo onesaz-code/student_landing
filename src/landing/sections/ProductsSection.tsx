@@ -5,27 +5,40 @@ import { PRODUCT_FAMILIES, type ProductFamily } from '../content/home'
 import { productPath } from '../content/names'
 import { useDemoPath } from '../components/useDemoPath'
 
-/** Card surface matched to the reference: near-black top, warm olive-gold glow at the bottom. */
-const CARD_BG =
-  'radial-gradient(120% 55% at 50% 108%, rgba(196,184,58,.62) 0%, rgba(132,124,34,.30) 42%, rgba(56,54,20,0) 78%), linear-gradient(180deg, #121212 0%, #14140F 55%, #1C1B10 100%)'
+/** ONESAZ logo colours (green-teal and sky blue), sampled from the logo file. */
+const LOGO_GREEN = '#08C5A7'
+const LOGO_BLUE = '#3FBBEE'
+/** The top band runs green to blue like the logo, a few shades deeper so the white code stays readable. */
+const BAND_BG = 'linear-gradient(90deg, #06937D 0%, #0A94A8 50%, #1E86C0 100%)'
 
-/** Product family card: same content as before, on a dark surface. No hover effect, by request. */
+/** Product family card: same content as before on a white card, with a logo-gradient band across the top. No hover effect. */
 function ProductCard({ family: p }: { family: ProductFamily }) {
   return (
-    <article className="flex flex-col rounded-[28px] p-8 text-white max-[639px]:p-6" style={{ background: CARD_BG }}>
-      <div className="flex items-center justify-between gap-3">
-        <span className="font-[family-name:var(--font-display)] text-[30px] font-bold tracking-[-0.02em]">{p.code}</span>
-        <span className="rounded-md border border-white/15 bg-white/[.06] px-[9px] py-[5px] font-[family-name:var(--font-mono)] text-[11px] tracking-[.06em] text-white/75">
+    // Subgrid: the band, intro, list and link sit on shared rows, so they line up across the cards in a row
+    <article className="row-span-4 grid grid-rows-subgrid gap-y-0 overflow-hidden rounded-[24px] border border-[#DCEDEA] bg-white">
+      <div className="flex items-center justify-between gap-3 px-7 py-5 max-[639px]:px-5" style={{ background: BAND_BG }}>
+        <span className="font-[family-name:var(--font-display)] text-[28px] font-bold leading-none tracking-[-0.02em] text-white">
+          {p.code}
+        </span>
+        <span className="whitespace-nowrap rounded-md bg-white px-2 py-1 font-[family-name:var(--font-mono)] text-[10.5px] tracking-[.06em] text-[#075E52]">
           {p.who}
         </span>
       </div>
-      <h3 className="mt-5 text-[19px] font-semibold leading-[1.3]">{p.name}</h3>
-      <p className="mt-3 text-[15px] leading-[1.6] text-white/70">{p.desc}</p>
 
-      <ul className="mt-6 flex flex-col gap-3 border-t border-white/10 pt-6">
-        {p.features.map((f) => (
-          <li key={f} className="flex items-start gap-3 text-[14.5px] leading-[1.45] text-white/85">
-            <span aria-hidden className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-[#CFC14E]" />
+      <div className="flex flex-col gap-2.5 px-7 pt-6 max-[639px]:px-5 max-[639px]:pt-5">
+        <h3 className="text-[18px] font-semibold leading-[1.3] text-[color:var(--ink-900)]">{p.name}</h3>
+        <p className="text-[14.5px] leading-[1.6] text-[color:var(--ink-600)]">{p.desc}</p>
+      </div>
+
+      <ul className="mx-7 mt-5 flex flex-col gap-2.5 self-start border-t border-[#E8EFEE] pt-5 max-[639px]:mx-5">
+        {p.features.map((f, i) => (
+          <li key={f} className="flex items-start gap-3 text-[14px] leading-[1.45] text-[color:var(--ink-900)]">
+            {/* Dots alternate the two logo colours */}
+            <span
+              aria-hidden
+              className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full"
+              style={{ background: i % 2 ? LOGO_BLUE : LOGO_GREEN }}
+            />
             {f}
           </li>
         ))}
@@ -33,7 +46,7 @@ function ProductCard({ family: p }: { family: ProductFamily }) {
 
       <Link
         to={productPath(p.slug)}
-        className="mt-auto inline-flex items-center gap-1.5 self-start pt-7 text-[14.5px] font-semibold text-white underline-offset-4 hover:underline"
+        className="inline-flex items-center gap-1.5 self-end justify-self-start px-7 pb-7 pt-6 text-[14.5px] font-semibold text-[#0B7F65] underline-offset-4 hover:underline max-[639px]:px-5 max-[639px]:pb-6"
       >
         {p.cta}
         <ArrowRight size={15} />
@@ -42,7 +55,7 @@ function ProductCard({ family: p }: { family: ProductFamily }) {
   )
 }
 
-/** "Everything your institution needs": six dark product family cards, each linking to its product page. */
+/** "Everything your institution needs": six product family cards in the logo colours, each linking to its product page. */
 export function ProductsSection({ id = 'products' }: { id?: string }) {
   const demoPath = useDemoPath()
   return (
