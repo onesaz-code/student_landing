@@ -1,11 +1,48 @@
 import { Link } from 'react-router-dom'
-import { ArrowRight, Check } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import { SectionHeader } from '../components/SectionHeader'
-import { PRODUCT_FAMILIES } from '../content/home'
+import { PRODUCT_FAMILIES, type ProductFamily } from '../content/home'
 import { productPath } from '../content/names'
 import { useDemoPath } from '../components/useDemoPath'
 
-/** "Everything your institution needs": six product family cards, each linking to its product page. */
+/** Card surface matched to the reference: near-black top, warm olive-gold glow at the bottom. */
+const CARD_BG =
+  'radial-gradient(120% 55% at 50% 108%, rgba(196,184,58,.62) 0%, rgba(132,124,34,.30) 42%, rgba(56,54,20,0) 78%), linear-gradient(180deg, #121212 0%, #14140F 55%, #1C1B10 100%)'
+
+/** Product family card: same content as before, on a dark surface. No hover effect, by request. */
+function ProductCard({ family: p }: { family: ProductFamily }) {
+  return (
+    <article className="flex flex-col rounded-[28px] p-8 text-white max-[639px]:p-6" style={{ background: CARD_BG }}>
+      <div className="flex items-center justify-between gap-3">
+        <span className="font-[family-name:var(--font-display)] text-[30px] font-bold tracking-[-0.02em]">{p.code}</span>
+        <span className="rounded-md border border-white/15 bg-white/[.06] px-[9px] py-[5px] font-[family-name:var(--font-mono)] text-[11px] tracking-[.06em] text-white/75">
+          {p.who}
+        </span>
+      </div>
+      <h3 className="mt-5 text-[19px] font-semibold leading-[1.3]">{p.name}</h3>
+      <p className="mt-3 text-[15px] leading-[1.6] text-white/70">{p.desc}</p>
+
+      <ul className="mt-6 flex flex-col gap-3 border-t border-white/10 pt-6">
+        {p.features.map((f) => (
+          <li key={f} className="flex items-start gap-3 text-[14.5px] leading-[1.45] text-white/85">
+            <span aria-hidden className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-[#CFC14E]" />
+            {f}
+          </li>
+        ))}
+      </ul>
+
+      <Link
+        to={productPath(p.slug)}
+        className="mt-auto inline-flex items-center gap-1.5 self-start pt-7 text-[14.5px] font-semibold text-white underline-offset-4 hover:underline"
+      >
+        {p.cta}
+        <ArrowRight size={15} />
+      </Link>
+    </article>
+  )
+}
+
+/** "Everything your institution needs": six dark product family cards, each linking to its product page. */
 export function ProductsSection({ id = 'products' }: { id?: string }) {
   const demoPath = useDemoPath()
   return (
@@ -19,52 +56,7 @@ export function ProductsSection({ id = 'products' }: { id?: string }) {
 
         <div className="grid w-full grid-cols-3 gap-5 max-[1099px]:grid-cols-2 max-[639px]:grid-cols-1">
           {PRODUCT_FAMILIES.map((p) => (
-            <article
-              key={p.code}
-              className="lp-lift flex flex-col overflow-hidden rounded-[18px] border border-[color:var(--line)] bg-white"
-            >
-              <div
-                className="flex flex-col gap-3.5 border-b border-[#EEF0F3] px-7 pb-6 pt-7 max-[639px]:px-6"
-                style={{ background: p.tint }}
-              >
-                <div className="flex items-center justify-between gap-3">
-                  <span
-                    className="font-[family-name:var(--font-display)] text-[30px] font-bold tracking-[-0.02em]"
-                    style={{ color: p.color }}
-                  >
-                    {p.code}
-                  </span>
-                  <span className="rounded-md border border-[color:var(--line)] bg-white px-[9px] py-[5px] font-[family-name:var(--font-mono)] text-[11px] tracking-[.06em] text-[color:var(--ink-600)]">
-                    {p.who}
-                  </span>
-                </div>
-                <h3 className="text-[18px] font-semibold text-[color:var(--ink-900)]">{p.name}</h3>
-                <p className="text-[14px] leading-[1.6] text-[color:var(--ink-600)]">{p.desc}</p>
-              </div>
-              <div className="flex flex-grow flex-col gap-[11px] px-7 pb-7 pt-[22px] max-[639px]:px-6">
-                <ul className="flex flex-col gap-[11px]">
-                  {p.features.map((f) => (
-                    <li key={f} className="flex items-start gap-2.5 text-[14px] leading-[1.4] text-[color:var(--ink-900)]">
-                      <span
-                        className="mt-px flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-full"
-                        style={{ background: p.tint, color: p.color }}
-                      >
-                        <Check size={11} strokeWidth={2.5} />
-                      </span>
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-                <Link
-                  to={productPath(p.slug)}
-                  className="group mt-auto inline-flex items-center gap-1.5 pt-3.5 text-[14px] font-semibold"
-                  style={{ color: p.color }}
-                >
-                  {p.cta}
-                  <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5" />
-                </Link>
-              </div>
-            </article>
+            <ProductCard key={p.code} family={p} />
           ))}
         </div>
 

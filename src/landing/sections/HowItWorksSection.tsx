@@ -2,20 +2,55 @@ import { Link } from 'react-router-dom'
 import { STEPS } from '../content/home'
 import { useDemoPath } from '../components/useDemoPath'
 
+/** Plain photo with rounded corners, as in the reference: no border, shadow or edge fade. */
+const TILE = 'absolute rounded-[16px] object-cover'
+
+/**
+ * Rollout photos placed like the reference band: a large tile top-left and a portrait top-right.
+ * objectPosition keeps the people in frame when a wide photo is cropped to portrait.
+ */
+const PHOTOS = [
+  { src: '/images/landing/how-consultation.jpg', className: 'left-0 top-0 h-[226px] w-[192px]', position: 'center' },
+  { src: '/images/landing/how-go-live.jpg', className: 'right-[24px] top-[-6px] h-[176px] w-[150px]', position: '52% center' },
+]
+
+/**
+ * Small floating photo tiles at the sides of the centred heading (layout after the Scalefusion CTA band).
+ * Decorative, so hidden from screen readers; hidden below 1100 px where there is no side room.
+ */
+function FloatingPhotos() {
+  return (
+    <div aria-hidden className="pointer-events-none absolute inset-0 hidden min-[1100px]:block">
+      {PHOTOS.map((p) => (
+        <img key={p.src} src={p.src} alt="" loading="lazy" className={`${TILE} ${p.className}`} style={{ objectPosition: p.position }} />
+      ))}
+    </div>
+  )
+}
+
 /** "How we take your institution live": four numbered steps on a timeline. */
 export function HowItWorksSection({ id = 'how-it-works' }: { id?: string }) {
   const demoPath = useDemoPath()
   return (
-    <section id={id} className="lp-section lp-section-alt">
+    <section
+      id={id}
+      className="lp-section"
+      // Soft blue → lavender → lilac wash (matches the reference CTA band)
+      style={{
+        background:
+          'radial-gradient(60% 80% at 10% 20%, rgba(190,210,245,.85) 0%, rgba(190,210,245,0) 70%), radial-gradient(55% 75% at 85% 70%, rgba(228,206,242,.9) 0%, rgba(228,206,242,0) 70%), linear-gradient(100deg, #D6E1F6 0%, #DDD9F4 40%, #E4D5F2 70%, #EADDF4 100%)',
+      }}
+    >
       <div className="lp-container flex flex-col gap-16 max-[639px]:gap-10">
-        <div className="flex flex-wrap items-end justify-between gap-6">
-          <div className="flex max-w-[640px] flex-col gap-4">
+        <div className="relative flex min-h-[270px] flex-col items-center justify-center text-center max-[1099px]:min-h-0">
+          <FloatingPhotos />
+          <div className="flex max-w-[560px] flex-col items-center gap-4">
             <span className="lp-eyebrow">Working with ONESAZ</span>
             <h2 className="lp-h2">How we take your institution live.</h2>
+            <Link to={demoPath} className="lp-btn lp-btn-secondary pointer-events-auto mt-3">
+              Plan your rollout
+            </Link>
           </div>
-          <Link to={demoPath} className="lp-btn lp-btn-secondary">
-            Plan your rollout
-          </Link>
         </div>
 
         <div className="relative">

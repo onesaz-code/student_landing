@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { ArrowRight, Crosshair, FilePen, Phone, Sparkles, type LucideIcon } from 'lucide-react'
+import { ArrowUpRight, Crosshair, FilePen, Phone, Sparkles, type LucideIcon } from 'lucide-react'
 import { SectionHeader } from '../components/SectionHeader'
 import { AI_CARDS } from '../content/home'
 import { productBySlug, productPath } from '../content/names'
@@ -26,23 +26,28 @@ export function AiSection({ id = 'ai' }: { id?: string }) {
           {AI_CARDS.map((c) => {
             const Icon = ICONS[c.key]
             return (
-              <Link
-                key={c.key}
-                to={productPath(c.slug)}
-                className="lp-lift group flex flex-col gap-3 overflow-hidden rounded-[18px] border border-[color:var(--line)] bg-white p-7 hover:border-[#DCE3FA]"
-              >
-                <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-[linear-gradient(135deg,#2447D1,#7B5CE6)] text-white">
-                  <Icon size={22} strokeWidth={1.75} />
-                </span>
-                <h3 className="font-[family-name:var(--font-display)] text-[20px] font-semibold group-hover:text-[color:var(--brand)]">
+              // Resource-card style (reference: Scalefusion success stories). No hover effect, by request.
+              <article key={c.key} className="flex flex-col rounded-[20px] border border-[#E7E7EC] bg-[#F5F5F7] p-5">
+                <div aria-hidden className="flex h-[150px] items-center justify-center rounded-[14px] bg-white">
+                  <span className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[linear-gradient(135deg,#2447D1,#7B5CE6)] text-white">
+                    <Icon size={28} strokeWidth={1.75} />
+                  </span>
+                </div>
+                <span className="mt-5 text-[14px] font-medium text-[#6A4BD8]">{productBySlug(c.slug)!.name}</span>
+                <h3 className="mt-2 font-[family-name:var(--font-display)] text-[20px] font-semibold leading-[1.3] text-[color:var(--ink-900)]">
                   {c.title}
                 </h3>
-                <p className="text-[15px] leading-[1.6] text-[color:var(--ink-600)]">{c.text}</p>
-                <span className="mt-auto flex items-center justify-between gap-2 pt-2 font-[family-name:var(--font-mono)] text-[10px] tracking-[.08em] text-[color:var(--brand)]">
-                  <span>{productBySlug(c.slug)!.name.toUpperCase()}</span>
-                  <ArrowRight size={14} className="shrink-0 transition-transform group-hover:translate-x-0.5" />
-                </span>
-              </Link>
+                <p className="mt-2 text-[14.5px] leading-[1.6] text-[color:var(--ink-600)]">{c.text}</p>
+                <div className="mt-auto pt-5">
+                  <Link
+                    to={productPath(c.slug)}
+                    className="inline-flex items-center gap-2 rounded-lg border border-[#D9DCE3] bg-white px-4 py-2 text-[14px] font-medium text-[color:var(--ink-900)]"
+                  >
+                    Learn more
+                    <ArrowUpRight size={16} />
+                  </Link>
+                </div>
+              </article>
             )
           })}
         </div>
