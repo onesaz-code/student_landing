@@ -1,101 +1,148 @@
 import * as React from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { ArrowRight, Check, GraduationCap, X } from 'lucide-react'
-import { PageHero } from '../components/PageHero'
-import { Segmented } from '../components/Segmented'
-import { AUDIENCES, INSTITUTION_PRICING, PARTNER_NOTICE, PLANS, PRICING_HERO, type Audience, type Plan } from '../content/pricing'
+import { ArrowRight, ArrowUpRight, Check, GraduationCap, X } from 'lucide-react'
+import {
+  AUDIENCES,
+  INSTITUTION_PRICING,
+  INSTITUTION_PRICING_FAQS,
+  PARTNER_NOTICE,
+  PLANS,
+  PRICING_HERO,
+  STUDENT_PRICING_FAQS,
+  type Audience,
+  type Plan,
+} from '../content/pricing'
+import { FaqSection } from '../sections/FaqSection'
 import { CTA } from '../content/names'
 
-function PlanCard({ plan }: { plan: Plan }) {
-  const dark = plan.featured
+/** Dark purple band behind the heading and tabs, as in the reference pricing page. */
+const BAND_BG = 'radial-gradient(70% 90% at 50% 100%, #6D28D9 0%, #3B1A8C 45%, #140B33 80%, #0B0820 100%)'
+
+/** Audience switcher on the dark band (tablist; arrow keys switch). */
+function AudienceTabs({ value, onChange }: { value: Audience; onChange: (id: Audience) => void }) {
+  const refs = React.useRef<(HTMLButtonElement | null)[]>([])
+  const onKey = (e: React.KeyboardEvent, i: number) => {
+    const n = AUDIENCES.length
+    const next = e.key === 'ArrowRight' ? (i + 1) % n : e.key === 'ArrowLeft' ? (i - 1 + n) % n : null
+    if (next === null) return
+    e.preventDefault()
+    onChange(AUDIENCES[next].id)
+    refs.current[next]?.focus()
+  }
   return (
-    <article
-      className={`relative flex flex-col gap-6 rounded-[22px] p-8 max-[639px]:p-6 ${
-        dark
-          ? 'bg-[color:var(--brand)] text-white shadow-[0_30px_60px_-30px_rgba(36,71,209,.6)]'
-          : 'border border-[color:var(--line)] bg-white'
-      }`}
+    <div
+      role="tablist"
+      aria-label="Pricing for"
+      className="inline-flex rounded-[12px] border border-white/15 bg-white/[.08] p-1 max-[479px]:w-full"
     >
-      <div className="flex flex-col gap-2">
-        <div className="flex items-center justify-between gap-3">
-          <h2
-            className={`font-[family-name:var(--font-display)] text-[22px] font-semibold ${dark ? 'text-white' : 'text-[color:var(--ink-900)]'}`}
+      {AUDIENCES.map((a, i) => {
+        const on = a.id === value
+        return (
+          <button
+            key={a.id}
+            ref={(el) => {
+              refs.current[i] = el
+            }}
+            type="button"
+            role="tab"
+            aria-selected={on}
+            aria-controls="pricing-panel"
+            tabIndex={on ? 0 : -1}
+            onClick={() => onChange(a.id)}
+            onKeyDown={(e) => onKey(e, i)}
+            className={`relative h-11 rounded-[9px] px-6 text-[14.5px] font-medium transition-colors max-[479px]:flex-1 max-[479px]:px-3 max-[479px]:text-[13.5px] ${
+              on ? 'bg-white/10 text-white shadow-[inset_0_-2px_0_#E3DC4B]' : 'text-[#C9C3E6] hover:text-white'
+            }`}
           >
-            {plan.name}
-          </h2>
-          {plan.badge && (
-            <span className="rounded-full bg-[#E3DC4B] px-3 py-1 text-[12.5px] font-semibold text-[#1A1519]">{plan.badge}</span>
-          )}
-        </div>
-        <p className={`text-[14.5px] leading-[1.55] ${dark ? 'text-[#D6DEFA]' : 'text-[color:var(--ink-600)]'}`}>{plan.summary}</p>
-      </div>
-
-      <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
-        {plan.was && (
-          <span className={`text-[20px] font-medium line-through ${dark ? 'text-[#D6DEFA]' : 'text-[color:var(--ink-400)]'}`}>
-            {plan.was}
-          </span>
-        )}
-        <span
-          className={`font-[family-name:var(--font-display)] text-[44px] font-semibold leading-none tracking-[-0.02em] ${
-            dark ? 'text-white' : 'text-[color:var(--ink-900)]'
-          }`}
-        >
-          {plan.price}
-        </span>
-        <span className={`text-[15px] ${dark ? 'text-[#D6DEFA]' : 'text-[color:var(--ink-600)]'}`}>{plan.period}</span>
-      </div>
-
-      <a
-        href={plan.cta.href}
-        className={`lp-btn w-full ${dark ? 'lp-btn-on-dark' : plan.id === 'free' ? 'lp-btn-secondary' : 'lp-btn-primary'}`}
-      >
-        {plan.cta.label}
-        <ArrowRight size={16} />
-      </a>
-
-      <ul className={`flex flex-col gap-3 border-t pt-6 ${dark ? 'border-white/20' : 'border-[color:var(--line)]'}`}>
-        {plan.features.map((f) => {
-          const no = f.included === false
-          return (
-            <li key={f.text} className="flex items-start gap-3 text-[15px] leading-[1.5]">
-              <span
-                className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full ${
-                  no
-                    ? 'bg-[#F1F2F5] text-[#98A2B3]'
-                    : dark
-                      ? 'bg-[#E3DC4B] text-[#1A1519]'
-                      : 'bg-[color:var(--brand-tint)] text-[color:var(--brand)]'
-                }`}
-              >
-                {no ? <X size={11} strokeWidth={3} /> : <Check size={12} strokeWidth={3} />}
-              </span>
-              <span className={no ? 'text-[color:var(--ink-600)]' : dark ? 'text-white' : 'text-[color:var(--ink-900)]'}>{f.text}</span>
-            </li>
-          )
-        })}
-      </ul>
-    </article>
+            {a.label}
+          </button>
+        )
+      })}
+    </div>
   )
 }
 
-/** Blue notice above the student plans: students of client institutions don't need a plan. */
+/** Notice for students of client institutions, on the dark band under the tabs. */
 function PartnerNotice() {
   return (
-    <div className="flex items-start gap-3 rounded-[14px] border border-[#C9D4F6] bg-[#EEF2FD] px-5 py-4 text-[15px] leading-[1.55] text-[#1B2F7A] max-[639px]:px-4">
-      <GraduationCap size={20} strokeWidth={1.75} aria-hidden className="mt-0.5 shrink-0 text-[color:var(--brand)]" />
+    <div className="mx-auto flex max-w-[1120px] items-start gap-3 rounded-[14px] border border-white/15 bg-white/[.07] px-5 py-3 text-left text-[14px] leading-[1.55] text-[#E4E0F5] max-[639px]:px-4">
+      <GraduationCap size={20} strokeWidth={1.75} aria-hidden className="mt-0.5 shrink-0 text-[#E3DC4B]" />
       <p>
         {PARTNER_NOTICE.text}{' '}
-        <a href={PARTNER_NOTICE.signIn.href} className="font-semibold text-[color:var(--brand)] underline underline-offset-2">
+        <a href={PARTNER_NOTICE.signIn.href} className="font-semibold text-white underline underline-offset-2">
           {PARTNER_NOTICE.signIn.label}
         </a>{' '}
         with the login your institution gave you, or{' '}
-        <Link to={PARTNER_NOTICE.apps.to} className="font-semibold text-[color:var(--brand)] underline underline-offset-2">
+        <Link to={PARTNER_NOTICE.apps.to} className="font-semibold text-white underline underline-offset-2">
           {PARTNER_NOTICE.apps.label}
         </Link>
         .
       </p>
     </div>
+  )
+}
+
+/**
+ * One plan column in the joined white panel. Subgrid rows (intro, price, button, list heading, list) line the
+ * columns up. The featured plan is outlined in blue with a dark tab above it.
+ */
+function PlanColumn({ plan }: { plan: Plan }) {
+  const ft = plan.featured
+  return (
+    <article
+      className={`relative row-span-5 grid grid-rows-subgrid gap-y-0 px-8 pb-7 pt-6 max-[639px]:px-5 ${
+        ft
+          ? 'z-[1] -my-px rounded-b-[18px] outline outline-[1.5px] outline-[color:var(--brand)] max-[1023px]:mt-9 max-[1023px]:rounded-[18px]'
+          : 'border-l border-[#EEF0F4] first:border-l-0 max-[1023px]:border-l-0 max-[1023px]:border-t max-[1023px]:first:border-t-0'
+      }`}
+    >
+      {ft && plan.badge && (
+        <span className="absolute -top-8 left-[-1.5px] right-[-1.5px] flex h-8 items-center justify-center rounded-t-[14px] bg-[#141414] text-[13px] font-medium text-white">
+          {plan.badge}
+        </span>
+      )}
+
+      <div className="flex flex-col gap-2">
+        <h2 className="font-[family-name:var(--font-display)] text-[20px] font-semibold text-[color:var(--ink-900)]">{plan.name}</h2>
+        <p className="text-[14px] leading-[1.55] text-[color:var(--ink-600)]">{plan.summary}</p>
+      </div>
+
+      <div className="mt-5 flex flex-wrap items-baseline gap-x-2 gap-y-1 self-end">
+        {plan.was && <span className="text-[17px] font-medium text-[color:var(--ink-400)] line-through">{plan.was}</span>}
+        <span className="font-[family-name:var(--font-display)] text-[38px] font-semibold leading-none tracking-[-0.02em] text-[color:var(--ink-900)]">
+          {plan.price}
+        </span>
+        {plan.period && <span className="text-[14px] text-[color:var(--ink-600)]">{plan.period}</span>}
+      </div>
+
+      <a
+        href={plan.cta.href}
+        className={`mt-5 inline-flex h-11 items-center justify-center gap-1.5 rounded-[9px] border-[1.5px] border-[color:var(--brand)] text-[14.5px] font-semibold ${
+          ft ? 'bg-[color:var(--brand)] text-white' : 'bg-white text-[color:var(--brand)]'
+        }`}
+      >
+        {plan.cta.label}
+        <ArrowUpRight size={16} />
+      </a>
+
+      <p className="mt-6 text-[14.5px] font-semibold text-[color:var(--ink-900)]">{plan.listHeading}</p>
+
+      <ul className="mt-3.5 flex flex-col gap-2.5 self-start">
+        {plan.features.map((f) => {
+          const no = f.included === false
+          return (
+            <li key={f.text} className="flex items-start gap-2.5 text-[14px] leading-[1.5]">
+              {no ? (
+                <X size={16} strokeWidth={2.25} aria-hidden className="mt-[2px] shrink-0 text-[#98A2B3]" />
+              ) : (
+                <Check size={16} strokeWidth={2.25} aria-hidden className="mt-[2px] shrink-0 text-[color:var(--brand)]" />
+              )}
+              <span className={no ? 'text-[color:var(--ink-400)]' : 'text-[color:var(--ink-900)]'}>{f.text}</span>
+            </li>
+          )
+        })}
+      </ul>
+    </article>
   )
 }
 
@@ -149,9 +196,9 @@ function InstitutionPanel() {
 }
 
 /**
- * /pricing: two audiences on tabs. Individual students see the three plans exactly as provided (with a notice for
- * students of client institutions); institutions see custom pricing and how to get a quote.
- * /pricing#institutions opens the institutions tab.
+ * /pricing: a dark band with the heading and the audience tabs, then a white panel overlapping it.
+ * Individual students see the three plans side by side (with a notice for students of client institutions);
+ * institutions see custom pricing. /pricing#institutions opens the institutions tab.
  */
 export function PricingPage() {
   const { hash } = useLocation()
@@ -169,33 +216,55 @@ export function PricingPage() {
 
   return (
     <>
-      <PageHero
-        crumbs={[{ label: 'Home', to: '/' }, { label: 'Pricing' }]}
-        eyebrow={PRICING_HERO.eyebrow}
-        title={PRICING_HERO.title}
-        lead={PRICING_HERO.lead}
-      >
-        <div className="flex justify-center max-[639px]:w-full">
-          <Segmented label="Pricing for" options={AUDIENCES} value={audience} onChange={switchTo} controls="pricing-panel" />
+      <section className="pb-[170px] pt-6 text-center max-[639px]:pb-[140px] max-[639px]:pt-6" style={{ background: BAND_BG }}>
+        <div className="lp-container flex flex-col items-center gap-4">
+          <nav aria-label="Breadcrumb" className="self-start">
+            <ol className="flex flex-wrap items-center gap-2 text-[13.5px] text-[#A9A3C9]">
+              <li>
+                <Link to="/" className="text-[#D6D1EE] hover:text-white">
+                  Home
+                </Link>
+              </li>
+              <li aria-hidden>›</li>
+              <li aria-current="page" className="font-medium text-white">
+                Pricing
+              </li>
+            </ol>
+          </nav>
+          <h1 className="lp-h1 max-w-[760px] !text-[clamp(32px,3.6vw,48px)] !text-white">{PRICING_HERO.title}</h1>
+          <p className="-mt-1 max-w-[760px] text-[17px] leading-[1.6] text-[#C9C3E6] max-[639px]:text-[15.5px]">{PRICING_HERO.lead}</p>
+          <AudienceTabs value={audience} onChange={switchTo} />
+          {audience === 'students' && <PartnerNotice />}
         </div>
-      </PageHero>
+      </section>
 
-      <section id="pricing-panel" role="tabpanel" className="relative z-[1] -mt-12 pb-20 max-[639px]:-mt-8 max-[639px]:pb-14">
-        <div key={audience} className="lp-container lp-fade flex flex-col gap-6">
+      <section id="pricing-panel" role="tabpanel" className="relative z-[1] -mt-[140px] pb-20 max-[639px]:-mt-[110px] max-[639px]:pb-14">
+        <div key={audience} className="lp-container lp-fade">
           {audience === 'students' ? (
-            <>
-              <PartnerNotice />
-              <div className="grid grid-cols-3 items-start gap-6 max-[1023px]:mx-auto max-[1023px]:w-full max-[1023px]:max-w-[560px] max-[1023px]:grid-cols-1">
-                {PLANS.map((p) => (
-                  <PlanCard key={p.id} plan={p} />
-                ))}
-              </div>
-            </>
+            <div className="mx-auto mt-6 grid grid-cols-3 rounded-[18px] border border-[#E6E8EF] bg-white shadow-[0_30px_70px_-40px_rgba(20,10,60,.45)] max-[1023px]:max-w-[560px] max-[1023px]:grid-cols-1">
+              {PLANS.map((p) => (
+                <PlanColumn key={p.id} plan={p} />
+              ))}
+            </div>
           ) : (
             <InstitutionPanel />
           )}
         </div>
       </section>
+
+      <FaqSection
+        key={`faq-${audience}`}
+        id="pricing-faqs"
+        eyebrow="FAQs"
+        title="Frequently asked questions"
+        lead={
+          audience === 'students'
+            ? 'Answers about the student plans, billing and refunds.'
+            : 'Answers about pricing for schools, colleges and institutes.'
+        }
+        items={audience === 'students' ? STUDENT_PRICING_FAQS : INSTITUTION_PRICING_FAQS}
+        className="lp-section lp-section-alt"
+      />
 
       {audience === 'institutions' && (
         <section className="bg-white py-20 max-[639px]:py-14">
@@ -203,11 +272,10 @@ export function PricingPage() {
             <div className="flex flex-wrap items-center justify-between gap-7 rounded-3xl bg-[linear-gradient(135deg,#0B1426_0%,#1B2F7A_60%,#2447D1_100%)] p-14 text-white max-[639px]:px-6 max-[639px]:py-8">
               <div className="flex max-w-[620px] flex-col gap-2.5">
                 <h2 className="font-[family-name:var(--font-display)] text-[clamp(26px,3vw,36px)] font-semibold leading-[1.15] tracking-[-0.02em]">
-                  Buying for your whole institution?
+                  See ONESAZ with your own data.
                 </h2>
                 <p className="text-[16px] leading-[1.6] text-[#C3CCE6]">
-                  Schools, colleges and coaching institutes get ONESAZ for every student and teacher. Talk to us about a plan for your
-                  institution.
+                  Book a demo and we will walk you through the products your institution needs, with a quote to match.
                 </p>
               </div>
               <Link to={CTA.demoPath} className="lp-btn lp-btn-on-dark">

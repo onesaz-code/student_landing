@@ -4,28 +4,56 @@ import { Minus, Plus } from 'lucide-react'
 import { FAQS } from '../content/home'
 import { useDemoPath } from '../components/useDemoPath'
 
-/** "The questions that matter": accordion, one answer open at a time. */
-export function FaqSection({ id = 'faqs' }: { id?: string }) {
+export interface FaqItem {
+  q: string
+  a: string
+  /** Optional link shown after the answer. */
+  link?: { label: string; to: string }
+}
+
+interface FaqSectionProps {
+  id?: string
+  eyebrow?: string
+  title?: string
+  /** Intro under the title; defaults to the home page text with an "Ask us directly" link. */
+  lead?: React.ReactNode
+  items?: FaqItem[]
+  className?: string
+}
+
+/** FAQ accordion, one answer open at a time. Defaults to the home page questions. */
+export function FaqSection({
+  id = 'faqs',
+  eyebrow = 'Questions',
+  title = 'The questions that matter before you decide.',
+  lead,
+  items = FAQS,
+  className = 'lp-section',
+}: FaqSectionProps) {
   const demoPath = useDemoPath()
   const [open, setOpen] = React.useState(0)
   const baseId = React.useId()
 
   return (
-    <section id={id} className="lp-section">
+    <section id={id} className={className}>
       <div className="lp-container flex gap-24 max-[999px]:flex-col max-[999px]:gap-10">
         <div className="flex w-[380px] shrink-0 flex-col gap-4 max-[999px]:w-full max-[999px]:max-w-[640px]">
-          <span className="lp-eyebrow">Questions</span>
-          <h2 className="lp-h2">The questions that matter before you decide.</h2>
+          <span className="lp-eyebrow">{eyebrow}</span>
+          <h2 className="lp-h2">{title}</h2>
           <p className="lp-lead !text-[16px]">
-            Every vendor shows a clean dashboard. Here is what actually sets ONESAZ apart. Have another question?{' '}
-            <Link to={demoPath} className="font-medium !text-[color:var(--brand)] hover:underline">
-              Ask us directly.
-            </Link>
+            {lead ?? (
+              <>
+                Every vendor shows a clean dashboard. Here is what actually sets ONESAZ apart. Have another question?{' '}
+                <Link to={demoPath} className="font-medium !text-[color:var(--brand)] hover:underline">
+                  Ask us directly.
+                </Link>
+              </>
+            )}
           </p>
         </div>
 
         <div className="flex flex-grow flex-col border-b border-[color:var(--line)]">
-          {FAQS.map((f, i) => {
+          {items.map((f, i) => {
             const isOpen = i === open
             const btnId = `${baseId}-q${i}`
             const panelId = `${baseId}-a${i}`
@@ -48,7 +76,17 @@ export function FaqSection({ id = 'faqs' }: { id?: string }) {
                 </h3>
                 {isOpen && (
                   <div id={panelId} role="region" aria-labelledby={btnId} className="lp-fade pb-6 pr-14 max-[639px]:pr-0">
-                    <p className="text-[16px] leading-[1.65] text-[color:var(--ink-600)]">{f.a}</p>
+                    <p className="text-[16px] leading-[1.65] text-[color:var(--ink-600)]">
+                      {f.a}
+                      {f.link && (
+                        <>
+                          {' '}
+                          <Link to={f.link.to} className="font-medium text-[color:var(--brand)] underline underline-offset-2">
+                            {f.link.label}
+                          </Link>
+                        </>
+                      )}
+                    </p>
                   </div>
                 )}
               </div>

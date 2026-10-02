@@ -18,6 +18,8 @@ export interface Plan {
   was?: string
   badge?: string
   summary: string
+  /** Label above the feature list. */
+  listHeading: string
   features: PlanFeature[]
   cta: { label: string; href: string }
   featured?: boolean
@@ -60,6 +62,7 @@ export const PLANS: Plan[] = [
     price: '₹0',
     period: '',
     summary: 'For students who want to explore the platform before subscribing.',
+    listHeading: 'What you get:',
     features: [
       { text: 'Choose any subject, topic & sub-topic' },
       { text: 'Practice 5–10 questions per topic' },
@@ -76,6 +79,7 @@ export const PLANS: Plan[] = [
     price: '₹250',
     period: '/month + GST',
     summary: 'Full access to personalized practice and AI-supported learning.',
+    listHeading: 'What you get:',
     features: [
       { text: 'Unlimited practice across the complete question bank' },
       { text: 'Strength & Weakness Analysis' },
@@ -95,8 +99,9 @@ export const PLANS: Plan[] = [
     was: '₹3,000',
     badge: '40% savings',
     summary: 'Complete student learning experience at a discounted yearly price.',
+    // "Everything included in the Monthly Plan", shown as the list heading
+    listHeading: 'Everything in Monthly, plus',
     features: [
-      { text: 'Everything included in the Monthly Plan' },
       { text: 'Unlimited eligible practice' },
       { text: 'Unlimited quizzes' },
       { text: 'Complete ONESAZ student learning experience' },
@@ -116,3 +121,57 @@ export const PLANS_STRIP = {
   note: 'Already at a ONESAZ institution? Your access is included.',
   cta: 'See all plans',
 }
+
+/** Pricing page FAQs. Answers only use the plan details and the ONESAZ refund and cancellation policies. */
+export const STUDENT_PRICING_FAQS = [
+  {
+    q: 'Is there a free plan?',
+    a: 'Yes. The Free Plan costs ₹0 and needs no card. You can choose any subject, topic and sub-topic, practise 5–10 questions per topic and check your correct and incorrect answers.',
+  },
+  {
+    q: 'What is the difference between the Monthly and Annual plans?',
+    a: 'Both give you unlimited practice, Strength & Weakness Analysis, personalized practice, progress tracking and the AI Tutor. The Annual Plan also adds unlimited quizzes and referral rewards, and costs ₹1,800 a year instead of ₹3,000 for 12 months of the Monthly Plan, a 40% saving.',
+  },
+  {
+    q: 'Do the prices include GST?',
+    a: 'No. GST is added to the Monthly and Annual plans at checkout.',
+  },
+  {
+    q: 'What is the AI Tutor?',
+    a: 'The AI Tutor gives step-by-step explanations and formula support. The Monthly Plan includes around 1,000–1,500 AI Tutor credits a month. It is not part of the Free Plan.',
+  },
+  {
+    q: 'Can I cancel the Monthly Plan?',
+    a: 'Yes, anytime. You are not charged again, and you keep access until the end of the month you have paid for.',
+    link: { label: 'Read the Cancellation Policy', to: '/cancellation-policy' },
+  },
+  {
+    q: 'Can I get a refund?',
+    a: 'Yes. You can ask for a full refund on the Monthly or Annual Plan within 7 days of paying.',
+    link: { label: 'Read the Refund Policy', to: '/refund-policy' },
+  },
+  {
+    q: 'My school uses ONESAZ. Do I need a plan?',
+    a: 'No. Your access comes through your institution, so sign in with the login it gave you or use its app. These plans are only for individual students who are not with a partner institution.',
+  },
+]
+
+export const INSTITUTION_PRICING_FAQS = [
+  {
+    q: 'How is pricing worked out for an institution?',
+    a: 'It is priced per student, per year, and quoted once. Start with the products you need and switch on the rest when you are ready.',
+  },
+  {
+    q: 'What is included?',
+    a: 'Every institution plan includes setup and configuration, data migration, staff and teacher training, and ongoing support.',
+  },
+  {
+    q: 'Do our students pay separately?',
+    a: 'No. Your students get access through your institution and never pay separately.',
+  },
+  {
+    q: 'How do we get a quote?',
+    a: 'Book a demo and we will walk you through the products your institution needs, with a quote to match.',
+    link: { label: 'Book a demo', to: '/contact#book-a-demo' },
+  },
+]
