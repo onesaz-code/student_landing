@@ -11,7 +11,9 @@ const ResourcesPage = lazy(() => import('./pages/ResourcesPage').then((m) => ({ 
 const AboutPage = lazy(() => import('./pages/AboutPage').then((m) => ({ default: m.AboutPage })))
 const ContactPage = lazy(() => import('./pages/ContactPage').then((m) => ({ default: m.ContactPage })))
 const CareersPage = lazy(() => import('./pages/CareersPage').then((m) => ({ default: m.CareersPage })))
+const PricingPage = lazy(() => import('./pages/PricingPage').then((m) => ({ default: m.PricingPage })))
 const AppsPage = lazy(() => import('./pages/AppsPage').then((m) => ({ default: m.AppsPage })))
+const PolicyPage = lazy(() => import('./pages/PolicyPage').then((m) => ({ default: m.PolicyPage })))
 const LegalPage = lazy(() => import('./pages/LegalPage').then((m) => ({ default: m.LegalPage })))
 
 /**
@@ -31,12 +33,13 @@ export default function LandingApp() {
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/careers" element={<CareersPage />} />
           <Route path="/apps" element={<AppsPage />} />
+          <Route path="/pricing" element={<PricingPage />} />
           <Route path="/privacy-policy" element={<LegalPage page="privacy" />} />
           <Route path="/terms-of-service" element={<LegalPage page="terms" />} />
           <Route path="/cookie-policy" element={<LegalPage page="cookie" />} />
           <Route path="/gdpr" element={<LegalPage page="gdpr" />} />
-          <Route path="/refund-policy" element={<LegalPage page="refund" />} />
-          <Route path="/cancellation-policy" element={<LegalPage page="cancellation" />} />
+          <Route path="/refund-policy" element={<PolicyPage policy="refund" />} />
+          <Route path="/cancellation-policy" element={<PolicyPage policy="cancellation" />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>

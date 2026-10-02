@@ -11,6 +11,7 @@ import { ServicesSection } from '../sections/ServicesSection'
 import { TutorialsSection } from '../sections/TutorialsSection'
 import { TestimonialsSection } from '../sections/TestimonialsSection'
 import { AboutSection } from '../sections/AboutSection'
+import { StudentPlansStrip } from '../sections/StudentPlansStrip'
 import { FaqSection } from '../sections/FaqSection'
 import { BookDemoSection } from '../sections/BookDemoSection'
 
@@ -31,6 +32,7 @@ export function LandingPage() {
       <TutorialsSection />
       <TestimonialsSection />
       <AboutSection />
+      <StudentPlansStrip />
       <FaqSection />
       <BookDemoSection />
     </>

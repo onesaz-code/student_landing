@@ -34,6 +34,9 @@ export interface NavMenu {
   promos?: NavPromo[]
 }
 
+/** Student pricing page, linked from the header, phone menu and footer. */
+export const PRICING_LINK: NavLink = { label: 'Pricing', to: '/pricing' }
+
 /** The ONESAZ Mobile Apps page, which lists every app with store links. */
 export const APP_DOWNLOAD_PATH = '/apps'
 
@@ -228,6 +231,7 @@ export const FOOTER_COLUMNS: { title: string; links: NavLink[] }[] = [
     title: 'Company',
     links: [
       { label: 'About ONESAZ', to: '/about' },
+      PRICING_LINK,
       { label: 'Why ONESAZ', to: '/about#why-onesaz' },
       { label: 'Our Clients', to: '/about#our-clients' },
       { label: 'Testimonials', to: '/about#testimonials' },

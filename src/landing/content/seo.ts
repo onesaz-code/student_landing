@@ -23,7 +23,8 @@ const PAGES: Record<string, PageMeta> = {
   },
   '/resources': {
     title: `Resources & Tutorials · ${SUFFIX}`,
-    description: 'Tutorials, product guides, platform modules and answers to help your team set up ONESAZ and get the most from it every day.',
+    description:
+      'Tutorials, product guides, platform modules and answers to help your team set up ONESAZ and get the most from it every day.',
   },
   '/about': {
     title: `About ONESAZ · ${SUFFIX}`,
@@ -37,6 +38,19 @@ const PAGES: Record<string, PageMeta> = {
   '/apps': {
     title: `ONESAZ Mobile Apps · ${SUFFIX}`,
     description: 'Get the official ONESAZ apps and your institution’s own branded app on Google Play and the App Store.',
+  },
+  '/pricing': {
+    title: `Pricing · ${SUFFIX}`,
+    description:
+      'ONESAZ pricing: plans for individual students (Free, Monthly at ₹250 + GST, Annual at ₹1,800 + GST) and custom pricing for schools, colleges and institutes.',
+  },
+  '/refund-policy': {
+    title: `Refund Policy · ${SUFFIX}`,
+    description: 'When you can get a refund on a ONESAZ student plan or institution plan, and how to ask for one.',
+  },
+  '/cancellation-policy': {
+    title: `Cancellation Policy · ${SUFFIX}`,
+    description: 'How to cancel a ONESAZ plan, and what happens to your access and data afterwards.',
   },
   '/careers': {
     title: `Careers · ${SUFFIX}`,

@@ -645,6 +645,10 @@ export const FAQS = [
     a: 'Per student, per year, quoted once. Setup, migration, training and support are included. SMS and WhatsApp are billed at cost and shown separately, and you approve the rate before anything is sent.',
   },
   {
+    q: 'My school uses ONESAZ. Do I need to pay?',
+    a: 'No. Your access comes through your institution, so sign in with the login it gave you or use its app. Student plans are only for individual students who are not with a partner institution.',
+  },
+  {
     q: 'How long until we are live?',
     a: 'Four to six weeks for most institutions. We migrate your student data, fee structures and staff records, so it does not land on your office staff as a spreadsheet task.',
   },
