@@ -6,7 +6,7 @@ type DemoComponent = React.LazyExoticComponent<() => JSX.Element>
 
 export const DEMOS: Partial<Record<ProductSlug, DemoComponent>> = {
   erp: React.lazy(() => import('./ErpDemo')),
-  lms: React.lazy(() => import('./LmsDemo')),
+  lms: React.lazy(() => import('./LmsLessonDemo')),
   'omr-scanning': React.lazy(() => import('./OmrDemo')),
   mdm: React.lazy(() => import('./MdmDemo')),
   'ai-calling-agent': React.lazy(() => import('./AiCallingDemo')),
@@ -16,4 +16,10 @@ export const DEMOS: Partial<Record<ProductSlug, DemoComponent>> = {
   'descriptive-evaluation': React.lazy(() => import('./DescriptiveEvaluationDemo')),
   'question-bank': React.lazy(() => import('./QuestionBankDemo')),
   attendance: React.lazy(() => import('./AttendanceDemo')),
+}
+
+/** Product pages can show a different demo from the tour (the tour keeps the story version). */
+export const PAGE_DEMOS: Partial<Record<ProductSlug, DemoComponent>> = {
+  erp: React.lazy(() => import('./ErpDashboardDemo')),
+  lms: React.lazy(() => import('./LmsStudentPhoneDemo')),
 }

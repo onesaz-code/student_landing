@@ -5,7 +5,7 @@ import { FEATURE_ICONS } from '../components/featureIcons'
 import { CTA, productBySlug, productPath, type Product, type ProductSlug, solidFill } from '../content/names'
 import { PRODUCT_CONTENT } from '../content/products'
 import { TOUR } from '../content/tour'
-import { DEMOS } from '../demos'
+import { DEMOS, PAGE_DEMOS } from '../demos'
 import { NotFoundPage } from './NotFoundPage'
 
 /** Gradient behind each hero demo: the tour's colours, plus Attendance (not in the tour). */
@@ -27,7 +27,7 @@ function Heading({ eyebrow, title, lead }: { eyebrow: string; title: string; lea
 
 function Hero({ product }: { product: Product }) {
   const c = PRODUCT_CONTENT[product.slug]
-  const Demo = DEMOS[product.slug]
+  const Demo = PAGE_DEMOS[product.slug] ?? DEMOS[product.slug]
   return (
     <section
       id="top"
