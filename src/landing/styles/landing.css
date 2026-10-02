@@ -198,3 +198,15 @@ body { margin: 0; background: #fff; }
 .lp-spin { animation: lp-spin linear infinite; }
 @keyframes lp-draw { from { transform: rotate(var(--deg)) scaleX(0); } to { transform: rotate(var(--deg)) scaleX(1); } }
 .lp-draw { animation: lp-draw 450ms ease-out both; }
+
+/* MDM demo: camera scan line sweeping over the QR code */
+@keyframes lp-scan { from { top: 8%; } to { top: 90%; } }
+.lp-scan { animation: lp-scan 1.1s ease-in-out infinite alternate; }
+
+/* AI Calling demo: ringing pulse, shaking answer button and voice waveform */
+@keyframes lp-ring { from { transform: scale(1); opacity: .7; } to { transform: scale(1.8); opacity: 0; } }
+.lp-ring { animation: lp-ring 1.2s ease-out infinite; }
+@keyframes lp-shake { 0%, 100% { transform: rotate(0); } 25% { transform: rotate(-14deg); } 75% { transform: rotate(14deg); } }
+.lp-shake { animation: lp-shake .5s ease-in-out infinite; }
+@keyframes lp-wave { 0%, 100% { height: 5px; } 50% { height: 22px; } }
+.lp-wave { height: 5px; animation: lp-wave .9s ease-in-out infinite; }
