@@ -1,36 +1,6 @@
 import * as React from 'react'
-import {
-  BookOpen,
-  CalendarCheck,
-  CircleHelp,
-  Crosshair,
-  FileCheck2,
-  IndianRupee,
-  Landmark,
-  MessageSquare,
-  Phone,
-  ScanLine,
-  TabletSmartphone,
-  Video,
-  type LucideIcon,
-} from 'lucide-react'
 import { SectionHeader } from '../components/SectionHeader'
 import { GROUP_COLORS, MODULES } from '../content/home'
-
-const ICONS: Record<string, LucideIcon> = {
-  lms: BookOpen,
-  desc: FileCheck2,
-  omr: ScanLine,
-  qbank: CircleHelp,
-  attendance: CalendarCheck,
-  erp: Landmark,
-  payments: IndianRupee,
-  mdm: TabletSmartphone,
-  video: Video,
-  sms: MessageSquare,
-  adaptive: Crosshair,
-  'ai-calling': Phone,
-}
 
 // Ring geometry (px, in the 600 × 600 ring box)
 const BOX = 600
@@ -40,18 +10,70 @@ const SPOKE = 222
 const DASHED = 412
 const GLOW = 264
 const CARD = 264
-/** Room above and below the ring for the top and bottom labels. */
-const LABEL_SPACE = 28
+/** The centre text sits in the square that fits inside the centre circle, so it never touches the edge. */
+const TEXT_BOX = Math.floor(CARD / Math.SQRT2) - 4
+/** Module circle sizes (px): resting and selected. */
+const NODE = 78
+const NODE_ON = 86
+/** Auto tour: seconds per module, and how long it waits after a click before carrying on. */
+const TOUR_STEP = 3000
+const TOUR_RESUME = 10000
+
+/** Splits a module name over two lines (at the space nearest the middle) so it fits inside its circle. */
+function twoLines(label: string): string[] {
+  // Keep "&" with the word before it ("Bulk SMS &" / "WhatsApp")
+  const words = label
+    .split(' ')
+    .reduce<string[]>((acc, w) => (w === '&' && acc.length ? [...acc.slice(0, -1), `${acc[acc.length - 1]} &`] : [...acc, w]), [])
+  if (words.length < 2) return [label]
+  let best = 1
+  let bestDiff = Infinity
+  for (let i = 1; i < words.length; i++) {
+    const diff = Math.abs(words.slice(0, i).join(' ').length - words.slice(i).join(' ').length)
+    if (diff < bestDiff) {
+      bestDiff = diff
+      best = i
+    }
+  }
+  return [words.slice(0, best).join(' '), words.slice(best).join(' ')]
+}
+
+/** Travelling light on the orbit: a dot with a short fading trail, as [angle offset in degrees, size, opacity]. */
+const TRAIL = Array.from({ length: 7 }, (_, i) => [-i * 2.6, 9 - i, 0.9 - i * 0.12] as const)
 
 /**
  * "Inside the platform": twelve modules on a ring around a centre card.
- * Click or arrow keys select a module. Under 760 px the ring becomes a two-column list.
+ * The dashed orbit turns slowly with a light travelling round it, and the ring moves to the next
+ * module every few seconds while on screen. Clicking a module (or using the arrow keys) stops the tour;
+ * it carries on after a short pause. With reduced motion nothing moves.
+ * Under 760 px the ring becomes a two-column list.
  */
 export function PlatformModulesSection({ id = 'platform-modules' }: { id?: string }) {
   const [active, setActive] = React.useState(1)
   const nodeRefs = React.useRef<(HTMLButtonElement | null)[]>([])
+  const ringRef = React.useRef<HTMLDivElement>(null)
+  const lastPick = React.useRef(0)
   const n = MODULES.length
   const cur = MODULES[active]
+
+  // Auto tour: next module every TOUR_STEP while the ring is on screen, held for a while after a pick
+  React.useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    const id = window.setInterval(() => {
+      const el = ringRef.current
+      if (!el || Date.now() - lastPick.current < TOUR_RESUME) return
+      const r = el.getBoundingClientRect()
+      // Skip while hidden (display: none on phones) or scrolled out of view
+      if (!r.height || r.bottom < 0 || r.top > window.innerHeight) return
+      setActive((a) => (a + 1) % n)
+    }, TOUR_STEP)
+    return () => window.clearInterval(id)
+  }, [n])
+
+  const pick = (i: number) => {
+    lastPick.current = Date.now()
+    setActive(i)
+  }
 
   const onKey = (e: React.KeyboardEvent, i: number) => {
     const next =
@@ -66,7 +88,7 @@ export function PlatformModulesSection({ id = 'platform-modules' }: { id?: strin
               : null
     if (next === null) return
     e.preventDefault()
-    setActive(next)
+    pick(next)
     nodeRefs.current[next]?.focus()
   }
 
@@ -92,31 +114,55 @@ export function PlatformModulesSection({ id = 'platform-modules' }: { id?: strin
         />
 
         {/* Ring (760 px and up) */}
-        <div className="relative shrink-0 max-[759px]:hidden" style={{ width: BOX, height: BOX + LABEL_SPACE * 2 }}>
-          {/* Inner box: the ring itself, with room above and below for labels */}
-          <div className="absolute left-0" style={{ top: LABEL_SPACE, width: BOX, height: BOX }}>
+        <div ref={ringRef} className="relative shrink-0 max-[759px]:hidden" style={{ width: BOX, height: BOX }}>
+          <div className="absolute inset-0">
+            {/* Dashed orbit, turning slowly */}
             <div
-              className="absolute rounded-full border-[1.5px] border-dashed border-[#DCE3F5]"
-              style={{ left: C - DASHED / 2, top: C - DASHED / 2, width: DASHED, height: DASHED }}
+              aria-hidden
+              className="lp-spin absolute rounded-full border-[1.5px] border-dashed border-[#B9C6EE]"
+              style={{ left: C - DASHED / 2, top: C - DASHED / 2, width: DASHED, height: DASHED, animationDuration: '60s' }}
             />
+            {/* Light travelling round the orbit */}
+            <div
+              aria-hidden
+              className="lp-spin absolute"
+              style={{ left: C - DASHED / 2, top: C - DASHED / 2, width: DASHED, height: DASHED, animationDuration: '11s' }}
+            >
+              {TRAIL.map(([deg, size, opacity]) => (
+                <span
+                  key={deg}
+                  className="absolute left-1/2 top-1/2 rounded-full bg-[color:var(--brand)]"
+                  style={{
+                    width: size,
+                    height: size,
+                    opacity,
+                    transform: `rotate(${deg}deg) translateY(${-DASHED / 2}px)`,
+                    margin: `${-size / 2}px 0 0 ${-size / 2}px`,
+                  }}
+                />
+              ))}
+            </div>
 
             {MODULES.map((m, i) => {
               const on = i === active
               const deg = (i / n) * 360 - 90
               return (
                 <div
-                  key={`spoke-${m.key}`}
+                  key={on ? `spoke-${m.key}-on` : `spoke-${m.key}`}
                   aria-hidden
-                  className="absolute origin-[0_50%] rounded-sm transition-[background,height] duration-[250ms]"
-                  style={{
-                    left: C,
-                    top: C,
-                    width: SPOKE,
-                    height: on ? 4 : 1.5,
-                    marginTop: on ? -2 : -0.75,
-                    background: on ? 'var(--brand)' : '#DCE3F5',
-                    transform: `rotate(${deg}deg)`,
-                  }}
+                  className={`absolute origin-[0_50%] rounded-sm ${on ? 'lp-draw' : ''}`}
+                  style={
+                    {
+                      left: C,
+                      top: C,
+                      width: SPOKE,
+                      height: on ? 4 : 1.5,
+                      marginTop: on ? -2 : -0.75,
+                      background: on ? 'var(--brand)' : '#DCE3F5',
+                      transform: `rotate(${deg}deg)`,
+                      '--deg': `${deg}deg`,
+                    } as React.CSSProperties
+                  }
                 />
               )
             })}
@@ -135,10 +181,15 @@ export function PlatformModulesSection({ id = 'platform-modules' }: { id?: strin
             <div
               key={cur.key}
               aria-live="polite"
-              className="lp-fade absolute z-[1] flex flex-col items-center justify-center gap-3 rounded-full border border-[#E8ECF5] bg-white px-8 text-center shadow-[0_30px_60px_-30px_rgba(20,40,110,.25)]"
+              className="absolute z-[1] flex items-center justify-center rounded-full border border-[#E8ECF5] bg-white shadow-[0_30px_60px_-30px_rgba(20,40,110,.25)]"
               style={{ left: C - CARD / 2, top: C - CARD / 2, width: CARD, height: CARD }}
             >
-              {centre}
+              <div
+                className="lp-fade flex flex-col items-center justify-center gap-2.5 overflow-hidden text-center"
+                style={{ width: TEXT_BOX, height: TEXT_BOX }}
+              >
+                {centre}
+              </div>
             </div>
 
             <div role="group" aria-label="Platform modules">
@@ -147,8 +198,7 @@ export function PlatformModulesSection({ id = 'platform-modules' }: { id?: strin
                 const a = (i / n) * Math.PI * 2 - Math.PI / 2
                 const x = Math.round(C + R * Math.cos(a))
                 const y = Math.round(C + R * Math.sin(a))
-                const size = on ? 68 : 58
-                const Icon = ICONS[m.key]
+                const size = on ? NODE_ON : NODE
                 return (
                   <React.Fragment key={m.key}>
                     <button
@@ -159,9 +209,9 @@ export function PlatformModulesSection({ id = 'platform-modules' }: { id?: strin
                       aria-pressed={on}
                       aria-label={m.name}
                       tabIndex={on ? 0 : -1}
-                      onClick={() => setActive(i)}
+                      onClick={() => pick(i)}
                       onKeyDown={(e) => onKey(e, i)}
-                      className="absolute z-[2] flex items-center justify-center rounded-full transition-[transform,box-shadow,background,width,height,margin] duration-200 focus-visible:outline-[3px] focus-visible:outline-offset-4 focus-visible:outline-[rgba(36,71,209,.35)]"
+                      className="absolute z-[2] flex flex-col items-center justify-center rounded-full px-1.5 text-center text-[11.5px] font-semibold leading-[1.2] transition-[box-shadow,background,color,width,height,margin] duration-200 focus-visible:outline-[3px] focus-visible:outline-offset-4 focus-visible:outline-[rgba(36,71,209,.35)]"
                       style={{
                         left: x,
                         top: y,
@@ -170,34 +220,24 @@ export function PlatformModulesSection({ id = 'platform-modules' }: { id?: strin
                         marginLeft: -size / 2,
                         marginTop: -size / 2,
                         background: on ? 'var(--brand)' : '#fff',
-                        color: on ? '#fff' : 'var(--ink-600)',
+                        color: on ? '#fff' : 'var(--ink-900)',
                         border: on ? '1px solid var(--brand)' : '1px solid #E3E7EF',
                         boxShadow: on ? '0 16px 32px -12px rgba(36,71,209,.55)' : '0 4px 12px -8px rgba(15,23,41,.15)',
                       }}
                     >
-                      <Icon size={20} strokeWidth={1.75} />
+                      {twoLines(m.label).map((line) => (
+                        <span key={line} className="block whitespace-nowrap">
+                          {line}
+                        </span>
+                      ))}
                     </button>
-                    <span
-                      aria-hidden
-                      className="pointer-events-none absolute w-40 text-center text-[13.5px]"
-                      style={{
-                        left: x,
-                        // Top-half labels sit above their node so the spokes never run through them
-                        top: y < C - 1 ? y - size / 2 - 26 : y + size / 2 + 8,
-                        marginLeft: -80,
-                        fontWeight: on ? 600 : 500,
-                        color: on ? 'var(--ink-900)' : 'var(--ink-600)',
-                      }}
-                    >
-                      {m.label}
-                    </span>
                   </React.Fragment>
                 )
               })}
             </div>
           </div>
         </div>
-        <p className="text-[15px] text-[#667085] max-[759px]:hidden">Use the arrow keys to move around the ring.</p>
+        <p className="text-[15px] text-[#667085] max-[759px]:hidden"></p>
 
         {/* List (under 760 px) */}
         <div className="hidden w-full flex-col gap-3.5 max-[759px]:flex">

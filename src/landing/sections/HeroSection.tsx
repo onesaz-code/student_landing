@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { ArrowRight, Play } from 'lucide-react'
 import { BRAND, CTA } from '../content/names'
 import { ProductTour } from './ProductTour'
+import { StatsBand } from './StatsBand'
 
 const HERO_IMAGE = '/images/landing/hero-campus.webp'
 
@@ -55,8 +56,8 @@ export function HeroSection() {
                   backgroundClip: 'text',
                   color: 'transparent',
                   whiteSpace: 'nowrap',
-                // Gradient text: a glow would show through the transparent fill
-                textShadow: 'none',
+                  // Gradient text: a glow would show through the transparent fill
+                  textShadow: 'none',
                 }}
               >
                 AI-Powered
@@ -91,6 +92,7 @@ export function HeroSection() {
       </div>
 
       <div className="lp-container flex flex-col items-center">
+        <StatsBand />
         <ProductTour />
       </div>
     </section>

@@ -672,3 +672,11 @@ export const INSTITUTION_TYPES = ['School', 'College', 'Coaching institute', 'Tr
 
 /** Every product, for the "Interested in" checklist on the demo form. */
 export const DEMO_PRODUCTS = PRODUCTS.map((p) => p.name)
+
+/** Headline numbers in the dark band above the product tour (from the current site). */
+export const STATS = [
+  { value: '200+', label: 'Institutions' },
+  { value: '600,000+', label: 'Students' },
+  { value: '99%', label: 'Success rate' },
+  { value: '1,000,000+', label: 'Questions in the bank' },
+]

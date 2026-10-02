@@ -5,6 +5,17 @@ import { CTA, productBySlug, productPath, type ProductSlug, solidFill } from '..
 import { TOUR } from '../content/tour'
 import { DEMOS } from '../demos'
 import { PRODUCT_ICONS } from '../components/productIcons'
+import { WaveBackground } from '../components/WaveBackground'
+
+// Fades the wave canvas out on all four edges so it never shows a hard edge
+const FADE =
+  'linear-gradient(to right, transparent, #000 12%, #000 88%, transparent), linear-gradient(to bottom, transparent, #000 25%, #000 70%, transparent)'
+const WAVE_MASK: React.CSSProperties = {
+  WebkitMaskImage: FADE,
+  WebkitMaskComposite: 'source-in',
+  maskImage: FADE,
+  maskComposite: 'intersect',
+}
 
 /**
  * "See it in action": one tab per product (10, equal size), each showing the
@@ -31,60 +42,65 @@ export function ProductTour() {
 
   return (
     <div id="product-tour" className="mt-16 flex w-full flex-col items-center gap-7 text-left max-[639px]:mt-12">
-      <div className="flex flex-col items-center gap-2.5 text-center">
-        <span className="lp-eyebrow">See it in action</span>
-        <h2 className="font-[family-name:var(--font-display)] text-[clamp(24px,2.6vw,34px)] font-semibold tracking-[-0.02em] text-[color:var(--ink-900)]">
-          One platform. Pick a product to see what it does.
-        </h2>
-      </div>
+      {/* Heading and tabs, with slow flowing waves behind them (edges faded so there is no box) */}
+      <div className="relative isolate flex w-full flex-col items-center gap-7">
+        <WaveBackground
+          className="absolute -inset-x-10 -bottom-12 top-[-28px] -z-10 h-[calc(100%+76px)] w-[calc(100%+80px)]"
+          style={WAVE_MASK}
+        />
+        <div className="flex flex-col items-center gap-2.5 text-center">
+          <span className="lp-eyebrow">See it in action</span>
+          <h2 className="font-[family-name:var(--font-display)] text-[clamp(24px,2.6vw,34px)] font-semibold tracking-[-0.02em] text-[color:var(--ink-900)]">
+            One platform. Pick a product to see what it does.
+          </h2>
+        </div>
 
-      <div
-        role="tablist"
-        aria-label="ONESAZ products"
-        // 5 columns; 4 per row with the last row centred (900–1099 px); 2 columns on smaller screens
-        className="grid w-full grid-cols-5 gap-3 max-[1099px]:flex max-[1099px]:flex-wrap max-[1099px]:justify-center max-[899px]:grid max-[899px]:grid-cols-2"
-      >
-        {TOUR.map((t, i) => {
-          const p = productBySlug(t.slug)!
-          const Icon = PRODUCT_ICONS[t.slug]
-          const on = t.slug === active
-          return (
-            <button
-              key={t.slug}
-              ref={(el) => {
-                tabRefs.current[i] = el
-              }}
-              role="tab"
-              id={`tour-tab-${t.slug}`}
-              aria-selected={on}
-              aria-controls="tour-panel"
-              tabIndex={on ? 0 : -1}
-              onClick={() => setActive(t.slug)}
-              onKeyDown={(e) => onKey(e, i)}
-              className={`flex min-h-[62px] items-center max-[1099px]:basis-[calc((100%-36px)/4)] max-[899px]:basis-auto justify-center gap-2.5 rounded-[14px] border px-3.5 py-2.5 text-left text-[14px] font-semibold leading-[1.3] transition-[background,color,box-shadow,transform,border-color] duration-200 max-[639px]:min-h-[70px] max-[639px]:gap-2 max-[639px]:px-2.5 max-[639px]:text-[13px] ${
-                on
-                  ? 'text-white'
-                  : 'border-[#E3E7EF] bg-white text-[#1F2937] hover:-translate-y-0.5 hover:border-[#C9D0DD] hover:shadow-[0_10px_22px_-14px_rgba(20,40,110,.35)]'
-              }`}
-              style={
-                on
-                  ? {
-                      background: p.color,
-                      borderColor: p.color,
-                      boxShadow: `0 14px 28px -14px ${p.color}`,
-                    }
-                  : undefined
-              }
-            >
-              <Icon
-                size={20}
-                strokeWidth={1.75}
-                className={`shrink-0 max-[639px]:h-[17px] max-[639px]:w-[17px] ${on ? '' : 'text-[#667085]'}`}
-              />
-              <span>{p.name}</span>
-            </button>
-          )
-        })}
+        <div
+          role="tablist"
+          aria-label="ONESAZ products"
+          // 5 columns; 4 per row with the last row centred (900–1099 px); 2 columns on smaller screens
+          className="grid w-full grid-cols-5 gap-3 max-[1099px]:flex max-[1099px]:flex-wrap max-[1099px]:justify-center max-[899px]:grid max-[899px]:grid-cols-2"
+        >
+          {TOUR.map((t, i) => {
+            const p = productBySlug(t.slug)!
+            const Icon = PRODUCT_ICONS[t.slug]
+            const on = t.slug === active
+            return (
+              <button
+                key={t.slug}
+                ref={(el) => {
+                  tabRefs.current[i] = el
+                }}
+                role="tab"
+                id={`tour-tab-${t.slug}`}
+                aria-selected={on}
+                aria-controls="tour-panel"
+                tabIndex={on ? 0 : -1}
+                onClick={() => setActive(t.slug)}
+                onKeyDown={(e) => onKey(e, i)}
+                className={`flex min-h-[50px] items-center max-[1099px]:basis-[calc((100%-36px)/4)] max-[899px]:basis-auto justify-center gap-2 rounded-[12px] border px-3 py-1.5 text-left text-[13.5px] font-semibold leading-[1.25] transition-[background,color,box-shadow,border-color] duration-200 max-[639px]:min-h-[56px] max-[639px]:px-2.5 max-[639px]:text-[13px] ${
+                  on ? 'text-white' : 'border-[#E3E7EF] bg-white text-[#1F2937]'
+                }`}
+                style={
+                  on
+                    ? {
+                        background: p.color,
+                        borderColor: p.color,
+                        boxShadow: `0 10px 20px -12px ${p.color}`,
+                      }
+                    : undefined
+                }
+              >
+                <Icon
+                  size={18}
+                  strokeWidth={1.75}
+                  className={`shrink-0 max-[639px]:h-[17px] max-[639px]:w-[17px] ${on ? '' : 'text-[#667085]'}`}
+                />
+                <span>{p.name}</span>
+              </button>
+            )
+          })}
+        </div>
       </div>
 
       <div

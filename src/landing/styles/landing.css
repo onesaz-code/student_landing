@@ -192,3 +192,9 @@ body { margin: 0; background: #fff; }
     scroll-behavior: auto !important;
   }
 }
+
+/* Platform ring: turning orbit, travelling light and the active spoke drawing out */
+@keyframes lp-spin { to { transform: rotate(360deg); } }
+.lp-spin { animation: lp-spin linear infinite; }
+@keyframes lp-draw { from { transform: rotate(var(--deg)) scaleX(0); } to { transform: rotate(var(--deg)) scaleX(1); } }
+.lp-draw { animation: lp-draw 450ms ease-out both; }
