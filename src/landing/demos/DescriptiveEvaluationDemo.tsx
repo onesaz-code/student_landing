@@ -54,7 +54,7 @@ export default function DescriptiveEvaluationDemo() {
               }}
             >
               <span className="mb-1.5 block text-[11px] font-bold text-[#0F1729]">
-                Q4. Explain photosynthesis. <span className="font-medium text-[#7C879B]">(8 marks)</span>
+                Q4. Explain photosynthesis. <span className="font-medium text-[#667085]">(8 marks)</span>
               </span>
               <span
                 className="block text-[12.5px] leading-[22px] text-[#1E3A8A]"

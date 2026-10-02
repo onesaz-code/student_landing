@@ -6,6 +6,5 @@ export default {
   content: [
     './index.html',
     './src/**/*.{js,ts,jsx,tsx}',
-    '../onesaz-ui/packages/ui/src/**/*.{js,ts,jsx,tsx}',
   ],
 }

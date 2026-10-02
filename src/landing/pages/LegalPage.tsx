@@ -14,7 +14,7 @@ function withEmailLinks(text: string): React.ReactNode {
     const i = m.index ?? 0
     if (i > last) parts.push(text.slice(last, i))
     parts.push(
-      <a key={i} href={`mailto:${m[0]}`} className="font-medium text-[color:var(--brand)] hover:underline">
+      <a key={i} href={`mailto:${m[0]}`} className="font-medium text-[color:var(--brand)] underline underline-offset-2">
         {m[0]}
       </a>,
     )
@@ -53,16 +53,18 @@ export function LegalPage({ page }: { page: LegalKey }) {
   return (
     <section className="pb-24 pt-10 max-[639px]:pb-16 max-[639px]:pt-6">
       <div className="lp-container">
-        <nav aria-label="Breadcrumb" className="text-[13.5px] text-[color:var(--ink-400)]">
-          <Link to="/" className="text-[color:var(--ink-600)] hover:text-[color:var(--brand)]">
-            Home
-          </Link>
-          <span className="mx-2" aria-hidden>
-            ›
-          </span>
-          <span aria-current="page" className="font-medium text-[color:var(--ink-900)]">
-            {cfg.documentTitle}
-          </span>
+        <nav aria-label="Breadcrumb">
+          <ol className="flex flex-wrap items-center gap-2 text-[13.5px] text-[color:var(--ink-400)]">
+            <li>
+              <Link to="/" className="text-[color:var(--ink-600)] hover:text-[color:var(--brand)]">
+                Home
+              </Link>
+            </li>
+            <li aria-hidden>›</li>
+            <li aria-current="page" className="font-medium text-[color:var(--ink-900)]">
+              {cfg.documentTitle}
+            </li>
+          </ol>
         </nav>
         <article className="mx-auto mt-10 flex max-w-[820px] flex-col gap-8">
           <h1 className="lp-h1">{cfg.documentTitle}</h1>

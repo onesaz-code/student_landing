@@ -39,7 +39,7 @@ export default function ErpDemo() {
                 <span key={i} className="h-4 w-4 rounded-[5px]" style={{ background: bg }} />
               ))}
             </div>
-            <span className="flex flex-wrap gap-x-3.5 gap-y-1 text-[11.5px] text-[#7C879B]">
+            <span className="flex flex-wrap gap-x-3.5 gap-y-1 text-[11.5px] text-[#667085]">
               <span>● Present</span>
               <span className="text-[#B7791F]">● Absent · parents alerted</span>
             </span>
@@ -49,7 +49,7 @@ export default function ErpDemo() {
             <span className="block h-2.5 rounded-[5px] bg-[#FBEFD9]">
               <span className="block h-2.5 w-[72%] rounded-[5px]" style={{ background: GREEN }} />
             </span>
-            <span className="flex justify-between text-[11.5px] text-[#7C879B]">
+            <span className="flex justify-between text-[11.5px] text-[#667085]">
               <span>Collected</span>
               <span>Reminders sent</span>
             </span>
@@ -60,7 +60,7 @@ export default function ErpDemo() {
           <div className="flex gap-2.5">
             {PIPELINE.map((col) => (
               <div key={col.label} className="flex min-w-0 flex-1 basis-0 flex-col gap-1.5">
-                <span className="truncate text-[11px] text-[#7C879B]">{col.label}</span>
+                <span className="truncate text-[11px] text-[#667085]">{col.label}</span>
                 {Array.from({ length: col.cards }, (_, i) => (
                   <span key={i} className="block h-[18px] rounded-[5px]" style={{ background: col.done ? GREEN : '#E3E8F4' }} />
                 ))}

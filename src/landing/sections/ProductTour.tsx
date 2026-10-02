@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
-import { CTA, productBySlug, productPath, type ProductSlug } from '../content/names'
+import { CTA, productBySlug, productPath, type ProductSlug, solidFill } from '../content/names'
 import { TOUR } from '../content/tour'
 import { DEMOS } from '../demos'
 import { PRODUCT_ICONS } from '../components/productIcons'
@@ -101,7 +101,7 @@ export function ProductTour() {
             <span className="inline-flex items-center gap-2 self-start text-[13px] font-semibold" style={{ color: product.color }}>
               <span
                 className="rounded-full px-[9px] py-1 font-[family-name:var(--font-mono)] text-[11px] font-bold tracking-[.04em] text-white"
-                style={{ background: product.color }}
+                style={{ background: solidFill(product.color) }}
               >
                 {product.badge}
               </span>

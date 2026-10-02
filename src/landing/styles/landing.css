@@ -1,8 +1,8 @@
 /*
  * ONESAZ landing page — design tokens and base styles.
  * Scoped to `.lp` (the landing root) so the existing app styles are untouched.
+ * Fonts (Schibsted Grotesk, Geist, Geist Mono) are linked in index.html.
  */
-@import url('https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap');
 
 .lp {
   /* Brand */
@@ -14,7 +14,7 @@
   /* Ink */
   --ink-900: #0f1729;
   --ink-600: #3f4758;
-  --ink-400: #7c879b;
+  --ink-400: #667085; /* 4.8:1 on white (WCAG AA for small text) */
 
   /* Lines and surfaces */
   --line: #e6e9f0;
@@ -45,6 +45,13 @@
 
 @media (max-width: 639px) {
   .lp { --gutter: 16px; }
+}
+
+/* In-page links (e.g. "Explore features") glide instead of jumping */
+html { scroll-behavior: smooth; }
+body { margin: 0; background: #fff; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
 }
 
 .lp *, .lp *::before, .lp *::after { box-sizing: border-box; }

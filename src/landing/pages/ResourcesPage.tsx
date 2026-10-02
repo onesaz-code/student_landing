@@ -63,7 +63,7 @@ function ProductGuides() {
                 <span className="text-[15.5px] font-semibold text-[color:var(--ink-900)]">{p.name}</span>
               </span>
               <span className="text-[13.5px] leading-[1.5] text-[color:var(--ink-600)]">{p.line}</span>
-              <span className="mt-1 inline-flex items-center gap-1.5 text-[13.5px] font-semibold" style={{ color: p.color }}>
+              <span className="mt-1 inline-flex items-center gap-1.5 text-[13.5px] font-semibold text-[color:var(--brand)]">
                 {GUIDES.linkLabel}
                 <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5" />
               </span>

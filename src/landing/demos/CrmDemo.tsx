@@ -77,7 +77,7 @@ export default function CrmDemo() {
                     <span className="max-[639px]:hidden">{s.full}</span>
                     <span className="hidden max-[639px]:inline">{s.short}</span>
                   </span>
-                  <span className={`${MONO} text-[10px] text-[#7C879B]`}>
+                  <span className={`${MONO} text-[10px] text-[#667085]`}>
                     {s.count ?? (
                       <span className="inline-grid shrink-0 justify-items-end">
                         <span className="crm-n0 [grid-area:1/1]">42</span>

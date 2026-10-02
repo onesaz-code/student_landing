@@ -96,7 +96,7 @@ export default function VideoCallingDemo() {
                   />
                   <span className="flex min-w-0 grow flex-col gap-px">
                     <span className="text-[14px] font-semibold text-[#0F1729]">Ananya Rao</span>
-                    <span className="text-[12px] text-[#7C879B]">Class 9 · Section A</span>
+                    <span className="text-[12px] text-[#667085]">Class 9 · Section A</span>
                   </span>
                 </div>
                 <span
@@ -123,7 +123,7 @@ export default function VideoCallingDemo() {
                       </Ico>
                     </span>
                     <span className="grow text-[12.5px] text-[#0F1729]">Ananya</span>
-                    <span className="text-[11.5px] text-[#7C879B]">{when}</span>
+                    <span className="text-[11.5px] text-[#667085]">{when}</span>
                   </li>
                 ))}
               </ul>

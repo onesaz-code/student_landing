@@ -90,7 +90,7 @@ export default function OmrDemo() {
               <span className={`${MONO} pl-1 text-[8.5px] tracking-[.08em] text-[#9AA3B2]`}>ROLL 14 · UNIT TEST</span>
               {SHEET_ROWS.map((row, i) => (
                 <div key={i} className="flex items-center gap-[7px]">
-                  <span className={`${MONO} w-4 text-[9.5px] text-[#7C879B]`}>{String(i + 1).padStart(2, '0')}</span>
+                  <span className={`${MONO} w-4 text-[9.5px] text-[#667085]`}>{String(i + 1).padStart(2, '0')}</span>
                   <span className="flex gap-[5px]">
                     {OPTIONS.map((opt) => {
                       const on = opt === row.filled
@@ -178,7 +178,7 @@ export default function OmrDemo() {
           <Step n={3} />
           <span className="flex grow flex-col gap-px">
             <span className="text-[13.5px] font-semibold text-[#0F1729]">Results sent to parents</span>
-            <span className="text-[12px] text-[#7C879B]">App, SMS and WhatsApp, the same day</span>
+            <span className="text-[12px] text-[#667085]">App, SMS and WhatsApp, the same day</span>
           </span>
           <span className="omr-sentok flex aspect-square h-[26px] w-[26px] flex-none items-center justify-center self-center rounded-full bg-[#1F9D63] text-white">
             <Check size={13} />

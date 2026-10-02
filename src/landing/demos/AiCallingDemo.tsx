@@ -264,7 +264,7 @@ function CallList() {
               </span>
               <span className="flex min-w-0 grow flex-col gap-px">
                 <span className="truncate text-[12.5px] font-semibold text-[#0F1729]">{r.name}</span>
-                <span className="truncate text-[11px] text-[#7C879B]">{r.reason}</span>
+                <span className="truncate text-[11px] text-[#667085]">{r.reason}</span>
               </span>
               {r.status}
             </div>

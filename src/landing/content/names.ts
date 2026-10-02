@@ -72,6 +72,9 @@ export const PRODUCTS: Product[] = [
   { slug: 'video-calling', name: 'Video Calling', short: 'Video Calling', badge: 'VIDEO', color: '#0E7490', tint: '#E3F4F8', line: 'Parents and students, face to face' },
 ]
 
+/** Product colour darkened enough for white text on it (badges, buttons) to meet WCAG AA contrast. */
+export const solidFill = (color: string) => `color-mix(in srgb, ${color} 80%, #000)`
+
 export const productBySlug = (slug: string): Product | undefined =>
   PRODUCTS.find((p) => p.slug === slug)
 

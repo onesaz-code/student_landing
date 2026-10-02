@@ -2,7 +2,7 @@ import * as React from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { ArrowRight, Check, Plus } from 'lucide-react'
 import { FEATURE_ICONS } from '../components/featureIcons'
-import { CTA, productBySlug, productPath, type Product, type ProductSlug } from '../content/names'
+import { CTA, productBySlug, productPath, type Product, type ProductSlug, solidFill } from '../content/names'
 import { PRODUCT_CONTENT } from '../content/products'
 import { TOUR } from '../content/tour'
 import { DEMOS } from '../demos'
@@ -62,7 +62,7 @@ function Hero({ product }: { product: Product }) {
             <span className="inline-flex items-center gap-2 self-start text-[13px] font-semibold" style={{ color: product.color }}>
               <span
                 className="rounded-full px-[9px] py-1 font-[family-name:var(--font-mono)] text-[11px] font-bold tracking-[.04em] text-white"
-                style={{ background: product.color }}
+                style={{ background: solidFill(product.color) }}
               >
                 {product.badge}
               </span>
@@ -71,7 +71,7 @@ function Hero({ product }: { product: Product }) {
             <h1 className="lp-h1 text-[color:var(--ink-900)]">{c.headline}</h1>
             <p className="lp-lead !text-[18px] max-[639px]:!text-[16px]">{c.lead}</p>
             <div className="flex flex-wrap gap-3 pt-1 max-[379px]:flex-col">
-              <Link to={CTA.demoPath} className="lp-btn lp-btn-primary" style={{ background: product.color }}>
+              <Link to={CTA.demoPath} className="lp-btn lp-btn-primary" style={{ background: solidFill(product.color) }}>
                 {CTA.demo}
                 <ArrowRight size={16} />
               </Link>
@@ -268,13 +268,6 @@ function ClosingCta({ product }: { product: Product }) {
 export function ProductPage() {
   const { slug = '' } = useParams()
   const product = productBySlug(slug)
-
-  React.useEffect(() => {
-    if (product) document.title = `${product.name} · ONESAZ by Acadhub`
-    return () => {
-      document.title = 'ONESAZ by Acadhub — AI-Powered Education Management'
-    }
-  }, [product])
 
   if (!product) return <NotFoundPage />
 

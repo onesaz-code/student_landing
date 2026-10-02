@@ -108,7 +108,7 @@ function TabletTask({ done, title, sub }: { done: boolean; title: string; sub: s
       </span>
       <span className="flex min-w-0 flex-col">
         <span className="text-[10px] font-semibold text-[#0F1729]">{title}</span>
-        <span className="text-[8.5px] text-[#7C879B]">{sub}</span>
+        <span className="text-[8.5px] text-[#667085]">{sub}</span>
       </span>
     </span>
   )
@@ -129,7 +129,7 @@ export default function LmsDemo() {
                 </span>
                 <span className="flex min-w-0 grow flex-col gap-px">
                   <span className="text-[13.5px] font-semibold text-[#0F1729]">Light and chlorophyll</span>
-                  <span className="text-[11.5px] text-[#7C879B]">Video · 8 min + quiz</span>
+                  <span className="text-[11.5px] text-[#667085]">Video · 8 min + quiz</span>
                 </span>
                 <span className="inline-grid shrink-0 justify-items-end">
                   <span className="lms-st0 [grid-area:1/1]">
@@ -217,7 +217,7 @@ export default function LmsDemo() {
                 <span className="grid">
                   {/* Screen 1: today's list */}
                   <span className="lms-s0 flex flex-col gap-2 [grid-area:1/1]">
-                    <span className="text-[10px] text-[#7C879B]">Today</span>
+                    <span className="text-[10px] text-[#667085]">Today</span>
                     <TabletTask done title="How plants make food" sub="Completed" />
                     <TabletTask done={false} title="Maths worksheet" sub="Due Friday" />
                   </span>
@@ -239,7 +239,7 @@ export default function LmsDemo() {
                       <span className="lms-vp block h-1 origin-left bg-[#2447D1]" />
                     </span>
                     <span className="text-[11px] font-semibold text-[#0F1729]">Light and chlorophyll</span>
-                    <span className="text-[9px] leading-[1.4] text-[#7C879B]">
+                    <span className="text-[9px] leading-[1.4] text-[#667085]">
                       Plants use chlorophyll to capture sunlight and make food.
                     </span>
                   </span>
@@ -278,7 +278,7 @@ export default function LmsDemo() {
                 </span>
               </div>
             </div>
-            <span className="text-[11px] text-[#7C879B]">Student’s tablet</span>
+            <span className="text-[11px] text-[#667085]">Student’s tablet</span>
           </div>
         </div>
       </DemoWindow>

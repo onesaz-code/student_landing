@@ -259,7 +259,7 @@ export default function MdmDemo() {
                 </span>
               </div>
             </div>
-            <span className="text-[11px] text-[#7C879B]">Student’s tablet</span>
+            <span className="text-[11px] text-[#667085]">Student’s tablet</span>
           </div>
         </div>
       </DemoWindow>

@@ -2,6 +2,7 @@ import * as React from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import { SiteHeader } from '../components/SiteHeader'
 import { SiteFooter } from '../components/SiteFooter'
+import { metaForPath } from '../content/seo'
 import '../styles/landing.css'
 
 /**
@@ -22,13 +23,29 @@ function ScrollManager() {
       const el = document.getElementById(id)
       if (el) {
         el.scrollIntoView({ behavior: 'smooth', block: 'start' })
-      } else if (tries++ < 20) {
+      } else if (tries++ < 60) {
         window.setTimeout(tick, 50)
       }
     }
     tick()
   }, [pathname, hash])
 
+  return null
+}
+
+/** Sets the tab title and the description / link-preview tags for the current page. */
+function PageMeta() {
+  const { pathname } = useLocation()
+  React.useEffect(() => {
+    const { title, description } = metaForPath(pathname)
+    document.title = title
+    const set = (selector: string, value: string) => document.querySelector(selector)?.setAttribute('content', value)
+    set('meta[name="description"]', description)
+    set('meta[property="og:title"]', title)
+    set('meta[property="og:description"]', description)
+    set('meta[name="twitter:title"]', title)
+    set('meta[name="twitter:description"]', description)
+  }, [pathname])
   return null
 }
 
@@ -43,9 +60,13 @@ export function LandingLayout() {
         Skip to content
       </a>
       <ScrollManager />
+      <PageMeta />
       <SiteHeader />
       <main id="main">
-        <Outlet />
+        {/* Inner pages are lazy-loaded; keep the footer below the fold while one loads */}
+        <React.Suspense fallback={<div className="min-h-screen" />}>
+          <Outlet />
+        </React.Suspense>
       </main>
       <SiteFooter />
     </div>

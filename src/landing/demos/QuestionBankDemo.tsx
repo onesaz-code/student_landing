@@ -85,7 +85,7 @@ export default function QuestionBankDemo() {
                 >
                   <span className="flex min-w-0 grow flex-col gap-0.5">
                     <span className="text-[12px] leading-[1.35] text-[#0F1729]">{item.q}</span>
-                    <span className="text-[10.5px] text-[#7C879B]">{item.meta}</span>
+                    <span className="text-[10.5px] text-[#667085]">{item.meta}</span>
                   </span>
                   <Stack>
                     <span className={`qb-a${i} [grid-area:1/1]`}>
