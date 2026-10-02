@@ -8,6 +8,7 @@ import { ResourcesPage } from './pages/ResourcesPage'
 import { AboutPage } from './pages/AboutPage'
 import { ContactPage } from './pages/ContactPage'
 import { CareersPage } from './pages/CareersPage'
+import { AppsPage } from './pages/AppsPage'
 import { LegalPage } from './pages/LegalPage'
 import { NotFoundPage } from './pages/NotFoundPage'
 
@@ -28,6 +29,7 @@ export default function LandingApp() {
             <Route path="/about" element={<AboutPage />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/careers" element={<CareersPage />} />
+            <Route path="/apps" element={<AppsPage />} />
             <Route path="/privacy-policy" element={<LegalPage page="privacy" />} />
             <Route path="/terms-of-service" element={<LegalPage page="terms" />} />
             <Route path="/cookie-policy" element={<LegalPage page="cookie" />} />

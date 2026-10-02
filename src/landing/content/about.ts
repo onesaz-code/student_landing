@@ -2,6 +2,8 @@
  * Copy for the About ONESAZ page (/about). Product names come from names.ts;
  * the "Why ONESAZ", Services, Clients and Testimonials blocks reuse the home sections.
  */
+import { APP_DOWNLOAD_PATH } from './navigation'
+
 
 export const ABOUT_HERO = {
   eyebrow: 'About ONESAZ',
@@ -47,7 +49,7 @@ export const WHAT_WE_BUILD = {
   title: 'Everything on one ONESAZ platform.',
   lead: 'Each product works on its own, and all of them share one student record.',
   /** The mobile app is a platform feature (no product page), so it links to Platform Modules. */
-  app: { line: 'Students, teachers and parents on the go', to: '/resources#platform-modules' },
+  app: { line: 'Students, teachers and parents on the go', to: APP_DOWNLOAD_PATH },
 }
 
 /** Qualitative outcomes only: the design's figures and named quotes were placeholders. */

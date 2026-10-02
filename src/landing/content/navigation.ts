@@ -34,6 +34,9 @@ export interface NavMenu {
   promos?: NavPromo[]
 }
 
+/** The ONESAZ Mobile Apps page, which lists every app with store links. */
+export const APP_DOWNLOAD_PATH = '/apps'
+
 /** Icon colours for platform features (they have no product colour of their own). */
 const FEATURE_COLORS = {
   adaptive: '#E0A030',
@@ -116,7 +119,7 @@ export const MENUS: NavMenu[] = [
           product('ai-calling-agent'),
           product('video-calling'),
           { label: FEATURES.sms, to: '/resources#platform-modules', icon: PLATFORM_FEATURE_ICONS.sms, color: FEATURE_COLORS.sms },
-          { label: FEATURES.app, to: '/resources#platform-modules', icon: PLATFORM_FEATURE_ICONS.app, color: FEATURE_COLORS.app },
+          { label: FEATURES.app, to: APP_DOWNLOAD_PATH, icon: PLATFORM_FEATURE_ICONS.app, color: FEATURE_COLORS.app },
         ],
       },
     ],
@@ -206,7 +209,7 @@ export const FOOTER_COLUMNS: { title: string; links: NavLink[] }[] = [
     title: 'Administration & Connect',
     links: [
       ...(['erp', 'crm', 'mdm', 'ai-calling-agent', 'video-calling'] as ProductSlug[]).map(product),
-      { label: FEATURES.app, to: '/resources#platform-modules', icon: PLATFORM_FEATURE_ICONS.app, color: FEATURE_COLORS.app },
+      { label: FEATURES.app, to: APP_DOWNLOAD_PATH, icon: PLATFORM_FEATURE_ICONS.app, color: FEATURE_COLORS.app },
     ],
   },
   {

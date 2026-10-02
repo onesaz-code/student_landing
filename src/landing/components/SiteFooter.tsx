@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { ArrowUpRight, ChevronRight, MapPin } from 'lucide-react'
 import { Logo } from './Logo'
+import { StoreBadges } from './StoreBadges'
 import { FOOTER_COLUMNS } from '../content/navigation'
 import { BRAND, CTA } from '../content/names'
 
@@ -53,8 +54,12 @@ export function SiteFooter() {
     <footer className="bg-[color:var(--surface-footer)] pb-8 pt-16 text-[#C9D0DC] max-[639px]:pt-12">
       <div className="lp-container">
         <div className="flex items-center justify-between gap-6 border-b border-[color:var(--brand)] pb-8 max-[639px]:flex-col max-[639px]:items-start">
-          <Logo onDark size="lg" />
+          <div id="get-the-app" className="flex flex-col gap-5">
+            <Logo onDark size="lg" />
+            <StoreBadges />
+          </div>
           <div className="flex items-center gap-[18px]">
+            <span className="text-[22px] font-bold text-white/90">Follow us</span>
             {SOCIAL.map((s) => {
               const placeholder = s.href === '#'
               return (

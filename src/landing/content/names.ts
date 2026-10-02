@@ -26,6 +26,11 @@ export const BRAND = {
   mapsHref:
     'https://www.google.com/maps/search/?api=1&query=Suvarna+Habitat,+Jai+Hind+Gandhi+Rd,+Cyber+Hills+Colony,+VIP+Hills,+Jaihind+Enclave,+Madhapur,+Hyderabad,+Telangana+500081',
   logoSrc: '/images/onesaz-mark.png',
+  /** Developer pages on each store: they list every ONESAZ app. */
+  apps: {
+    googlePlay: 'https://play.google.com/store/apps/developer?id=onesaz+developer&hl=en_IN',
+    appStore: 'https://apps.apple.com/us/developer/onesaz/id1713076053',
+  },
 } as const
 
 export type ProductSlug =
@@ -77,7 +82,7 @@ export const FEATURES = {
   sms: 'Bulk SMS & WhatsApp',
   payments: 'Payment Gateway',
   adaptive: 'Adaptive Learning',
-  app: 'ONESAZ Mobile App',
+  app: 'ONESAZ Mobile Apps',
 } as const
 
 export const SOLUTIONS = [
