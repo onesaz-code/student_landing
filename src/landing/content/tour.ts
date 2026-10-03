@@ -135,19 +135,19 @@ export const TOUR: TourItem[] = [
   {
     slug: 'ai-tutor',
     title: 'A personal tutor for every student.',
-    text: 'The ONESAZ AI Tutor answers doubts, explains step by step and sets practice at the right level for each student.',
+    text: 'Students ask in their own words. The ONESAZ AI Tutor explains step by step, then sets practice at the right level.',
     steps: [
       {
-        title: 'Answers doubts any time',
-        text: 'Students ask in their own words and get clear, step-by-step explanations.',
+        title: 'Explains step by step',
+        text: 'Every doubt gets clear, numbered steps with formula support.',
       },
       {
-        title: 'Practice that adapts',
-        text: 'Questions get harder or easier based on how each student is doing.',
+        title: 'Checks understanding',
+        text: 'A follow-up question shows straight away whether the idea has clicked.',
       },
       {
-        title: 'Teachers see the gaps',
-        text: 'Mastery by topic shows who needs help, and where.',
+        title: 'Progress you can see',
+        text: 'Topic mastery grows with each right answer, so teachers know where to help.',
       },
     ],
     mockBg: 'linear-gradient(135deg, #FCE7F3 0%, #FFF5FA 100%)',
@@ -155,39 +155,39 @@ export const TOUR: TourItem[] = [
   {
     slug: 'crm',
     title: 'Turn every enquiry into an admission.',
-    text: 'Track admission enquiries from the first call to fee payment, with follow-ups that happen on their own.',
+    text: 'Every enquiry is answered in minutes, followed up automatically and tracked until the fee is paid.',
     steps: [
       {
-        title: 'Capture every enquiry',
-        text: 'Website, walk-in, phone and campaign enquiries land in one list.',
+        title: 'Every enquiry in one place',
+        text: 'Website, WhatsApp, phone and walk-in enquiries arrive in a single list.',
       },
       {
-        title: 'Follow up automatically',
-        text: 'WhatsApp, SMS and AI calls remind parents at the right time.',
+        title: 'Instant replies and follow-ups',
+        text: 'Parents get the prospectus, visit slots and reminders on WhatsApp, without waiting.',
       },
       {
-        title: 'See your admissions funnel',
-        text: 'Know how many enquiries, visits and admissions each counsellor has.',
+        title: 'Admissions you can track',
+        text: 'See enquiries, campus visits and admissions for every counsellor, as they happen.',
       },
     ],
     mockBg: 'linear-gradient(135deg, #E8E9FD 0%, #F5F5FF 100%)',
   },
   {
     slug: 'descriptive-evaluation',
-    title: 'Evaluate written answers, beyond marks.',
-    text: 'Rubric-based evaluation of descriptive answers, with clear feedback for every student.',
+    title: 'Written answers, marked fairly and explained.',
+    text: 'Teachers scan answer sheets, ONESAZ checks each answer against the rubric, and students get their marks with clear feedback.',
     steps: [
       {
-        title: 'Marks for every criterion',
-        text: 'Each answer is marked against a rubric, not just given a total.',
+        title: 'Marked point by point',
+        text: 'Each answer is checked against the teacher’s rubric, not just given a total.',
       },
       {
-        title: 'Faster, consistent checking',
-        text: 'Key points are highlighted so evaluators mark faster and more fairly.',
+        title: 'The teacher has the final say',
+        text: 'ONESAZ suggests a mark, and the teacher reviews and approves it.',
       },
       {
-        title: 'Feedback students can use',
-        text: 'Every answer comes back with what to improve.',
+        title: 'Feedback students can act on',
+        text: 'Every student sees what they did well and what to improve.',
       },
     ],
     mockBg: 'linear-gradient(135deg, #FFEDE0 0%, #FFF8F2 100%)',

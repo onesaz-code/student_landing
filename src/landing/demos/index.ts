@@ -10,10 +10,10 @@ export const DEMOS: Partial<Record<ProductSlug, DemoComponent>> = {
   'omr-scanning': React.lazy(() => import('./OmrScanDemo')),
   mdm: React.lazy(() => import('./MdmEnrolDemo')),
   'ai-calling-agent': React.lazy(() => import('./AiCallRingDemo')),
-  'video-calling': React.lazy(() => import('./VideoCallingDemo')),
-  'ai-tutor': React.lazy(() => import('./AiTutorDemo')),
-  crm: React.lazy(() => import('./CrmDemo')),
-  'descriptive-evaluation': React.lazy(() => import('./DescriptiveEvaluationDemo')),
+  'video-calling': React.lazy(() => import('./VideoCallHomeDemo')),
+  'ai-tutor': React.lazy(() => import('./AiTutorChatDemo')),
+  crm: React.lazy(() => import('./CrmWhatsAppDemo')),
+  'descriptive-evaluation': React.lazy(() => import('./DescriptiveStoryDemo')),
   'question-bank': React.lazy(() => import('./QuestionBankDemo')),
   attendance: React.lazy(() => import('./AttendanceDemo')),
 }
@@ -25,4 +25,7 @@ export const PAGE_DEMOS: Partial<Record<ProductSlug, DemoComponent>> = {
   'omr-scanning': React.lazy(() => import('./OmrPhoneDemo')),
   mdm: React.lazy(() => import('./MdmFleetDemo')),
   'ai-calling-agent': React.lazy(() => import('./AiCallMapDemo')),
+  'video-calling': React.lazy(() => import('./VideoCallingDemo')),
+  'ai-tutor': React.lazy(() => import('./AiTutorBoardDemo')),
+  crm: React.lazy(() => import('./CrmFunnelDemo')),
 }

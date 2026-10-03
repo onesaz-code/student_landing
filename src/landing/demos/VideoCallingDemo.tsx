@@ -55,13 +55,13 @@ function StepLabel({ n, children }: { n: number; children: ReactNode }) {
   )
 }
 
-const HISTORY = ['Today · 6 min', 'Yesterday · 4 min', 'Mon · 8 min']
+const HISTORY = ['Today · 6 min', 'Yesterday · 4 min', 'Monday · 8 min']
 
-const CAPTIONS: { who: 'Mother' | 'Ananya'; text: string }[] = [
-  { who: 'Mother', text: 'Hi beta, how was your exam today?' },
-  { who: 'Ananya', text: 'It went well, Amma! I got 18 out of 20.' },
-  { who: 'Mother', text: 'So proud of you! Did you eat lunch?' },
-  { who: 'Ananya', text: 'Yes! Talk to you tonight, bye!' },
+const CAPTIONS: { who: 'Mom' | 'Ananya'; text: string }[] = [
+  { who: 'Mom', text: 'Hi Ananya, how did your exam go today?' },
+  { who: 'Ananya', text: 'It went well, Mom! I got 18 out of 20.' },
+  { who: 'Mom', text: 'That’s wonderful, I’m so proud of you!' },
+  { who: 'Ananya', text: 'Thanks, Mom. Talk to you tonight!' },
 ]
 
 function formatTime(sec: number) {
@@ -96,7 +96,7 @@ export default function VideoCallingDemo() {
                   />
                   <span className="flex min-w-0 grow flex-col gap-px">
                     <span className="text-[14px] font-semibold text-[#0F1729]">Ananya Rao</span>
-                    <span className="text-[12px] text-[#667085]">Class 9 · Section A</span>
+                    <span className="text-[12px] text-[#667085]">Class 9A · Hostel</span>
                   </span>
                 </div>
                 <span
@@ -107,7 +107,7 @@ export default function VideoCallingDemo() {
                   <Ico size={15}>
                     <VideoPath />
                   </Ico>
-                  Video call Ananya
+                  Start video call
                 </span>
               </div>
             </div>
@@ -173,7 +173,7 @@ export default function VideoCallingDemo() {
                       <b
                         className="font-semibold"
                         style={{
-                          color: c.who === 'Mother' ? '#1B6FB3' : '#12805C',
+                          color: c.who === 'Mom' ? '#1B6FB3' : '#12805C',
                         }}
                       >
                         {c.who}
