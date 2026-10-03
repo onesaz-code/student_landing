@@ -22,8 +22,6 @@ import { DemoForm } from '../components/DemoForm'
 import { BRAND } from '../content/names'
 import { CONTACT_CARDS, CONTACT_FAQS, CONTACT_HERO, DEMO_PANEL, SUPPORT, type ContactOptionIcon } from '../content/contact'
 
-const HOME = { label: 'Home', to: '/' }
-
 const CARD_ICONS: Record<ContactOptionIcon, LucideIcon> = { sales: IndianRupee, demo: Video, support: CircleHelp }
 const SERVICE_ICONS: Record<(typeof SUPPORT.services)[number]['icon'], LucideIcon> = {
   setup: Layers,
@@ -250,7 +248,7 @@ function Faqs() {
 export function ContactPage() {
   return (
     <>
-      <PageHero crumbs={[HOME, { label: 'Contact Us' }]} eyebrow={CONTACT_HERO.eyebrow} title={CONTACT_HERO.title} lead={CONTACT_HERO.lead}>
+      <PageHero eyebrow={CONTACT_HERO.eyebrow} title={CONTACT_HERO.title} lead={CONTACT_HERO.lead}>
         <HeroContent />
       </PageHero>
       <DemoPanel />

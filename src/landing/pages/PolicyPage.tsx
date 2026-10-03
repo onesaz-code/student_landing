@@ -75,21 +75,7 @@ export function PolicyPage({ policy: key }: { policy: Policy['key'] }) {
         className="pb-14 pt-10 max-[639px]:pb-10 max-[639px]:pt-6"
         style={{ background: 'radial-gradient(900px 520px at 12% 0%, rgba(99,132,255,.14), rgba(99,132,255,0) 70%), #FBFBFD' }}
       >
-        <div className="lp-container flex flex-col gap-10 max-[639px]:gap-7">
-          <nav aria-label="Breadcrumb">
-            <ol className="flex flex-wrap items-center gap-2 text-[13.5px] text-[color:var(--ink-400)]">
-              <li>
-                <Link to="/" className="text-[color:var(--ink-600)] hover:text-[color:var(--brand)]">
-                  Home
-                </Link>
-              </li>
-              <li aria-hidden>›</li>
-              <li aria-current="page" className="font-medium text-[color:var(--ink-900)]">
-                {policy.title}
-              </li>
-            </ol>
-          </nav>
-
+        <div className="lp-container">
           <div className="flex flex-col gap-4">
             <span className="lp-eyebrow">Legal</span>
             <h1 className="lp-h1">{policy.title}</h1>

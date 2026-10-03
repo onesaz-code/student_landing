@@ -234,7 +234,7 @@ function ClosingCta() {
 export function SolutionsPage() {
   return (
     <>
-      <PageHero crumbs={[{ label: 'Home', to: '/' }, { label: 'Solutions' }]} {...SOLUTIONS_HERO}>
+      <PageHero {...SOLUTIONS_HERO}>
         <QuickLinks />
       </PageHero>
       {SOLUTION_BLOCKS.map((b, i) => (

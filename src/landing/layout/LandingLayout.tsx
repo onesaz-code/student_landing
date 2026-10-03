@@ -1,23 +1,58 @@
 import * as React from 'react'
-import { Outlet, useLocation } from 'react-router-dom'
+import { Outlet, useLocation, useNavigationType } from 'react-router-dom'
 import { SiteHeader } from '../components/SiteHeader'
 import { SiteFooter } from '../components/SiteFooter'
 import { metaForPath } from '../content/seo'
 import '../styles/landing.css'
 
+/** Scroll position for each history entry, so Back returns to the same card. */
+const scrollPositions = new Map<string, number>()
+
 /**
- * Scrolls to the top on a new page, or to the #section in the URL.
- * Retries briefly so sections rendered after navigation are found.
+ * New pages open at the top, or at the #section in the URL.
+ * Back and Forward return to the scroll position of that history entry.
  */
 function ScrollManager() {
-  const { pathname, hash } = useLocation()
+  const location = useLocation()
+  const navigationType = useNavigationType()
 
   React.useEffect(() => {
-    if (!hash) {
+    const previous = history.scrollRestoration
+    history.scrollRestoration = 'manual'
+    return () => {
+      history.scrollRestoration = previous
+    }
+  }, [])
+
+  React.useEffect(() => {
+    const key = location.key
+    const save = () => scrollPositions.set(key, window.scrollY)
+    window.addEventListener('scroll', save, { passive: true })
+    return () => {
+      save()
+      window.removeEventListener('scroll', save)
+    }
+  }, [location.key])
+
+  React.useEffect(() => {
+    if (navigationType === 'POP') {
+      const y = scrollPositions.get(location.key)
+      if (y != null) {
+        let tries = 0
+        const restore = () => {
+          window.scrollTo({ top: y, behavior: 'instant' as ScrollBehavior })
+          if (tries++ < 8 && Math.abs(window.scrollY - y) > 2) window.setTimeout(restore, 50)
+        }
+        restore()
+        return
+      }
+    }
+
+    if (!location.hash) {
       window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior })
       return
     }
-    const id = decodeURIComponent(hash.slice(1))
+    const id = decodeURIComponent(location.hash.slice(1))
     let tries = 0
     const tick = () => {
       const el = document.getElementById(id)
@@ -28,7 +63,7 @@ function ScrollManager() {
       }
     }
     tick()
-  }, [pathname, hash])
+  }, [location.pathname, location.hash, location.key, navigationType])
 
   return null
 }

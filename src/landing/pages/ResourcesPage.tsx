@@ -10,8 +10,6 @@ import { PlatformModulesSection } from '../sections/PlatformModulesSection'
 import { TestimonialsSection } from '../sections/TestimonialsSection'
 import { TutorialsSection } from '../sections/TutorialsSection'
 
-const HOME = { label: 'Home', to: '/' }
-
 const QUICK_ICONS: Record<(typeof RESOURCES)[number]['id'], LucideIcon> = {
   tutorials: Video,
   'product-guides': BookOpen,
@@ -164,7 +162,6 @@ export function ResourcesPage() {
   return (
     <>
       <PageHero
-        crumbs={[HOME, { label: 'Resources' }]}
         eyebrow={RESOURCES_HERO.eyebrow}
         title={RESOURCES_HERO.title}
         lead={RESOURCES_HERO.lead}

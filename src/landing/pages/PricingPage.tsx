@@ -218,19 +218,6 @@ export function PricingPage() {
     <>
       <section className="pb-[170px] pt-6 text-center max-[639px]:pb-[140px] max-[639px]:pt-6" style={{ background: BAND_BG }}>
         <div className="lp-container flex flex-col items-center gap-4">
-          <nav aria-label="Breadcrumb" className="self-start">
-            <ol className="flex flex-wrap items-center gap-2 text-[13.5px] text-[#A9A3C9]">
-              <li>
-                <Link to="/" className="text-[#D6D1EE] hover:text-white">
-                  Home
-                </Link>
-              </li>
-              <li aria-hidden>›</li>
-              <li aria-current="page" className="font-medium text-white">
-                Pricing
-              </li>
-            </ol>
-          </nav>
           <h1 className="lp-h1 max-w-[760px] !text-[clamp(32px,3.6vw,48px)] !text-white">{PRICING_HERO.title}</h1>
           <p className="-mt-1 max-w-[760px] text-[17px] leading-[1.6] text-[#C9C3E6] max-[639px]:text-[15.5px]">{PRICING_HERO.lead}</p>
           <AudienceTabs value={audience} onChange={switchTo} />

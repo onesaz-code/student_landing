@@ -4,7 +4,7 @@ import { ArrowRight, ArrowUpRight, Search } from 'lucide-react'
 import { PageHero } from '../components/PageHero'
 import { StoreBadges } from '../components/StoreBadges'
 import { APPS_HERO, CORE_APPS, INSTITUTION_APPS, type MobileApp } from '../content/apps'
-import { CTA, FEATURES } from '../content/names'
+import { CTA } from '../content/names'
 
 /** Small "Google Play" / "App Store" link pills for one app. */
 function StoreLinks({ app }: { app: MobileApp }) {
@@ -162,7 +162,6 @@ export function AppsPage() {
   return (
     <>
       <PageHero
-        crumbs={[{ label: 'Home', to: '/' }, { label: FEATURES.app }]}
         eyebrow={APPS_HERO.eyebrow}
         title={APPS_HERO.title}
         lead={APPS_HERO.lead}

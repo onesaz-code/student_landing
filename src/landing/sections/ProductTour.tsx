@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigationType } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
 import { CTA, productBySlug, productPath, type ProductSlug, solidFill } from '../content/names'
 import { TOUR } from '../content/tour'
@@ -22,8 +22,30 @@ const WAVE_MASK: React.CSSProperties = {
  * product story on the left and its animated demo on the right.
  * Sits inside the hero, as in the design.
  */
+const TOUR_KEY = 'onesaz-tour-product'
+
+function savedTour(): ProductSlug | null {
+  try {
+    const saved = sessionStorage.getItem(TOUR_KEY)
+    return TOUR.some((t) => t.slug === saved) ? (saved as ProductSlug) : null
+  } catch {
+    return null
+  }
+}
+
 export function ProductTour() {
-  const [active, setActive] = React.useState<ProductSlug>(TOUR[0].slug)
+  const navigationType = useNavigationType()
+  const [active, setActive] = React.useState<ProductSlug>(() =>
+    navigationType === 'POP' ? (savedTour() ?? TOUR[0].slug) : TOUR[0].slug,
+  )
+
+  React.useEffect(() => {
+    try {
+      sessionStorage.setItem(TOUR_KEY, active)
+    } catch {
+      /* storage can be blocked */
+    }
+  }, [active])
   const tabRefs = React.useRef<(HTMLButtonElement | null)[]>([])
   const item = TOUR.find((t) => t.slug === active)!
   const product = productBySlug(active)!

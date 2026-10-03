@@ -1,8 +1,5 @@
 import * as React from 'react'
-import { Link } from 'react-router-dom'
-import { mdmLegalPages, type MdmDocSection } from '../../data/mdmSiteContent'
-
-type LegalKey = 'privacy' | 'terms' | 'cookie' | 'gdpr' | 'refund' | 'cancellation'
+import { LEGAL_PAGES, type LegalKey, type LegalSection } from '../content/legal'
 
 const EMAIL_RE = /\b[\w.%+-]+@[\w.-]+\.[a-z]{2,}\b/gi
 
@@ -24,7 +21,7 @@ function withEmailLinks(text: string): React.ReactNode {
   return parts
 }
 
-function Section({ s }: { s: MdmDocSection }) {
+function Section({ s }: { s: LegalSection }) {
   return (
     <section id={s.id} className="flex flex-col gap-3 [overflow-wrap:anywhere]">
       {s.title && <h2 className="text-[20px] font-semibold text-[color:var(--ink-900)]">{s.title}</h2>}
@@ -46,29 +43,13 @@ function Section({ s }: { s: MdmDocSection }) {
   )
 }
 
-/**
- * Legal pages in the new layout. The text comes unchanged from the existing
- * legal content (src/data/mdmSiteContent.ts), so nothing legal is rewritten.
- */
+/** Privacy, terms, cookie, and GDPR pages. Copy lives in content/legal.ts. */
 export function LegalPage({ page }: { page: LegalKey }) {
-  const cfg = mdmLegalPages[page]
+  const cfg = LEGAL_PAGES[page]
   return (
     <section className="pb-24 pt-10 max-[639px]:pb-16 max-[639px]:pt-6">
       <div className="lp-container">
-        <nav aria-label="Breadcrumb">
-          <ol className="flex flex-wrap items-center gap-2 text-[13.5px] text-[color:var(--ink-400)]">
-            <li>
-              <Link to="/" className="text-[color:var(--ink-600)] hover:text-[color:var(--brand)]">
-                Home
-              </Link>
-            </li>
-            <li aria-hidden>›</li>
-            <li aria-current="page" className="font-medium text-[color:var(--ink-900)]">
-              {cfg.documentTitle}
-            </li>
-          </ol>
-        </nav>
-        <article className="mx-auto mt-10 flex max-w-[820px] flex-col gap-8">
+        <article className="mx-auto flex max-w-[820px] flex-col gap-8">
           <h1 className="lp-h1">{cfg.documentTitle}</h1>
           {cfg.sections.map((s, i) => (
             <Section key={s.id ?? i} s={s} />

@@ -313,26 +313,6 @@ function Hero({ query, onQuery }: { query: string; onQuery: (q: string) => void 
       }}
     >
       <div className="lp-container flex flex-col gap-12 max-[639px]:gap-9">
-        <nav aria-label="Breadcrumb">
-          <ol className="flex flex-wrap items-center gap-2 text-[13.5px] text-[#8E9AB8]">
-            <li>
-              <Link to="/" className="hover:text-white">
-                Home
-              </Link>
-            </li>
-            <li aria-hidden>›</li>
-            <li>
-              <Link to="/resources" className="hover:text-white">
-                Resources
-              </Link>
-            </li>
-            <li aria-hidden>›</li>
-            <li aria-current="page" className="font-medium text-white">
-              {PYQ_PAGE.eyebrow}
-            </li>
-          </ol>
-        </nav>
-
         <div className="mx-auto flex w-full max-w-[860px] flex-col items-center text-center">
           {/* Badge with a soft gradient border */}
           <span className="rounded-[12px] bg-[linear-gradient(90deg,#6A8BFF,#B07CFF)] p-px">

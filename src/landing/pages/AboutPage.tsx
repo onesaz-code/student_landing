@@ -12,7 +12,7 @@ const VALUE_ICONS: Record<ValueIcon, LucideIcon> = { platform: Layers, instituti
 
 const MONO_LABEL = 'font-[family-name:var(--font-mono)] text-[12px] font-semibold uppercase tracking-[.1em]'
 
-/** Breadcrumb, intro copy and the dark ONESAZ card listing every product. */
+/** Intro copy and the dark ONESAZ card listing every product. */
 function Hero() {
   return (
     <section
@@ -20,21 +20,7 @@ function Hero() {
       className="pb-24 pt-10 max-[639px]:pb-16 max-[639px]:pt-6"
       style={{ background: 'radial-gradient(900px 520px at 12% 0%, rgba(99,132,255,.14), rgba(99,132,255,0) 70%), #FBFBFD' }}
     >
-      <div className="lp-container flex flex-col gap-10">
-        <nav aria-label="Breadcrumb">
-          <ol className="flex flex-wrap items-center gap-2 text-[13.5px] text-[color:var(--ink-400)]">
-            <li>
-              <Link to="/" className="text-[color:var(--ink-600)] hover:text-[color:var(--brand)]">
-                Home
-              </Link>
-            </li>
-            <li aria-hidden>›</li>
-            <li aria-current="page" className="font-medium text-[color:var(--ink-900)]">
-              {ABOUT_HERO.eyebrow}
-            </li>
-          </ol>
-        </nav>
-
+      <div className="lp-container">
         <div className="grid grid-cols-[minmax(0,6fr)_minmax(0,5fr)] items-center gap-14 max-[900px]:grid-cols-1 max-[900px]:gap-8">
           <div className="flex flex-col gap-[22px]">
             <span className="lp-eyebrow">{ABOUT_HERO.eyebrow}</span>

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import { ArrowRight, Check, Plus } from 'lucide-react'
 import { FEATURE_ICONS } from '../components/featureIcons'
 import { CTA, productBySlug, productPath, type Product, type ProductSlug, solidFill } from '../content/names'
@@ -36,27 +36,7 @@ function Hero({ product }: { product: Product }) {
         background: `radial-gradient(900px 520px at 12% 0%, ${product.color}22, ${product.color}00 70%), radial-gradient(700px 480px at 95% 40%, ${product.color}14, ${product.color}00 70%), #FBFBFD`,
       }}
     >
-      <div className="lp-container flex flex-col gap-10 max-[639px]:gap-7">
-        <nav aria-label="Breadcrumb">
-          <ol className="flex flex-wrap items-center gap-2 text-[13.5px] text-[color:var(--ink-400)]">
-            <li>
-              <Link to="/" className="text-[#5B6478] hover:text-[color:var(--brand)]">
-                Home
-              </Link>
-            </li>
-            <li aria-hidden>›</li>
-            <li>
-              <Link to="/#products" className="text-[#5B6478] hover:text-[color:var(--brand)]">
-                Products
-              </Link>
-            </li>
-            <li aria-hidden>›</li>
-            <li aria-current="page" className="font-medium text-[color:var(--ink-900)]">
-              {product.name}
-            </li>
-          </ol>
-        </nav>
-
+      <div className="lp-container">
         <div className="grid grid-cols-[minmax(0,5fr)_minmax(0,7fr)] items-center gap-14 max-[899px]:grid-cols-1 max-[899px]:gap-10">
           <div className="flex flex-col gap-[22px]">
             <span className="inline-flex items-center gap-2 self-start text-[13px] font-semibold" style={{ color: product.color }}>
@@ -237,6 +217,25 @@ function Faqs({ product }: { product: Product }) {
   )
 }
 
+/** Returns to the card the visitor came from. A direct visit goes to the products section. */
+function BackToProducts() {
+  const location = useLocation()
+  const navigate = useNavigate()
+  const idx = (window.history.state as { idx?: number } | null)?.idx ?? 0
+  if (location.key !== 'default' && idx > 0) {
+    return (
+      <button type="button" onClick={() => navigate(-1)} className="lp-btn lp-btn-ghost-dark">
+        Back
+      </button>
+    )
+  }
+  return (
+    <Link to="/#products" className="lp-btn lp-btn-ghost-dark">
+      Back to all products
+    </Link>
+  )
+}
+
 function ClosingCta({ product }: { product: Product }) {
   const c = PRODUCT_CONTENT[product.slug]
   return (
@@ -254,9 +253,7 @@ function ClosingCta({ product }: { product: Product }) {
               {CTA.demo}
               <ArrowRight size={16} />
             </Link>
-            <Link to="/#products" className="lp-btn lp-btn-ghost-dark">
-              Back to all products
-            </Link>
+            <BackToProducts />
           </div>
         </div>
       </div>
