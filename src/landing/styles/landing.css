@@ -222,3 +222,11 @@ body { margin: 0; background: #fff; }
 /* CRM demo: a new enquiry dropping into the admissions funnel */
 @keyframes lp-drop { 0% { transform: translateY(-6px); opacity: 0; } 15% { opacity: 1; } 100% { transform: translateY(var(--drop, 150px)); opacity: 0; } }
 .lp-drop { animation: lp-drop 1.1s ease-in forwards; }
+
+/* Logo: the Z in ONESAZ in the mark's teal-blue, with a light scan and an AI sparkle */
+.lp-z { position: relative; display: inline-block; background: linear-gradient(135deg, #08C5A7, #3FBBEE 60%, #2447D1); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.lp-z-scan { position: absolute; inset: 0; background: linear-gradient(100deg, transparent 30%, rgba(255,255,255,.95) 50%, transparent 70%); background-size: 300% 100%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: lp-z-scan 3.4s ease-in-out infinite; }
+@keyframes lp-z-scan { 0% { background-position: 150% 0; } 50%, 100% { background-position: -150% 0; } }
+.lp-z-spark { position: absolute; width: .42em; height: .42em; top: -.24em; right: -.3em; color: #7B5CE6; animation: lp-z-twinkle 3.4s ease-in-out 1.6s infinite; opacity: .2; transform: scale(.4); }
+.lp-z-spark svg { display: block; width: 100%; height: 100%; }
+@keyframes lp-z-twinkle { 0%, 100% { transform: scale(.4) rotate(0); opacity: .2; } 45% { transform: scale(1) rotate(90deg); opacity: 1; } 70% { transform: scale(.85) rotate(110deg); opacity: .9; } }

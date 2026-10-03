@@ -437,7 +437,6 @@ function Hero({ query, onQuery }: { query: string; onQuery: (q: string) => void 
           </form>
 
           <div className="mt-6 flex flex-wrap items-center justify-center gap-2">
-            <span className="mr-1 text-[13.5px] text-[#8E9AB8]">Popular:</span>
             {PYQ_POPULAR.map((p) => (
               <Link
                 key={p.label}
