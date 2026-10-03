@@ -99,6 +99,11 @@ const LAYOUT: Record<'wide' | 'narrow', { without: Point[]; with: Point[]; hub: 
     toast: [50, 87],
   },
 }
+/** How long each side shows before switching, and how long a click pauses the loop. */
+const WITHOUT_MS = 4000
+const WITH_MS = 7500
+const PAUSE_AFTER_CLICK_MS = 12000
+
 const ATTENDANCE = SEPARATE_TOOLS.findIndex((t) => t.key === 'attendance')
 const MESSAGES = SEPARATE_TOOLS.findIndex((t) => t.key === 'sms')
 
@@ -148,6 +153,32 @@ function useStory(active: boolean) {
 /** Why ONESAZ: tap between ten separate tools and one connected platform. */
 export function WhyOnesazSection({ id = 'why-onesaz' }: { id?: string }) {
   const [mode, setMode] = React.useState<Mode>('without')
+  const sectionRef = React.useRef<HTMLElement>(null)
+  const pausedUntil = React.useRef(0)
+
+  // Flip between the two sides on its own while the section is on screen: a short look at "without",
+  // then long enough on "with" for the WhatsApp example to play. A click pauses it for a while.
+  React.useEffect(() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    const el = sectionRef.current
+    if (!el) return
+    let visible = false
+    const io = new IntersectionObserver(([e]) => (visible = e.isIntersecting), { threshold: 0.35 })
+    io.observe(el)
+    const t = window.setTimeout(
+      function tick() {
+        if (visible && Date.now() >= pausedUntil.current) setMode((m) => (m === 'without' ? 'with' : 'without'))
+        else t2 = window.setTimeout(tick, 1000)
+      },
+      mode === 'without' ? WITHOUT_MS : WITH_MS,
+    )
+    let t2 = 0
+    return () => {
+      io.disconnect()
+      window.clearTimeout(t)
+      window.clearTimeout(t2)
+    }
+  }, [mode])
   const narrow = useNarrow()
   const layout = LAYOUT[narrow ? 'narrow' : 'wide']
   const isWith = mode === 'with'
@@ -158,7 +189,7 @@ export function WhyOnesazSection({ id = 'why-onesaz' }: { id?: string }) {
   const dotAt = beat >= 3 ? layout.with[MESSAGES] : beat === 2 ? layout.hub : layout.with[ATTENDANCE]
 
   return (
-    <section id={id} className="bg-white py-14 max-[639px]:py-10">
+    <section ref={sectionRef} id={id} className="bg-white py-14 max-[639px]:py-10">
       <div className="lp-container">
         <div
           className="flex flex-col items-center gap-6 rounded-[28px] px-14 py-9 text-white max-[999px]:px-8 max-[639px]:gap-5 max-[639px]:rounded-[20px] max-[639px]:px-4 max-[639px]:py-10"
@@ -189,7 +220,10 @@ export function WhyOnesazSection({ id = 'why-onesaz' }: { id?: string }) {
                   key={m}
                   type="button"
                   aria-pressed={on}
-                  onClick={() => setMode(m)}
+                  onClick={() => {
+                    pausedUntil.current = Date.now() + PAUSE_AFTER_CLICK_MS
+                    setMode(m)
+                  }}
                   className={`h-10 rounded-[10px] px-5 text-[14px] font-semibold transition-colors max-[379px]:px-3.5 max-[379px]:text-[13px] ${
                     on
                       ? m === 'with'
