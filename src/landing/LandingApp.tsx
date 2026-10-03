@@ -15,6 +15,7 @@ const PricingPage = lazy(() => import('./pages/PricingPage').then((m) => ({ defa
 const AppsPage = lazy(() => import('./pages/AppsPage').then((m) => ({ default: m.AppsPage })))
 const PolicyPage = lazy(() => import('./pages/PolicyPage').then((m) => ({ default: m.PolicyPage })))
 const LegalPage = lazy(() => import('./pages/LegalPage').then((m) => ({ default: m.LegalPage })))
+const PyqPage = lazy(() => import('./pages/PyqPage').then((m) => ({ default: m.PyqPage })))
 
 /**
  * Entry for the new ONESAZ landing page. Every page shares LandingLayout
@@ -29,6 +30,8 @@ export default function LandingApp() {
           <Route path="/products/:slug" element={<ProductPage />} />
           <Route path="/solutions" element={<SolutionsPage />} />
           <Route path="/resources" element={<ResourcesPage />} />
+          <Route path="/previous-papers" element={<PyqPage />} />
+          <Route path="/previous-papers/:exam" element={<PyqPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/careers" element={<CareersPage />} />

@@ -42,7 +42,7 @@ function twoLines(label: string): string[] {
 const TRAIL = Array.from({ length: 7 }, (_, i) => [-i * 2.6, 9 - i, 0.9 - i * 0.12] as const)
 
 /**
- * "Inside the platform": twelve modules on a ring around a centre card.
+ * "Inside the platform": thirteen modules on a ring around a centre card.
  * The dashed orbit turns slowly with a light travelling round it, and the ring moves to the next
  * module every few seconds while on screen. Clicking a module (or using the arrow keys) stops the tour;
  * it carries on after a short pause. With reduced motion nothing moves.
@@ -110,7 +110,7 @@ export function PlatformModulesSection({ id = 'platform-modules' }: { id?: strin
         <SectionHeader
           eyebrow="Inside the platform"
           title="Every solution your institution needs, on one platform."
-          lead="Twelve solutions and the ONESAZ mobile app, all sharing one record. Select any one to see what it does."
+          lead="Thirteen solutions and the ONESAZ mobile app, all sharing one record. Select any one to see what it does."
         />
 
         {/* Ring (760 px and up) */}

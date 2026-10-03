@@ -1,4 +1,5 @@
 import { productBySlug } from './names'
+import { PYQ_EXAMS } from './pyqs'
 
 /** Browser tab title and search/link-preview description for each page. */
 export interface PageMeta {
@@ -25,6 +26,11 @@ const PAGES: Record<string, PageMeta> = {
     title: `Resources & Tutorials · ${SUFFIX}`,
     description:
       'Tutorials, product guides, platform modules and answers to help your team set up ONESAZ and get the most from it every day.',
+  },
+  '/previous-papers': {
+    title: `Previous Year Question Papers (PYQs) with Solutions · ${SUFFIX}`,
+    description:
+      'Download previous year question papers for JEE Main, NEET UG, CBSE Class 12, CBSE Class 10 and TS EAPCET, year by year, with solutions. Free, no sign-up.',
   },
   '/about': {
     title: `About ONESAZ · ${SUFFIX}`,
@@ -62,6 +68,15 @@ const PAGES: Record<string, PageMeta> = {
 export function metaForPath(pathname: string): PageMeta {
   const path = pathname.replace(/\/+$/, '') || '/'
   if (PAGES[path]) return PAGES[path]
+  const pyq = path.match(/^\/previous-papers\/([^/]+)$/)
+  if (pyq) {
+    const exam = PYQ_EXAMS.find((e) => e.slug === pyq[1])
+    if (exam)
+      return {
+        title: `${exam.name} Previous Year Question Papers with Solutions · ${SUFFIX}`,
+        description: `Download ${exam.name} previous year question papers, year by year, with solutions. Free PDFs, no sign-up.`,
+      }
+  }
   const m = path.match(/^\/products\/([^/]+)$/)
   const product = m && productBySlug(m[1])
   if (product) {

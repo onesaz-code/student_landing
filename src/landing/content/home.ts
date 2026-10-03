@@ -252,7 +252,7 @@ export interface PlatformModule {
   desc: string
 }
 
-/** Twelve modules around the ring, in the design's order. */
+/** Thirteen modules around the ring, in the design's order. */
 export const MODULES: PlatformModule[] = [
   {
     key: 'lms',
@@ -285,6 +285,14 @@ export const MODULES: PlatformModule[] = [
     group: 'Exams',
     stat: '10 lakh+ questions',
     desc: 'Create tests, assessments and practice sessions from over 10 lakh questions.',
+  },
+  {
+    key: 'pyqs',
+    name: 'Previous Papers',
+    label: 'PYQs',
+    group: 'Exams',
+    stat: 'Free downloads',
+    desc: 'Year-wise past papers for JEE, NEET and CBSE, with solutions.',
   },
   {
     key: 'attendance',

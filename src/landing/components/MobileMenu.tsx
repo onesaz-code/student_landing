@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom'
 import { Link } from 'react-router-dom'
 import { ChevronDown, LogIn, X } from 'lucide-react'
 import { Logo } from './Logo'
-import { CONTACT_MENU, MENUS, type NavLink, PRICING_LINK } from '../content/navigation'
+import { CONTACT_MENU, MENUS, type NavLink, PRICING_LINK, PYQ_LINK } from '../content/navigation'
 import { CTA } from '../content/names'
 
 interface Section {
@@ -115,13 +115,16 @@ export function MobileMenu({ open, onClose }: { open: boolean; onClose: () => vo
               </div>
             )
           })}
-          <Link
-            to={PRICING_LINK.to}
-            onClick={onClose}
-            className="flex h-[52px] items-center border-b border-[#EEF0F3] text-[17px] font-medium text-[color:var(--ink-900)]"
-          >
-            {PRICING_LINK.label}
-          </Link>
+          {[PRICING_LINK, PYQ_LINK].map((link) => (
+            <Link
+              key={link.to}
+              to={link.to}
+              onClick={onClose}
+              className="flex h-[52px] items-center border-b border-[#EEF0F3] text-[17px] font-medium text-[color:var(--ink-900)]"
+            >
+              {link.label}
+            </Link>
+          ))}
         </nav>
 
         <div className="flex shrink-0 flex-col gap-3 border-t border-[color:var(--line)] p-4">

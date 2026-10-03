@@ -4,7 +4,7 @@ import { ChevronDown, LogIn, Menu } from 'lucide-react'
 import { Logo } from './Logo'
 import { MegaPanel, SmallPanel } from './MegaMenu'
 import { MobileMenu } from './MobileMenu'
-import { CONTACT_MENU, MENUS, PRICING_LINK } from '../content/navigation'
+import { CONTACT_MENU, MENUS, PRICING_LINK, PYQ_LINK } from '../content/navigation'
 import { CTA } from '../content/names'
 
 type OpenId = (typeof MENUS)[number]['id'] | 'contact' | null
@@ -103,7 +103,7 @@ export function SiteHeader() {
         scrolled ? 'shadow-[0_6px_20px_-12px_rgba(15,23,41,0.25)]' : ''
       }`}
     >
-      <div className="lp-container flex h-full items-center justify-between gap-6 max-[399px]:gap-2">
+      <div className="lp-container flex h-full items-center justify-between gap-6 max-[1099px]:gap-3 max-[399px]:gap-2">
         <Logo />
 
         <nav aria-label="Main" className="hidden h-full items-stretch gap-0.5 min-[1024px]:flex">
@@ -120,7 +120,7 @@ export function SiteHeader() {
                   aria-controls={`menu-${m.id}`}
                   onClick={() => setOpen(isOpen ? null : m.id)}
                   onKeyDown={onTriggerKey(m.id)}
-                  className={`relative flex items-center gap-1 whitespace-nowrap px-3 text-[15px] font-medium max-[1199px]:px-2.5 transition-colors after:absolute after:inset-x-3 after:bottom-0 after:h-0.5 after:origin-center after:rounded after:bg-[color:var(--brand)] after:transition-transform ${
+                  className={`relative flex items-center gap-1 whitespace-nowrap px-3 text-[15px] font-medium max-[1199px]:px-2.5 max-[1099px]:px-2 max-[1099px]:text-[14.5px] transition-colors after:absolute after:inset-x-3 after:bottom-0 after:h-0.5 after:origin-center after:rounded after:bg-[color:var(--brand)] after:transition-transform ${
                     isOpen
                       ? 'text-[color:var(--brand)] after:scale-x-100'
                       : 'text-[#1F2637] after:scale-x-0 hover:text-[color:var(--brand)]'
@@ -132,17 +132,22 @@ export function SiteHeader() {
               </div>
             )
           })}
-          <NavLink
-            to={PRICING_LINK.to}
-            onMouseEnter={() => setOpen(null)}
-            className={({ isActive }) =>
-              `relative flex items-center whitespace-nowrap px-3 text-[15px] font-medium max-[1199px]:px-2.5 transition-colors after:absolute after:inset-x-3 after:bottom-0 after:h-0.5 after:rounded after:bg-[color:var(--brand)] after:transition-transform ${
-                isActive ? 'text-[color:var(--brand)] after:scale-x-100' : 'text-[#1F2637] after:scale-x-0 hover:text-[color:var(--brand)]'
-              }`
-            }
-          >
-            {PRICING_LINK.label}
-          </NavLink>
+          {[PRICING_LINK, PYQ_LINK].map((link) => (
+            <NavLink
+              key={link.to}
+              to={link.to}
+              onMouseEnter={() => setOpen(null)}
+              className={({ isActive }) =>
+                `relative flex items-center whitespace-nowrap px-3 text-[15px] font-medium max-[1199px]:px-2.5 max-[1099px]:px-2 max-[1099px]:text-[14.5px] transition-colors after:absolute after:inset-x-3 after:bottom-0 after:h-0.5 after:rounded after:bg-[color:var(--brand)] after:transition-transform ${
+                  isActive
+                    ? 'text-[color:var(--brand)] after:scale-x-100'
+                    : 'text-[#1F2637] after:scale-x-0 hover:text-[color:var(--brand)]'
+                }`
+              }
+            >
+              {link.label}
+            </NavLink>
+          ))}
           <div className="relative flex items-stretch" onMouseEnter={() => hoverOpen('contact')}>
             <button
               ref={(el) => {
@@ -153,7 +158,7 @@ export function SiteHeader() {
               aria-controls="menu-contact"
               onClick={() => setOpen(open === 'contact' ? null : 'contact')}
               onKeyDown={onTriggerKey('contact')}
-              className={`flex items-center gap-1 whitespace-nowrap px-3 text-[15px] font-medium max-[1199px]:px-2.5 transition-colors ${
+              className={`flex items-center gap-1 whitespace-nowrap px-3 text-[15px] font-medium max-[1199px]:px-2.5 max-[1099px]:px-2 max-[1099px]:text-[14.5px] transition-colors ${
                 open === 'contact' ? 'text-[color:var(--brand)]' : 'text-[#1F2637] hover:text-[color:var(--brand)]'
               }`}
             >
@@ -164,7 +169,7 @@ export function SiteHeader() {
           </div>
         </nav>
 
-        <div className="flex items-center gap-5 max-[399px]:gap-1">
+        <div className="flex items-center gap-5 max-[1099px]:gap-3 max-[399px]:gap-1">
           <a
             href={CTA.loginHref}
             className="hidden items-center gap-2 text-[15px] font-semibold text-[color:var(--brand)] hover:text-[color:var(--brand-hover)] min-[1024px]:inline-flex"

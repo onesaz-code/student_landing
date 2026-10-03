@@ -67,6 +67,10 @@ body { margin: 0; background: #fff; }
   outline-offset: 2px;
   border-radius: 6px;
 }
+/* Inputs inside a box that shows its own focus ring (e.g. the papers search) */
+.lp .lp-input-bare:focus-visible {
+  outline: none;
+}
 
 /* Page container: content capped at 1160 px with side gutters */
 .lp-container {

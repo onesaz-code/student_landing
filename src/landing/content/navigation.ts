@@ -36,6 +36,8 @@ export interface NavMenu {
 
 /** Student pricing page, linked from the header, phone menu and footer. */
 export const PRICING_LINK: NavLink = { label: 'Pricing', to: '/pricing' }
+/** Previous year question papers, a top-level link for students. */
+export const PYQ_LINK: NavLink = { label: 'PYQs', to: '/previous-papers' }
 
 /** The ONESAZ Mobile Apps page, which lists every app with store links. */
 export const APP_DOWNLOAD_PATH = '/apps'
@@ -173,6 +175,10 @@ export const MENUS: NavMenu[] = [
         explore: { label: 'View all resources', to: '/resources' },
       },
       {
+        title: 'For Students',
+        links: [{ label: 'Previous Year Papers', to: '/previous-papers' }],
+      },
+      {
         title: 'Customer Stories',
         links: [
           { label: 'Our Clients', to: '/resources#our-clients' },
@@ -225,7 +231,11 @@ export const FOOTER_COLUMNS: { title: string; links: NavLink[] }[] = [
   },
   {
     title: 'Resources',
-    links: [{ label: 'Resources', to: '/resources' }, ...RESOURCES.map((r) => ({ label: r.name, to: `/resources#${r.id}` }))],
+    links: [
+      { label: 'Resources', to: '/resources' },
+      ...RESOURCES.map((r) => ({ label: r.name, to: `/resources#${r.id}` })),
+      { label: 'Previous Year Papers', to: '/previous-papers' },
+    ],
   },
   {
     title: 'Company',
