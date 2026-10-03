@@ -100,9 +100,6 @@ export const SEPARATE_TOOLS = [
   { key: 'ai', label: 'AI calling' },
 ] as const
 
-export const WITHOUT_ONESAZ = ['10 logins for your staff', '10 bills and 10 contracts', 'Student data copied between systems']
-export const WITH_ONESAZ = ['1 login for everyone', '1 bill, 1 contract, 1 support team', '1 shared student record']
-
 /* ── Our products (six product families) ─────────────────── */
 
 export interface ProductFamily {
