@@ -4,7 +4,7 @@ import { BRAND, CTA } from '../content/names'
 import { ProductTour } from './ProductTour'
 import { StatsBand } from './StatsBand'
 
-const HERO_IMAGE = '/images/landing/hero-onesaz.webp'
+const HERO_IMAGE = '/images/landing/hero-classroom.webp'
 
 /** Landing page hero. The headline wording is approved as is. */
 export function HeroSection() {
@@ -67,9 +67,9 @@ export function HeroSection() {
         <div className="overflow-hidden rounded-[22px] shadow-[0_30px_60px_-30px_rgba(15,23,41,.45)] ring-1 ring-[#0F1729]/5">
           <img
             src={HERO_IMAGE}
-            alt="Students and staff working in a bright ONESAZ campus, with academics, examinations, fees and student management on one platform"
-            width={1449}
-            height={736}
+            alt="A bright classroom with the ONESAZ dashboard on the screen, showing academics, examinations, fees and student management on one platform"
+            width={1759}
+            height={894}
             className="block h-auto w-full"
             fetchPriority="high"
           />
