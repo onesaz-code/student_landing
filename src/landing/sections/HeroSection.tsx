@@ -18,7 +18,7 @@ export function HeroSection() {
       }}
     >
       {/* Intro band: text on the left, the ONESAZ campus picture on the right (stacked on smaller screens) */}
-      <div className="lp-container grid grid-cols-[minmax(0,.85fr)_minmax(0,1.15fr)] items-center gap-12 pb-14 pt-14 text-left max-[1023px]:grid-cols-1 max-[1023px]:gap-10 max-[1023px]:text-center max-[639px]:pb-12 max-[639px]:pt-9">
+      <div className="lp-container grid grid-cols-[minmax(0,.85fr)_minmax(0,1.15fr)] items-center min-[1200px]:grid-cols-[minmax(470px,.78fr)_minmax(0,1.22fr)] gap-12 pb-14 pt-14 text-left max-[1023px]:grid-cols-1 max-[1023px]:gap-10 max-[1023px]:text-center max-[639px]:pb-12 max-[639px]:pt-9">
         <div className="flex flex-col items-start max-[1023px]:items-center">
           <span className="inline-flex items-center gap-2 whitespace-nowrap rounded-full border border-[#C9D4F6] bg-white/85 px-4 py-1.5 text-[14px] font-medium text-[color:var(--brand)] max-[639px]:px-3 max-[639px]:text-[13px]">
             <span className="h-2 w-2 shrink-0 rounded-full bg-[color:var(--brand)]" />
@@ -29,7 +29,7 @@ export function HeroSection() {
 
           {/* Heading in one gradient: navy to brand blue to violet */}
           <h1
-            className="lp-display mt-6 !text-[clamp(32px,calc(1.8vw+18px),46px)] max-[1023px]:!text-[clamp(30px,5vw,42px)]"
+            className="lp-display mt-6 !text-[clamp(32px,calc(1.8vw+18px),42px)] max-[1023px]:!text-[clamp(30px,5vw,42px)]"
             style={{
               background: 'linear-gradient(90deg, #0B1426 0%, #2447D1 55%, #6A4BD8 100%)',
               WebkitBackgroundClip: 'text',
@@ -64,7 +64,9 @@ export function HeroSection() {
         </div>
 
         {/* The ONESAZ campus picture, shown in full */}
-        <div className="overflow-hidden rounded-[22px] shadow-[0_30px_60px_-30px_rgba(15,23,41,.45)] ring-1 ring-[#0F1729]/5">
+        {/* On wide screens the picture reaches past the page edge on the right (up to 160px), so it is bigger
+            while the text stays lined up with the header */}
+        <div className="overflow-hidden rounded-[22px] shadow-[0_30px_60px_-30px_rgba(15,23,41,.45)] ring-1 ring-[#0F1729]/5 min-[1024px]:mr-[clamp(-160px,calc((var(--content-max)-100vw)/2+24px),0px)]">
           <img
             src={HERO_IMAGE}
             alt="A bright classroom with the ONESAZ dashboard on the screen, showing academics, examinations, fees and student management on one platform"
