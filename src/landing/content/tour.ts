@@ -195,19 +195,19 @@ export const TOUR: TourItem[] = [
   {
     slug: 'question-bank',
     title: '10 lakh+ questions, ready when you are.',
-    text: 'Build tests, assessments and practice sets in minutes from a bank of over 10 lakh questions.',
+    text: 'Search the bank, pick your questions, and get a ready-to-print paper with its answer key in minutes.',
     steps: [
       {
-        title: 'Filter in seconds',
-        text: 'By class, subject, chapter, topic and difficulty.',
+        title: 'Find questions in seconds',
+        text: 'Filter by class, subject, chapter, topic and difficulty.',
       },
       {
-        title: 'Build a paper your way',
-        text: 'Pick questions one by one, or set the marks and let ONESAZ choose.',
+        title: 'Build the paper your way',
+        text: 'Pick questions one by one, or set the marks and let ONESAZ choose them.',
       },
       {
-        title: 'Use it online or on paper',
-        text: 'Send it to students’ tablets, or print it with an OMR sheet.',
+        title: 'Online or on paper',
+        text: 'Send it to students’ tablets as an online test, or print it with an OMR sheet.',
       },
     ],
     mockBg: 'linear-gradient(135deg, #DDF3F0 0%, #F2FBF9 100%)',

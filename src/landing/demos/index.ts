@@ -14,7 +14,7 @@ export const DEMOS: Partial<Record<ProductSlug, DemoComponent>> = {
   'ai-tutor': React.lazy(() => import('./AiTutorChatDemo')),
   crm: React.lazy(() => import('./CrmWhatsAppDemo')),
   'descriptive-evaluation': React.lazy(() => import('./DescriptiveStoryDemo')),
-  'question-bank': React.lazy(() => import('./QuestionBankDemo')),
+  'question-bank': React.lazy(() => import('./QuestionBankPaperDemo')),
   attendance: React.lazy(() => import('./AttendanceDemo')),
 }
 
@@ -28,4 +28,5 @@ export const PAGE_DEMOS: Partial<Record<ProductSlug, DemoComponent>> = {
   'video-calling': React.lazy(() => import('./VideoCallingDemo')),
   'ai-tutor': React.lazy(() => import('./AiTutorBoardDemo')),
   crm: React.lazy(() => import('./CrmFunnelDemo')),
+  'question-bank': React.lazy(() => import('./QuestionBankBlueprintDemo')),
 }
