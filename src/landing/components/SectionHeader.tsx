@@ -1,5 +1,5 @@
 interface SectionHeaderProps {
-  eyebrow: string
+  eyebrow?: string
   title: React.ReactNode
   lead?: string
   align?: 'center' | 'left'
@@ -10,10 +10,12 @@ interface SectionHeaderProps {
 export function SectionHeader({ eyebrow, title, lead, align = 'center', onDark = false }: SectionHeaderProps) {
   const center = align === 'center'
   return (
-    <div className={`flex max-w-[760px] flex-col gap-3.5 ${center ? 'mx-auto items-center text-center' : 'items-start'}`}>
-      <span className="lp-eyebrow" style={onDark ? { color: 'var(--accent)' } : undefined}>
-        {eyebrow}
-      </span>
+    <div className={`flex max-w-[760px] flex-col gap-3.5 max-[639px]:gap-2 ${center ? 'mx-auto items-center text-center' : 'items-start'}`}>
+      {eyebrow && (
+        <span className="lp-eyebrow" style={onDark ? { color: 'var(--accent)' } : undefined}>
+          {eyebrow}
+        </span>
+      )}
       <h2 className="lp-h2" style={onDark ? { color: '#fff' } : undefined}>
         {title}
       </h2>

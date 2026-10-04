@@ -72,7 +72,7 @@ export function ProductTour() {
         />
         <div className="flex flex-col items-center gap-2.5 text-center">
           <span className="lp-eyebrow">See it in action</span>
-          <h2 className="font-[family-name:var(--font-display)] text-[clamp(24px,2.6vw,34px)] font-semibold tracking-[-0.02em] text-[color:var(--ink-900)]">
+          <h2 className="font-[family-name:var(--font-display)] text-[clamp(24px,2.6vw,34px)] font-semibold tracking-[-0.02em] text-[color:var(--ink-900)] max-[639px]:text-[22px] max-[639px]:leading-snug">
             One platform. Pick a product to see what it does.
           </h2>
         </div>
@@ -100,7 +100,7 @@ export function ProductTour() {
                 tabIndex={on ? 0 : -1}
                 onClick={() => setActive(t.slug)}
                 onKeyDown={(e) => onKey(e, i)}
-                className={`flex min-h-[50px] items-center max-[1099px]:basis-[calc((100%-36px)/4)] max-[899px]:basis-auto justify-center gap-2 rounded-[12px] border px-3 py-1.5 text-left text-[13.5px] font-semibold leading-[1.25] transition-[background,color,box-shadow,border-color] duration-200 max-[639px]:min-h-[56px] max-[639px]:px-2.5 max-[639px]:text-[13px] ${
+                className={`flex min-h-[50px] items-center max-[1099px]:basis-[calc((100%-36px)/4)] max-[899px]:basis-auto justify-center gap-2 rounded-[12px] border px-3 py-1.5 text-left text-[13.5px] font-semibold leading-[1.25] transition-[background,color,box-shadow,border-color] duration-200 max-[639px]:min-h-[44px] max-[639px]:px-2.5 max-[639px]:text-[13px] ${
                   on ? 'text-white' : 'border-[#E3E7EF] bg-white text-[#1F2937]'
                 }`}
                 style={
@@ -118,7 +118,8 @@ export function ProductTour() {
                   strokeWidth={1.75}
                   className={`shrink-0 max-[639px]:h-[17px] max-[639px]:w-[17px] ${on ? '' : 'text-[#667085]'}`}
                 />
-                <span>{p.name}</span>
+                <span className="max-[639px]:hidden">{p.name}</span>
+                <span className="hidden max-[639px]:inline">{p.short}</span>
               </button>
             )
           })}

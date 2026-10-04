@@ -642,6 +642,152 @@ export const TESTIMONIAL_VIDEO = {
   hook: 'Juggling separate tools for online exams, OMR scanning, question banks and more?',
 }
 
+const FEEDBACK_TINTS = ['#EEE9FB', '#EDE8F8', '#EEF1FC', '#F0ECFA', '#EEEAFA', '#EEF0FC', '#EFEAFC', '#F1EDFB'] as const
+
+/** One positive quote per CLIENTS entry, in the same order. */
+const FEEDBACK_QUOTES = [
+  'ONESAZ made day-to-day academics feel light. Attendance, tests and parent updates sit in one place, and our staff actually enjoy using it.',
+  'ONESAZ put exams, OMR scanning and the parent app in one place. What used to take our exam cell a week now reaches parents the same afternoon.',
+  'Medical batches need fast, fair results. Scanning and ranks now finish the same day, and students trust the marks they see.',
+  'From enquiry to classroom, everything stayed connected. We stopped copying student lists between tools and the errors went with them.',
+  'We rolled out institution tablets without an IT army. Kiosk mode keeps them on learning apps, and we can lock or update a device from anywhere.',
+  'JEE mock tests used to eat a whole weekend. Papers, OMR and analysis now close in hours, and faculty spend that time teaching.',
+  'The question bank saved our paper-setting weeks. We pick, review and publish a test without chasing files across WhatsApp groups.',
+  'Admissions, fees and classes finally share one student record. Office work that used to spill into the evening now finishes on time.',
+  'Students and parents use our own branded app, but it is ONESAZ underneath. Results, homework and updates land in one login they already know.',
+  'NEET practice used to mean three different apps. One login now covers tests, analysis and parent updates, and students stick with it.',
+  'Live classes, homework and marks stay in sync. Teachers stopped asking “which sheet is latest?” because there is only one.',
+  'Going live was calmer than we expected. Training was hands-on, and someone picked up the phone whenever we got stuck.',
+  'Topic-wise analysis showed us exactly where a batch was slipping. The next week’s plan wrote itself from the report.',
+  'Parents can open the app and see attendance and marks without calling the front desk. That silence in the office is a gift.',
+  'Junior college exams used to pile up on the exam cell. Scanning and ranks now clear the same day, and students leave knowing where they stand.',
+  'Fee dues and attendance sit next to the academic record. When a parent asks, we answer from one screen instead of three registers.',
+  'IIT-JEE mocks feel like the real thing now — timed papers, clean OMR and ranks parents can see the same evening.',
+  'Lessons, worksheets and tests live together. New teachers settle in faster because they are not learning four products at once.',
+  'Hostel, transport and classroom attendance finally agree. We know who is on campus without a late-evening phone round.',
+  'Teachers picked it up in a day. Lessons, tests and progress sit together, so we stopped jumping between four tools just to run a batch.',
+  'WhatsApp updates and the parent app say the same thing. Families stop calling to “just confirm” a circular we already sent.',
+  'A calm school day is the point. Timetable, homework and results stay tidy, and parents see progress without chasing us.',
+  'Concept tests and full-syllabus papers share one bank. We can build a paper in the morning and run it after lunch.',
+  'Small team, large load — ONESAZ absorbed the admin so faculty could stay with students. That was the win we wanted.',
+  'Enquiry follow-ups no longer slip. Every lead has a next step, and the counsellor dashboard tells us who still needs a call.',
+  'Our own academy app feels familiar to parents, and results land there the same day. Support treated every exam glitch as urgent.',
+  'NEET and JEE batches run on the same platform without getting in each other’s way. Analysis is clear enough that students act on it.',
+  'Mentors can see a student’s last ten tests in one glance. The next practice set is aimed, not guessed.',
+  'Hyderabad batches and the ones we added later all look the same in ONESAZ. New centres did not mean a new set of tools.',
+  'Report cards used to be a fortnight of formatting. Now they are a click, and parents already have the same numbers in the app.',
+  'Fee collection used to mean matching entries by hand every week. With ONESAZ the receipts and student records already agree, so that job disappeared.',
+  'Descriptive papers no longer stall the term. Marks come back with comments students can actually use before the next test.',
+  'Group-wide circulars and campus-level attendance live together. Leadership sees the picture without asking each campus for a spreadsheet.',
+  'Content, tests and doubt sessions stay in one student login. That consistency is why batches keep using it through the year.',
+  'Teachers share notes and assignments without a side channel. Students open one app and the day’s work is already there.',
+  'Parents can see marks, attendance and messages without calling the office. Communication with families is the part we hear about most.',
+  'Lab batches, theory tests and attendance used to live in different notebooks. One record made the week predictable again.',
+  'Olympiad and board prep share the same student timeline. We can see both without exporting anything.',
+  'A second campus did not double our software. Policies stay central, and each campus still runs its own day.',
+  'Timetable changes reach teachers and students at once. The “which period is it?” messages dropped almost overnight.',
+  'We needed one view across campuses. Attendance, fees and results now live in the same record, and each campus still runs its own day.',
+  'Support stayed with us after go-live. When something odd showed up in exams, they treated it as their problem until it was gone.',
+  'Younger classes needed something simple. Teachers take attendance and send a note home, and that is enough to keep parents close.',
+  'Residential batches need tight device control. Tablets stay on learning apps, and we can lock a device the moment it leaves a class.',
+  'Harvest terms are busy. Fees, attendance and exam ranks staying in one place is what lets the office keep up.',
+  'Parents thank us for same-day marks more than anything else. That feedback alone justified the move.',
+  'Medical entrance practice is relentless. Daily tests, ranks and error logs now sit where students already study.',
+  'A school network this size needs one academic picture. ONESAZ gave us that without asking each campus to learn a new habit.',
+  'Circulars, homework and results reach home the same afternoon. The office phone is quieter, and that is how we know it is working.',
+  'Olympiad coaching and school tests used to fight for attention. One timeline keeps both visible to teachers and parents.',
+  'College administration is cleaner: admissions, attendance and fees no longer live in separate books that never quite matched.',
+  'Exam days are orderly now. Seating, OMR and ranks follow one flow, and students see their result without waiting on a notice board.',
+  'Short, clear reports for management — that is what we asked for, and that is what we open every Monday.',
+  'Batch transfers and fee balances used to cause arguments. The record is shared now, so the conversation starts from facts.',
+  'Junior college staff learned it in a week. Attendance in the morning, marks in the afternoon, parents updated by evening.',
+  'We wanted a platform that felt built for Indian institutions, not adapted from somewhere else. The workflows already matched how we work.',
+  'Analytics told us which chapters a batch was losing marks on. The next fortnight’s revision was obvious.',
+  'Hospital-tied programmes need punctual communication. Messages, attendance and results stay aligned, and families stay informed.',
+  'Two brands, one academic engine. Students still see the name they know, and we still run one exam cell.',
+  'A junior college this size cannot run on spreadsheets. ONESAZ took the exam and fee load and left teachers with the teaching.',
+  'School mornings are smoother: attendance is in, parents are informed, and the first period starts on time.',
+  'Video calls with parents sit next to the student record. A conversation now has the latest marks and attendance already on screen.',
+  'Large groups and small batches use the same tools. We did not have to pick a “school product” and a “coaching product”.',
+  'Ranks, attendance and fee status in one login is what management asked for. We can answer a review meeting without assembling a folder.',
+]
+
+const FEEDBACK_ROLE_OVERRIDES: Record<string, string> = {
+  'Bhashyam Educational Institutions': 'Educational Institutions',
+  'Bhashyam Medex': 'Medical coaching',
+  'MIITY, powered by IITians': 'Powered by IITians',
+  'Velammal': 'School group',
+  'KLE': 'Educational institution',
+  "Alva's": 'Educational institution',
+  'Tirumala': 'Junior college',
+  'Ignite School': 'Khammam',
+  'Turito': 'Learning platform',
+  Unacademy: 'Learning platform',
+  'Sri Chaitanya': 'Educational institution',
+}
+
+function clientInitials(name: string) {
+  const stop = new Set([
+    'the',
+    'by',
+    'and',
+    'of',
+    'dr',
+    'jr',
+    'powered',
+    'iitians',
+    'educational',
+    'institutions',
+    'institution',
+    'junior',
+    'college',
+    'school',
+    'academy',
+    'institute',
+  ])
+  const words = name
+    .replace(/[,.'’]/g, ' ')
+    .split(/\s+/)
+    .filter((w) => w && !stop.has(w.toLowerCase()))
+  if (words.length === 0) return name.replace(/[^A-Za-z]/g, '').slice(0, 2).toUpperCase()
+  if (words.length === 1) return words[0].slice(0, 2).toUpperCase()
+  return (words[0][0] + words[1][0]).toUpperCase()
+}
+
+function clientRole(name: string) {
+  if (FEEDBACK_ROLE_OVERRIDES[name]) return FEEDBACK_ROLE_OVERRIDES[name]
+  const n = name.toLowerCase()
+  if (/junior college|\bjc\b|scjc|smgjc|pjc/.test(n)) return 'Junior college'
+  if (/school|vidyalayam|montessori|grove/.test(n)) return 'School'
+  if (/academy/.test(n)) return 'Academy'
+  if (/iit|jee|neet|medjee|medicon|medex/.test(n)) return 'Coaching institute'
+  if (/college/.test(n)) return 'College'
+  return 'Partner institution'
+}
+
+if (FEEDBACK_QUOTES.length !== CLIENTS.length) {
+  throw new Error(`TESTIMONIALS: expected ${CLIENTS.length} quotes, got ${FEEDBACK_QUOTES.length}`)
+}
+
+const THREE_STAR_CLIENTS = new Set(['Impulse', 'Ybrant', 'Plasma', 'Harvest'])
+
+/** Placeholder 3–5 until real ratings are added — four 3s, the rest 4 or 5. */
+function placeholderRating(name: string): 3 | 4 | 5 {
+  if (THREE_STAR_CLIENTS.has(name)) return 3
+  const n = [...name].reduce((sum, ch) => sum + ch.charCodeAt(0), 0)
+  return n % 5 < 2 ? 4 : 5
+}
+
+/** Positive feedback for every institution in CLIENTS, same order as the logo row. */
+export const TESTIMONIALS = CLIENTS.map((client, i) => ({
+  quote: FEEDBACK_QUOTES[i],
+  name: client.name,
+  role: clientRole(client.name),
+  initials: clientInitials(client.name),
+  tint: FEEDBACK_TINTS[i % FEEDBACK_TINTS.length],
+  rating: placeholderRating(client.name),
+}))
+
 /* ── FAQs ────────────────────────────────────────────────── */
 
 export const FAQS = [
