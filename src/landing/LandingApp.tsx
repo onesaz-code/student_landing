@@ -43,6 +43,7 @@ export default function LandingApp() {
           <Route path="/gdpr" element={<LegalPage page="gdpr" />} />
           <Route path="/refund-policy" element={<PolicyPage policy="refund" />} />
           <Route path="/cancellation-policy" element={<PolicyPage policy="cancellation" />} />
+          <Route path="/data-deletion-policy" element={<LegalPage page="data-deletion" />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>

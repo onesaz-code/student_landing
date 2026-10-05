@@ -1,5 +1,5 @@
 /**
- * Legal page copy (privacy, terms, cookies, GDPR).
+ * Legal page copy (privacy, terms, cookies, GDPR, data deletion).
  * Page text goes here. LegalPage only renders it.
  */
 import { BRAND } from './names'
@@ -26,9 +26,10 @@ export const LEGAL_NAV: { label: string; to: string }[] = [
   { label: 'Cookie Policy', to: '/cookie-policy' },
   { label: 'Refund Policy', to: '/refund-policy' },
   { label: 'Cancellation Policy', to: '/cancellation-policy' },
+  { label: 'Data Deletion Policy', to: '/data-deletion-policy' },
 ]
 
-export type LegalKey = 'privacy' | 'terms' | 'cookie' | 'gdpr'
+export type LegalKey = 'privacy' | 'terms' | 'cookie' | 'gdpr' | 'data-deletion'
 
 const pending = (name: string): LegalSection[] => [
   {
@@ -364,6 +365,54 @@ const cookieSections = (brand: typeof BRAND): LegalSection[] => [
   },
 ]
 
+const dataDeletionSections = (brand: typeof BRAND): LegalSection[] => [
+  {
+    paragraphs: [
+      `${brand.company} (“Acadhub”, “we”) operates ${brand.name}. This page explains the Meta (Facebook and Instagram) data we store when an institute connects those accounts to Acadhub CRM, and how to delete it.`,
+    ],
+  },
+  {
+    id: 'meta',
+    title: 'Meta (Facebook & Instagram) Connected Data',
+    paragraphs: [
+      'When an institute connects Meta (Facebook and Instagram) to Acadhub CRM, we store, for that institute only:',
+    ],
+    bullets: [
+      'An encrypted Meta access token, and, when a Facebook Page is selected, an encrypted Page access token',
+      'The identifiers and names of the connected ad account and Facebook Page',
+      'The Instagram professional account identifier, if one is selected',
+      'The Business Manager identifier and the permissions granted at connect',
+      'Which Acadhub user connected the account, and when',
+    ],
+  },
+  {
+    paragraphs: [
+      'We use this only so the institute can manage its own advertising and posting from the CRM. We do not store Meta users’ personal profile information, such as names, email addresses, or profile pictures. We do not sell this data.',
+    ],
+  },
+  {
+    id: 'how-to-delete',
+    title: 'How to Delete This Data',
+    paragraphs: [
+      'An institute administrator can delete it in the product: CRM → Integrations → Meta → Disconnect. That deletes the Meta connection record, including both access tokens and the connected-account identifiers, from our active database immediately.',
+      `You can also email ${brand.email} and ask us to delete it. We will do that within 30 days.`,
+      'Disconnecting does not delete the Facebook Page, the Instagram account, or ads and posts already published on Meta. Those stay on Meta until the institute removes them there.',
+    ],
+  },
+  {
+    id: 'storage',
+    title: 'How This Data Is Stored',
+    paragraphs: [
+      'Access tokens are encrypted before they are stored and are not sent to the browser. The connection record is kept in our database. Data is transmitted over HTTPS.',
+    ],
+  },
+  {
+    id: 'contact',
+    title: 'Contact',
+    paragraphs: [`Questions about deleting this data: ${brand.email}.`],
+  },
+]
+
 export const LEGAL_PAGES: Record<LegalKey, LegalDocument> = {
   privacy: {
     documentTitle: 'Privacy Policy',
@@ -384,4 +433,10 @@ export const LEGAL_PAGES: Record<LegalKey, LegalDocument> = {
     sections: cookieSections(BRAND),
   },
   gdpr: { documentTitle: 'GDPR', sections: pending('GDPR page') },
+  'data-deletion': {
+    documentTitle: 'Data Deletion Policy',
+    version: '1.0',
+    effective: '5 October 2026',
+    sections: dataDeletionSections(BRAND),
+  },
 }

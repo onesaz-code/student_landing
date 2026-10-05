@@ -58,6 +58,11 @@ const PAGES: Record<string, PageMeta> = {
     title: `Cancellation Policy · ${SUFFIX}`,
     description: 'How to cancel a ONESAZ plan, and what happens to your access and data afterwards.',
   },
+  '/data-deletion-policy': {
+    title: `Data Deletion Policy · ${SUFFIX}`,
+    description:
+      'How an institute deletes Meta (Facebook and Instagram) data stored when those accounts are connected to Acadhub CRM.',
+  },
   '/careers': {
     title: `Careers · ${SUFFIX}`,
     description: 'Build the future of education with the ONESAZ team at Acadhub.',
