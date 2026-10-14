@@ -89,7 +89,7 @@ export const PLANS: Plan[] = [
       { text: 'Around 1,000–1,500 AI Tutor credits/month' },
       { text: 'Cancel anytime' },
     ],
-    cta: { label: 'Choose Monthly', href: CTA.loginHref },
+    cta: { label: 'Choose Monthly', href: '/subscribe?plan=monthly' },
   },
   {
     id: 'annual',
@@ -109,7 +109,7 @@ export const PLANS: Plan[] = [
       { text: 'One-time annual payment' },
       { text: '₹3,000 → ₹1,800, 40% savings' },
     ],
-    cta: { label: 'Choose Annual', href: CTA.loginHref },
+    cta: { label: 'Choose Annual', href: '/subscribe?plan=annual' },
     featured: true,
   },
 ]

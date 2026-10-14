@@ -50,6 +50,14 @@ const PAGES: Record<string, PageMeta> = {
     description:
       'ONESAZ pricing: plans for individual students (Free, Monthly at ₹250 + GST, Annual at ₹1,800 + GST) and custom pricing for schools, colleges and institutes.',
   },
+  '/subscribe': {
+    title: `Subscribe · ${SUFFIX}`,
+    description: 'Enter a student ID to see Monthly or Annual pricing, including GST, before you pay.',
+  },
+  '/subscribe/checkout': {
+    title: `Checkout · ${SUFFIX}`,
+    description: 'Checkout for a ONESAZ student plan. The plan price and GST are shown before you pay.',
+  },
   '/refund-policy': {
     title: `Refund Policy · ${SUFFIX}`,
     description: 'When you can get a refund on a ONESAZ student plan or institution plan, and how to ask for one.',
