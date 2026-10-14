@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
+import { ArrowUpRight } from 'lucide-react'
 import { PricingBand, PricingPanel, pricingCardClass } from '../subscribe/PricingBand'
 import { formatRupees, quoteFor } from '../subscribe/planQuote'
 
@@ -55,6 +56,13 @@ export function CheckoutPage() {
               })}
             </div>
             <p className="mt-4 text-[14.5px] leading-[1.55] text-[color:var(--ink-600)]">{selected.detail}</p>
+            <button
+              type="button"
+              className="mt-6 inline-flex h-11 w-full items-center justify-center gap-1.5 rounded-[9px] border-[1.5px] border-[color:var(--brand)] bg-[color:var(--brand)] text-[14.5px] font-semibold text-white hover:bg-[color:var(--brand-hover)]"
+            >
+              {`Pay ${formatRupees(quote.chargePaise)}`}
+              <ArrowUpRight size={16} />
+            </button>
           </section>
 
           <aside className="rounded-[18px] border border-[#E6E8EF] bg-white px-8 py-7 shadow-[0_30px_70px_-40px_rgba(20,10,60,.45)] max-[639px]:px-5">
@@ -78,6 +86,13 @@ export function CheckoutPage() {
               </div>
             </dl>
             <p className="text-[13.5px] leading-[1.5] text-[color:var(--ink-600)]">{quote.cadence}</p>
+            <button
+              type="button"
+              className="mt-5 inline-flex h-11 w-full items-center justify-center gap-1.5 rounded-[9px] border-[1.5px] border-[color:var(--brand)] bg-[color:var(--brand)] text-[14.5px] font-semibold text-white hover:bg-[color:var(--brand-hover)]"
+            >
+              {`Pay ${formatRupees(quote.chargePaise)}`}
+              <ArrowUpRight size={16} />
+            </button>
           </aside>
         </div>
       </PricingPanel>
