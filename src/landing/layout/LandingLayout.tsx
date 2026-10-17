@@ -84,6 +84,35 @@ function PageMeta() {
   return null
 }
 
+declare function gtag(...args: unknown[]): void
+
+/**
+ * Sends a GA4 page_view on every client-side route change. The gtag.js
+ * snippet in index.html already tracks the first load, so this skips that
+ * one and fires from the second pathname onward. Must render after
+ * PageMeta so document.title reflects the new page by the time this runs.
+ */
+function PageViewTracker() {
+  const { pathname } = useLocation()
+  const isFirstRender = React.useRef(true)
+
+  React.useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false
+      return
+    }
+    if (typeof gtag === 'function') {
+      gtag('event', 'page_view', {
+        page_path: pathname,
+        page_location: window.location.href,
+        page_title: document.title,
+      })
+    }
+  }, [pathname])
+
+  return null
+}
+
 /** Shared frame for every landing page: header, page content, footer. */
 export function LandingLayout() {
   return (
@@ -96,6 +125,7 @@ export function LandingLayout() {
       </a>
       <ScrollManager />
       <PageMeta />
+      <PageViewTracker />
       <SiteHeader />
       <main id="main">
         {/* Inner pages are lazy-loaded; keep the footer below the fold while one loads */}
