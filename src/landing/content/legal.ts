@@ -63,7 +63,7 @@ const privacySections = (brand: typeof BRAND): LegalSection[] => [
       'Admissions, attendance, fee, staff and transport records.',
       'Lessons, test scores, answer sheets and practice activity.',
       'Messages, call numbers, and files you choose to upload.',
-      'Device status for institution-owned phones and tablets.',
+      'Device management data for institution-owned phones and tablets used for learning, including live device status and battery visibility.',
       'Billing details. We do not store full card or UPI credentials.',
       'IP address, browser, device type and pages viewed.',
       'Sign-in activity needed to provide the feature you used.',
@@ -79,6 +79,18 @@ const privacySections = (brand: typeof BRAND): LegalSection[] => [
       'To see which features are used, so we can improve them.',
       'To keep invoices and meet the law.',
       'To send product updates. You can opt out of marketing. Receipts and security alerts still go out while you have an account.',
+    ],
+  },
+  {
+    id: 'mdm',
+    title: 'Device management',
+    paragraphs: [
+      'Mobile device management (MDM) is for educational institutions, on institution-owned tablets and phones used for learning.',
+      'Enrolment is only by the institution’s authorized administrators (for example QR enrolment), and management lasts only while that institution has the device enrolled.',
+      'The service may set kiosk mode, manage an app catalogue and remote installs, enforce exam-mode lockdown, and allow remote lock, ring, message, and restart, plus live device status and battery visibility.',
+      'It must not be used on devices the institution does not own or is not authorized to manage, or to monitor people outside the institutional relationship; use must follow applicable law and the institution’s policies, and the institution must inform device users.',
+      'Device management data is processed only to provide the MDM service to that institution.',
+      'Misuse may lead to suspension of the MDM service.',
     ],
   },
   {
@@ -150,6 +162,7 @@ const privacySections = (brand: typeof BRAND): LegalSection[] => [
     title: 'How long we keep it',
     bullets: [
       'Institution records: for the subscription, then deleted or returned when the institution asks, unless the law requires longer.',
+      'Device management data: while the institution has the device enrolled, then deleted when the device is removed or the institution asks, unless the law requires longer.',
       'Individual accounts: while the account is active. Invoices are kept for tax.',
       'Demo details: while we are in touch about your enquiry. You can ask us to delete them sooner.',
       'Security logs: for a limited period.',
@@ -217,12 +230,12 @@ const termsSections = (brand: typeof BRAND): LegalSection[] => [
     id: 'mdm',
     title: 'Device management',
     paragraphs: [
-      'Mobile device management (MDM) is for educational institutions. It applies to tablets and phones the institution owns and that are used for learning.',
-      'Only the institution’s authorized administrators may enrol a device, for example by scanning a QR code. Management lasts only while that institution has the device enrolled.',
-      'To provide MDM, the service may set kiosk mode, manage an app catalogue and install apps remotely, and enforce exam-mode lockdown. It may also lock, ring, message or restart a device remotely, and show live device status and battery level.',
-      'MDM must not be used on a device the institution does not own or is not authorized to manage, or to monitor people outside the institutional relationship. Use must follow applicable law and the institution’s own policies. The institution must tell the people who use those devices.',
-      'We process device management data only to provide the MDM service to that institution.',
-      'If MDM is misused, we may suspend the MDM service.',
+      'Mobile device management (MDM) is for educational institutions, on institution-owned tablets and phones used for learning.',
+      'Enrolment is only by the institution’s authorized administrators (for example QR enrolment), and management lasts only while that institution has the device enrolled.',
+      'The service may set kiosk mode, manage an app catalogue and remote installs, enforce exam-mode lockdown, and allow remote lock, ring, message, and restart, plus live device status and battery visibility.',
+      'It must not be used on devices the institution does not own or is not authorized to manage, or to monitor people outside the institutional relationship; use must follow applicable law and the institution’s policies, and the institution must inform device users.',
+      'Device management data is processed only to provide the MDM service to that institution.',
+      'Misuse may lead to suspension of the MDM service.',
     ],
   },
   {
@@ -428,8 +441,8 @@ const dataDeletionSections = (brand: typeof BRAND): LegalSection[] => [
 export const LEGAL_PAGES: Record<LegalKey, LegalDocument> = {
   privacy: {
     documentTitle: 'Privacy Policy',
-    version: '1.0',
-    effective: '3 October 2026',
+    version: '1.1',
+    effective: '28 October 2026',
     sections: privacySections(BRAND),
   },
   terms: {
