@@ -83,7 +83,7 @@ const privacySections = (brand: typeof BRAND): LegalSection[] => [
   },
   {
     id: 'mdm',
-    title: 'Device management',
+    title: 'Mobile device management',
     paragraphs: [
       'Mobile device management (MDM) is for educational institutions, on institution-owned tablets and phones used for learning.',
       'Enrolment is only by the institution’s authorized administrators (for example QR enrolment), and management lasts only while that institution has the device enrolled.',
@@ -228,7 +228,7 @@ const termsSections = (brand: typeof BRAND): LegalSection[] => [
   },
   {
     id: 'mdm',
-    title: 'Device management',
+    title: 'Mobile device management',
     paragraphs: [
       'Mobile device management (MDM) is for educational institutions, on institution-owned tablets and phones used for learning.',
       'Enrolment is only by the institution’s authorized administrators (for example QR enrolment), and management lasts only while that institution has the device enrolled.',
