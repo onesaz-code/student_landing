@@ -17,11 +17,23 @@ const STORE_BADGES = [
   },
 ]
 
-/** Google Play + App Store badges linking to the ONESAZ developer pages (every app). */
-export function StoreBadges({ className = '' }: { className?: string }) {
+/** Google Play + App Store badges. Defaults to the ONESAZ developer pages (every app). */
+export function StoreBadges({
+  className = '',
+  googlePlayHref,
+}: {
+  className?: string
+  /** Override the Play badge when it should open one app instead of the developer page. */
+  googlePlayHref?: string
+}) {
+  const badges = STORE_BADGES.map((b) =>
+    googlePlayHref && b.href === BRAND.apps.googlePlay
+      ? { ...b, href: googlePlayHref, label: 'Get the ONESAZ student app on Google Play' }
+      : b,
+  )
   return (
     <div className={`flex flex-wrap items-center gap-3 ${className}`}>
-      {STORE_BADGES.map((b) => (
+      {badges.map((b) => (
         <a
           key={b.href}
           href={b.href}

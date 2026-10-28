@@ -214,6 +214,18 @@ const termsSections = (brand: typeof BRAND): LegalSection[] => [
     ],
   },
   {
+    id: 'mdm',
+    title: 'Device management',
+    paragraphs: [
+      'Mobile device management (MDM) is for educational institutions. It applies to tablets and phones the institution owns and that are used for learning.',
+      'Only the institution’s authorized administrators may enrol a device, for example by scanning a QR code. Management lasts only while that institution has the device enrolled.',
+      'To provide MDM, the service may set kiosk mode, manage an app catalogue and install apps remotely, and enforce exam-mode lockdown. It may also lock, ring, message or restart a device remotely, and show live device status and battery level.',
+      'MDM must not be used on a device the institution does not own or is not authorized to manage, or to monitor people outside the institutional relationship. Use must follow applicable law and the institution’s own policies. The institution must tell the people who use those devices.',
+      'We process device management data only to provide the MDM service to that institution.',
+      'If MDM is misused, we may suspend the MDM service.',
+    ],
+  },
+  {
     id: 'accounts',
     title: 'Accounts',
     bullets: [
@@ -422,8 +434,8 @@ export const LEGAL_PAGES: Record<LegalKey, LegalDocument> = {
   },
   terms: {
     documentTitle: 'Terms of Service',
-    version: '1.0',
-    effective: '3 October 2026',
+    version: '1.1',
+    effective: '27 October 2026',
     sections: termsSections(BRAND),
   },
   cookie: {

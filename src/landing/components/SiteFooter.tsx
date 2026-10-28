@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import { ArrowUpRight, ChevronRight, MapPin } from 'lucide-react'
 import { Logo } from './Logo'
 import { StoreBadges } from './StoreBadges'
+import { CORE_APPS } from '../content/apps'
 import { FOOTER_COLUMNS } from '../content/navigation'
 import { BRAND, CTA } from '../content/names'
 
@@ -47,6 +48,8 @@ const SOCIAL: { label: string; href: string; path: JSX.Element }[] = [
 
 const linkClass = 'text-[14px] text-[#C9D0DC] transition-colors hover:text-white'
 
+const STUDENT_PLAY = CORE_APPS.find((app) => app.id === 'com.onesaz.studentapp')?.googlePlay
+
 /** Dark, structured footer (Scalefusion pattern): logo + social, six link columns, demo link, about, legal bar. */
 export function SiteFooter() {
   const year = new Date().getFullYear()
@@ -56,7 +59,7 @@ export function SiteFooter() {
         <div className="flex items-center justify-between gap-6 border-b border-[color:var(--brand)] pb-8 max-[639px]:flex-col max-[639px]:items-start">
           <div id="get-the-app" className="flex flex-col gap-5">
             <Logo onDark size="lg" />
-            <StoreBadges />
+            <StoreBadges googlePlayHref={STUDENT_PLAY} />
           </div>
           <div className="flex items-center gap-[18px]">
             <span className="text-[22px] font-bold text-white/90">Follow us</span>

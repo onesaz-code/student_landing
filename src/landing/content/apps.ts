@@ -38,6 +38,7 @@ export const CORE_APPS: CoreApp[] = [
       'The ONESAZ app that helps schools connect better with their students: lessons, homework, results and updates in one place.',
     icon: ICON('Ia3jVGz0MpIGWvqNwLYJ8KpWauxfoaNTyu_6u3wxlPx49RIk1ps9eAgIMO-Q_IQDcH05Ub-7lQMPJRoDxC-RERI'),
     googlePlay: PLAY('com.onesaz.studentapp'),
+    appStore: 'https://apps.apple.com/in/app/onesaz/id6639617893',
   },
   {
     name: 'Onesaz admin',

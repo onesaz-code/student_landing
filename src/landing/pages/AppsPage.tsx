@@ -168,7 +168,7 @@ export function AppsPage() {
       >
         <div className="flex flex-col items-center gap-3">
           <StoreBadges className="justify-center" />
-          <span className="text-[13px] text-[color:var(--ink-400)]">Opens the ONESAZ developer page with every app</span>
+          <span className="text-[13px] text-[color:var(--ink-400)]">Google Play opens every ONESAZ app. App Store opens the Onesaz app.</span>
         </div>
       </PageHero>
       <CoreApps />

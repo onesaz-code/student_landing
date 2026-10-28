@@ -29,7 +29,7 @@ export const BRAND = {
   /** Developer pages on each store: they list every ONESAZ app. */
   apps: {
     googlePlay: 'https://play.google.com/store/apps/developer?id=onesaz+developer&hl=en_IN',
-    appStore: 'https://apps.apple.com/us/developer/onesaz/id1713076053',
+    appStore: 'https://apps.apple.com/in/app/onesaz/id6639617893',
   },
 } as const
 
